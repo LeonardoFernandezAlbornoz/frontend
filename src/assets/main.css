@@ -1,0 +1,33 @@
+:root {
+    --gris-oscuro: #272727;
+    --color-fondo: #DBDADA;
+    --color-secundario-naranja: #F4772E;
+    --gris: #797676;
+    --gris-claro: #DBDADA;
+}
+
+* {
+    font-family: "lato";
+    box-sizing: border-box;
+
+}
+
+body,
+html {
+    margin: 0px;
+    padding: 0px;
+}
+
+
+main {
+    position: relative;
+    z-index: 0;
+}
+
+
+html,
+main,
+header,
+#app {
+    background-color: var(--color-fondo);
+}
