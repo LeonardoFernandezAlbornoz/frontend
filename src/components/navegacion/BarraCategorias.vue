@@ -23,21 +23,22 @@ export default {
 </script>
 <template>
   <div class="mt-3 column-gap-5">
-    <KeepAlive>
-      <BotonHamburguesa
-        @click="activate"
-        class="d-none d-lg-block"
-        :class="{ 'is-active': isActive }"
-      />
-    </KeepAlive>
-    <a
+    <BotonHamburguesa
+      @click="activate"
+      class="d-none d-lg-block"
+      :class="{ 'is-active': isActive }"
+    />
+    <router-link
       v-for="categoria in categorias"
-      :href="'/productos/categoria/' + categoria.descripcion"
+      :to="{
+        name: 'categoria',
+        params: { nomCategoria: categoria.descripcion },
+      }"
       >{{
         categoria.descripcion.charAt(0).toUpperCase() +
         categoria.descripcion.slice(1)
-      }}</a
-    >
+      }}
+    </router-link>
   </div>
 </template>
 

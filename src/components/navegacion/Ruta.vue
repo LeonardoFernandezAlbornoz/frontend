@@ -1,6 +1,6 @@
 <script>
 export default {
-  props: ['ruta'],
+  props: ['rutas'],
 };
 </script>
 <template>
@@ -8,12 +8,16 @@ export default {
     <nav aria-label="breadcrumb">
       <ol class="breadcrumb">
         <li class="breadcrumb-item">
-          <a href="/"><font-awesome-icon icon="fa-solid fa-house" /></a>
+          <router-link :to="{ name: 'home' }"
+            ><font-awesome-icon icon="fa-solid fa-house"
+          /></router-link>
         </li>
-        <li class="breadcrumb-item">
-          <a :href="'/productos/categoria/' + ruta">{{
-            ruta.charAt(0).toUpperCase() + ruta.slice(1)
-          }}</a>
+        <li v-for="ruta in rutas" class="breadcrumb-item">
+          <router-link :to="ruta.to">
+            {{
+              ruta.texto.charAt(0).toUpperCase() + ruta.texto.slice(1)
+            }}</router-link
+          >
         </li>
       </ol>
     </nav>
@@ -29,7 +33,7 @@ hr {
   font-size: 14px;
 }
 nav {
-  padding-top: 0.5em;
+  padding-top: 0.7em;
   padding-bottom: 0.5em;
 }
 

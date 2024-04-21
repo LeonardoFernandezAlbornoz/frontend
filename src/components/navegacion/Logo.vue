@@ -2,9 +2,9 @@
 export default {};
 </script>
 <template>
-  <a class="img-container" href="/">
+  <router-link :to="{ name: 'home' }" class="img-container">
     <img src="/img/logo3.png" alt="logo" class="img-fluid logo" />
-  </a>
+  </router-link>
 </template>
 
 <style scoped>

@@ -73,7 +73,9 @@ export default {
           <div
             class="col-md-5 col-lg-4 col-xl-5 order-2 mt-3 mt-md-0 order-md-1"
           >
-            <BarraBusqueda :categorias="categorias" />
+            <KeepAlive>
+              <BarraBusqueda :categorias="categorias" />
+            </KeepAlive>
           </div>
           <div
             class="order-1 order-md-2 col d-flex column-gap-3 align-items-center justify-content-end"
@@ -89,7 +91,6 @@ export default {
         />
       </div>
     </nav>
-
     <Teleport to="main" v-if="categorias">
       <SideBar :active="sidebarActive" :categorias="categorias" />
     </Teleport>

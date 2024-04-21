@@ -6,7 +6,17 @@ import Ruta from '@/components/navegacion/Ruta.vue';
 
 <template>
   <main>
-    <Ruta :ruta="$route.params.nomCategoria" />
+    <Ruta
+      :rutas="[
+        {
+          to: {
+            name: 'categoria',
+            params: { nomCategoria: $route.params.nomCategoria },
+          },
+          texto: $route.params.nomCategoria,
+        },
+      ]"
+    />
     <div class="container-lg bg-transparent">
       <NombreCategoria
         :nomCategoria="

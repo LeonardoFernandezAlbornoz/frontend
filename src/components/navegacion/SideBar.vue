@@ -9,12 +9,18 @@ export default {
     <div class="sidebar" :class="{ 'sidebar-activo': active }">
       <div class="sidebar-content">
         <div v-for="categoria in categorias" class="sidebar-section">
-          <a :href="/categoria/ + categoria.descripcion">
+          <router-link
+            @click="$emit('closeSidebar')"
+            :to="{
+              name: 'categoria',
+              params: { nomCategoria: categoria.descripcion },
+            }"
+          >
             {{
               categoria.descripcion.charAt(0).toUpperCase() +
               categoria.descripcion.slice(1)
             }}
-          </a>
+          </router-link>
         </div>
       </div>
     </div>

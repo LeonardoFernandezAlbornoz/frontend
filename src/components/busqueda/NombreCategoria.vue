@@ -11,9 +11,9 @@ export default {
 
 <style scoped>
 .titulo-categoria {
-  padding: 0.5em 0.8em 0.5em 0.8em;
-  margin-bottom: 1.3em;
-  margin-top: 0.5em;
+  padding: 0.5em 0.8em 0.6em 0.8em;
+  margin-bottom: 1em;
+  margin-top: 1em;
   border-left: solid 4px var(--color-secundario-naranja);
   background: transparent;
   font-size: 35px;

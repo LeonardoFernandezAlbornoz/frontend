@@ -1,6 +1,5 @@
 <script>
 import Estrellas from './Estrellas.vue';
-
 export default {
   props: ['productoProp'],
   data() {
@@ -44,48 +43,60 @@ export default {
 };
 </script>
 <template>
-  <div class="producto">
-    <div v-if="productoProp.descuento !== 0" class="descuento">
-      <span>-{{ productoProp.descuento }}%</span>
-    </div>
-    <div
-      class="producto-imagen"
-      :style="{
-        'background-image': 'url(/img/productos/' + productoProp.imagen + ')',
-      }"
-    ></div>
-
-    <div class="producto-cuerpo">
-      <a :href="'/producto/' + productoProp.id" class="producto-nombre">{{
-        productoProp.nombre
-      }}</a>
-
-      <div class="producto-precio mb-3">
-        <span
-          class="producto-precio-final"
-          :class="{ oferta: productoProp.descuento != 0 }"
-          >{{
-            (
-              productoProp.precio -
-              (productoProp.precio / 100) * productoProp.descuento
-            ).toFixed(2) + '€'
-          }}</span
-        ><span
-          v-if="productoProp.descuento !== 0"
-          class="producto-precio-descuento"
-          >{{ productoProp.precio }}€</span
-        >
+  <router-link
+    :to="{
+      name: 'producto',
+      params: {
+        nomProducto: productoProp.nombre,
+      },
+    }"
+  >
+    <div class="producto">
+      <div v-if="productoProp.descuento !== 0" class="descuento">
+        <span>-{{ productoProp.descuento }}%</span>
       </div>
+      <div
+        class="producto-imagen"
+        :style="{
+          'background-image': 'url(/img/productos/' + productoProp.imagen + ')',
+        }"
+      ></div>
 
-      <Estrellas
-        :numResenhas="numResenhas"
-        :mediaValoraciones="mediaValoraciones"
-      />
+      <div class="producto-cuerpo">
+        <p class="producto-nombre">{{ productoProp.nombre }}</p>
+
+        <div class="producto-precio mb-3">
+          <span
+            class="producto-precio-final"
+            :class="{ oferta: productoProp.descuento != 0 }"
+            >{{
+              (
+                productoProp.precio -
+                (productoProp.precio / 100) * productoProp.descuento
+              ).toFixed(2) + '€'
+            }}</span
+          ><span
+            v-if="productoProp.descuento !== 0"
+            class="producto-precio-descuento"
+            >{{ productoProp.precio }}€</span
+          >
+        </div>
+
+        <Estrellas
+          :numResenhas="numResenhas"
+          :mediaValoraciones="mediaValoraciones"
+        />
+      </div>
     </div>
-  </div>
+  </router-link>
 </template>
 
 <style>
+a {
+  text-decoration: none;
+  color: none;
+  color: var(--gris-oscuro);
+}
 .producto {
   background-color: white;
   position: relative;
@@ -112,12 +123,14 @@ export default {
   display: block;
   text-decoration: none;
   height: 50px;
-  color: var(--gris-oscuro);
+  margin: 0;
+
   display: -webkit-box;
   -webkit-line-clamp: 2;
   -webkit-box-orient: vertical;
   overflow: hidden;
   max-height: 3.2em;
+  text-decoration: none;
 }
 
 .producto-precio-final {
@@ -125,6 +138,7 @@ export default {
   font-weight: bold;
   height: 50px;
   font-size: 17px;
+  text-decoration: none;
 }
 
 .producto-precio-descuento {
