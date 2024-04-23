@@ -3,7 +3,7 @@ export default {
   props: ['nomProducto'],
   data() {
     return {
-      imagen: '',
+      producto: '',
     };
   },
 
@@ -16,7 +16,7 @@ export default {
         return response.json();
       })
       .then((data) => {
-        this.imagen = data.imagen;
+        this.producto = data;
       })
       .catch((error) => {
         console.log(`Error al obtener los datos: ${error}`);
@@ -28,10 +28,13 @@ export default {
   <div
     class="img-producto-detalle p-5 d-flex justify-content-center align-items-center"
   >
+    <div v-if="producto.descuento !== 0" class="descuento">
+      <span>-{{ producto.descuento }}%</span>
+    </div>
     <div
       class="producto-imagen-detalle"
       :style="{
-        'background-image': 'url(/img/productos/' + imagen + ')',
+        'background-image': 'url(/img/productos/' + producto.imagen + ')',
       }"
     ></div>
   </div>
@@ -41,8 +44,9 @@ export default {
 .img-producto-detalle {
   background-color: white;
   height: 500px;
-  box-shadow: rgba(60, 64, 67, 0.3) 0px 1px 2px 0px,
-    rgba(60, 64, 67, 0.15) 0px 2px 6px 2px;
+  position: relative;
+  overflow: hidden;
+  box-shadow: var(--sombra-cajas);
 }
 
 .producto-imagen-detalle {

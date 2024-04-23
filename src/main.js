@@ -14,7 +14,7 @@ import App from './App.vue';
 import router from './router';
 import Navbar from './components/navegacion/Navbar.vue';
 import SideBar from './components/navegacion/SideBar.vue';
-import Footer from './components/navegacion/Footer.vue';
+import FooterVue from './components/navegacion/FooterVue.vue';
 
 library.add(fas, far, fab);
 
@@ -22,7 +22,7 @@ const app = createApp(App);
 app.component('Navbar', Navbar);
 
 app.component('SideBar', SideBar);
-app.component('Footer', Footer);
+app.component('FooterVue', FooterVue);
 app.component('font-awesome-icon', FontAwesomeIcon);
 app.use(createPinia());
 app.use(router);

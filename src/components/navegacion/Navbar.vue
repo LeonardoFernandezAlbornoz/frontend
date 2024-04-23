@@ -61,13 +61,12 @@ export default {
       <div class="container-xl">
         <div class="row align-items-center">
           <div class="d-flex col-7 col-sm-5 col-md-4 col-lg-3">
-            <KeepAlive>
-              <BotonHamburguesa
-                @toggleSidebar="toggleSidebar"
-                class="d-block d-lg-none"
-                :class="{ 'is-active': sidebarActive }"
-              />
-            </KeepAlive>
+            <BotonHamburguesa
+              @toggleSidebar="toggleSidebar"
+              class="d-block d-lg-none"
+              :sidebarActive="sidebarActive"
+            />
+
             <Logo />
           </div>
           <div
@@ -92,7 +91,11 @@ export default {
       </div>
     </nav>
     <Teleport to="main" v-if="categorias">
-      <SideBar :active="sidebarActive" :categorias="categorias" />
+      <SideBar
+        @closeSidebar="toggleSidebar"
+        :active="sidebarActive"
+        :categorias="categorias"
+      />
     </Teleport>
   </header>
 </template>

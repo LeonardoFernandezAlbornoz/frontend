@@ -2,32 +2,10 @@
 import BotonHamburguesa from './BotonHamburguesa.vue';
 export default {
   props: ['categorias'],
-  components: {
-    BotonHamburguesa,
-  },
-  emits: ['toggleSidebar'],
-  data() {
-    return {
-      isActive: false,
-    };
-  },
-
-  methods: {
-    activate() {
-      this.isActive = !this.isActive;
-
-      this.$emit('toggleSidebar', this.isActive);
-    },
-  },
 };
 </script>
 <template>
   <div class="mt-3 column-gap-5">
-    <BotonHamburguesa
-      @click="activate"
-      class="d-none d-lg-block"
-      :class="{ 'is-active': isActive }"
-    />
     <router-link
       v-for="categoria in categorias"
       :to="{

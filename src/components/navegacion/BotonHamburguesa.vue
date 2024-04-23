@@ -1,10 +1,13 @@
 <script>
-export default {};
+export default {
+  props: ['sidebarActive'],
+};
 </script>
 
 <template lang="">
   <button
     class="hamburger hamburger--vortex p-0"
+    :class="{ 'is-active': sidebarActive }"
     type="button"
     @click="$emit('toggleSidebar')"
   >

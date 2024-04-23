@@ -2,6 +2,7 @@
 import ProductoImagen from '@/components/productos/ProductoImagen.vue';
 import ProductoDetalle from '@/components/productos/ProductoDetalle.vue';
 import Ruta from '@/components/navegacion/Ruta.vue';
+import Resenhas from '@/components/productos/Resenhas.vue';
 </script>
 
 <template>
@@ -32,6 +33,12 @@ import Ruta from '@/components/navegacion/Ruta.vue';
         </div>
         <div class="col-5">
           <ProductoDetalle :nomProducto="$route.params.nomProducto" />
+        </div>
+      </div>
+
+      <div class="row mt-4 gx-xxl-5">
+        <div class="col-7">
+          <Resenhas :nomProducto="$route.params.nomProducto" />
         </div>
       </div>
     </div>

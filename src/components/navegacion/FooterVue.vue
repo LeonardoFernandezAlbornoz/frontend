@@ -72,14 +72,51 @@ footer {
 
 footer a {
   color: white;
+  text-decoration: none;
 }
+footer a:hover {
+  text-decoration: underline;
+}
+
 .redes {
   font-size: 25px;
   display: flex;
   column-gap: 1em;
 }
+.redes a:hover {
+  transition: transform ease 0.3s;
+}
+
+.redes a:hover {
+  transform: rotate(20deg);
+}
+
 h5 {
   padding-left: 0.5em;
   border-left: solid 3px var(--color-secundario-naranja);
+}
+.descuento {
+  background: linear-gradient(
+    135deg,
+    rgba(242, 101, 56, 1) 31%,
+    rgba(245, 143, 29, 1) 79%
+  );
+  height: 100px;
+  left: -50px;
+  position: absolute;
+  top: -50px;
+  width: 100px;
+  -webkit-transform: rotate(-45deg);
+}
+
+.descuento span {
+  color: #f5f5f5;
+  font-family: sans-serif;
+  font-size: 18px;
+  font-weight: bold;
+  left: 26px;
+  top: 70px;
+  position: absolute;
+  width: 80px;
 }
 </style>
