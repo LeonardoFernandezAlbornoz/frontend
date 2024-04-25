@@ -1,15 +1,18 @@
 <template>
   <footer class="mt-5">
-    <div class="container-lg">
-      <div class="row gy-4">
-        <div class="footer-col col-6 col-sm">
+    <div class="container">
+      <div class="row g-5">
+        <div class="col-lg-4 px-5 py-lg-0 p-md-4 px-lg-3 align-content-center">
+          <img src="/img/logo-blanco.png" class="img-fluid" alt="logo-footer" />
+        </div>
+        <div class="footer-col col col-lg-2 offset-lg-1">
           <h5>Información</h5>
           <a href="#">Sobre Nosotros</a>
           <a href="#">Contacto</a>
           <a href="#">Política de privacidad</a>
         </div>
 
-        <div class="footer-col col-6 col-sm">
+        <div class="footer-col col col-lg-2">
           <h5>Categorías</h5>
           <router-link
             :to="{ name: 'categoria', params: { nomCategoria: 'Ordenadores' } }"
@@ -38,7 +41,7 @@
           >
         </div>
 
-        <div class="footer-col col-6 col-sm">
+        <div class="footer-col col-lg-2">
           <h5>Síguenos</h5>
           <div class="redes">
             <a href="#"><font-awesome-icon icon="fa-brands fa-x-twitter" /></a>
@@ -60,6 +63,7 @@ export default {};
   flex-direction: column;
   justify-content: justify-space-evenly;
   row-gap: 0.5em;
+  font-size: 15px;
 }
 
 footer {
@@ -94,29 +98,5 @@ footer a:hover {
 h5 {
   padding-left: 0.5em;
   border-left: solid 3px var(--color-secundario-naranja);
-}
-.descuento {
-  background: linear-gradient(
-    135deg,
-    rgba(242, 101, 56, 1) 31%,
-    rgba(245, 143, 29, 1) 79%
-  );
-  height: 100px;
-  left: -50px;
-  position: absolute;
-  top: -50px;
-  width: 100px;
-  -webkit-transform: rotate(-45deg);
-}
-
-.descuento span {
-  color: #f5f5f5;
-  font-family: sans-serif;
-  font-size: 18px;
-  font-weight: bold;
-  left: 26px;
-  top: 70px;
-  position: absolute;
-  width: 80px;
 }
 </style>

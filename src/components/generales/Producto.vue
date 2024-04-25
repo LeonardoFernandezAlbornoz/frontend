@@ -7,24 +7,35 @@ export default {
       resenhas: [],
     };
   },
+  watch: {
+    productoProp: function () {
+      this.cargarResenhas(this.productoProp.id);
+    },
+  },
   components: {
     Estrellas,
   },
   mounted() {
-    fetch('http://localhost:8000/resenhas/' + this.productoProp.id)
-      .then((response) => {
-        if (!response.ok) {
-          throw new Error(`Error: ${response.status}`);
-        }
+    this.cargarResenhas(this.productoProp.id);
+  },
 
-        return response.json();
-      })
-      .then((data) => {
-        this.resenhas = data;
-      })
-      .catch((error) => {
-        console.log(`Error al obtener los datos: ${error}`);
-      });
+  methods: {
+    cargarResenhas(idProducto) {
+      fetch('http://localhost:8000/resenhas/' + idProducto)
+        .then((response) => {
+          if (!response.ok) {
+            throw new Error(`Error: ${response.status}`);
+          }
+
+          return response.json();
+        })
+        .then((data) => {
+          this.resenhas = data;
+        })
+        .catch((error) => {
+          console.log(`Error al obtener los datos: ${error}`);
+        });
+    },
   },
 
   computed: {

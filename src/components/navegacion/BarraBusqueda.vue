@@ -21,7 +21,7 @@ export default {
 </script>
 <template>
   <form @submit.prevent="buscar">
-    <div class="buscador input-group">
+    <div class="ps-xxl-5 buscador input-group">
       <select class="form-select" v-model="categoria">
         <option value="" selected>Categorías</option>
         <option v-for="categoria in categorias" :value="categoria.descripcion">

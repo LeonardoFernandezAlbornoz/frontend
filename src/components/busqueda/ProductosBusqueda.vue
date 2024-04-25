@@ -56,7 +56,7 @@ export default {
 };
 </script>
 <template>
-  <div class="mx-4 mx-sm-0 productos-categoria row g-3 g-xxl-5">
+  <div class="mx-4 mx-sm-0 productos-categoria row p-0 g-3 g-xxl-5">
     <div
       v-for="producto in productoPorCategoria"
       class="col-sm-6 col-md-4 col-xl-3"

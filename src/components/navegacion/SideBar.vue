@@ -8,18 +8,67 @@ export default {
   <div>
     <div class="sidebar" :class="{ 'sidebar-activo': active }">
       <div class="sidebar-content">
-        <div v-for="categoria in categorias" class="sidebar-section">
+        <div class="sidebar-section">
           <router-link
-            @click="$emit('closeSidebar')"
             :to="{
               name: 'categoria',
-              params: { nomCategoria: categoria.descripcion },
+              params: { nomCategoria: 'ordenadores' },
             }"
-          >
-            {{
-              categoria.descripcion.charAt(0).toUpperCase() +
-              categoria.descripcion.slice(1)
-            }}
+            >Ordenadores
+          </router-link>
+        </div>
+        <div class="sidebar-section">
+          <router-link
+            :to="{
+              name: 'categoria',
+              params: { nomCategoria: 'smartphones' },
+            }"
+            >Smartphones
+          </router-link>
+        </div>
+        <div class="sidebar-section">
+          <router-link
+            :to="{
+              name: 'categoria',
+              params: { nomCategoria: 'componentes' },
+            }"
+            >Componentes
+          </router-link>
+        </div>
+        <div class="sidebar-section">
+          <router-link
+            :to="{
+              name: 'categoria',
+              params: { nomCategoria: 'televisores' },
+            }"
+            >Televisores
+          </router-link>
+        </div>
+        <div class="sidebar-section">
+          <router-link
+            :to="{
+              name: 'categoria',
+              params: { nomCategoria: 'monitores' },
+            }"
+            >Monitores
+          </router-link>
+        </div>
+        <div class="sidebar-section">
+          <router-link
+            :to="{
+              name: 'categoria',
+              params: { nomCategoria: 'cámaras' },
+            }"
+            >Cámaras
+          </router-link>
+        </div>
+        <div class="sidebar-section">
+          <router-link
+            :to="{
+              name: 'categoria',
+              params: { nomCategoria: 'audio' },
+            }"
+            >Audio
           </router-link>
         </div>
       </div>

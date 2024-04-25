@@ -48,7 +48,29 @@ export default {
   overflow: hidden;
   box-shadow: var(--sombra-cajas);
 }
+.descuento {
+  background: linear-gradient(
+    135deg,
+    rgba(242, 101, 56, 1) 31%,
+    rgba(245, 143, 29, 1) 79%
+  );
+  height: 100px;
+  left: -50px;
+  position: absolute;
+  top: -50px;
+  width: 100px;
+  -webkit-transform: rotate(-45deg);
+}
 
+.descuento span {
+  color: #f5f5f5;
+  font-size: 17px;
+  font-weight: bold;
+  left: 26px;
+  top: 70px;
+  position: absolute;
+  width: 80px;
+}
 .producto-imagen-detalle {
   height: 100%;
   width: 100%;

@@ -1,21 +1,64 @@
 <script>
-import BotonHamburguesa from './BotonHamburguesa.vue';
-export default {
-  props: ['categorias'],
-};
+export default {};
 </script>
 <template>
-  <div class="mt-3 column-gap-5">
+  <div class="d-lg-flex d-none mt-3 justify-content-evenly">
     <router-link
-      v-for="categoria in categorias"
       :to="{
         name: 'categoria',
-        params: { nomCategoria: categoria.descripcion },
+        params: { nomCategoria: 'ordenadores' },
       }"
-      >{{
-        categoria.descripcion.charAt(0).toUpperCase() +
-        categoria.descripcion.slice(1)
-      }}
+      >Ordenadores
+    </router-link>
+    <router-link
+      :to="{
+        name: 'categoria',
+        params: { nomCategoria: 'Smartphones' },
+      }"
+      >Smartphones
+    </router-link>
+    <router-link
+      :to="{
+        name: 'categoria',
+        params: { nomCategoria: 'componentes' },
+      }"
+      >Componentes
+    </router-link>
+    <router-link
+      :to="{
+        name: 'categoria',
+        params: { nomCategoria: 'televisores' },
+      }"
+      >Televisores
+    </router-link>
+
+    <router-link
+      :to="{
+        name: 'categoria',
+        params: { nomCategoria: 'televisores' },
+      }"
+      >Monitores
+    </router-link>
+    <router-link
+      :to="{
+        name: 'categoria',
+        params: { nomCategoria: 'cámaras' },
+      }"
+      >Cámaras
+    </router-link>
+    <router-link
+      :to="{
+        name: 'categoria',
+        params: { nomCategoria: 'audio' },
+      }"
+      >Audio
+    </router-link>
+    <router-link
+      :to="{
+        name: 'categoria',
+        params: { nomCategoria: 'videojuegos' },
+      }"
+      >Videojuegos
     </router-link>
   </div>
 </template>

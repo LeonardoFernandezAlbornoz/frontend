@@ -1,4 +1,5 @@
 <script>
+import Resenha from './Resenha.vue';
 export default {
   props: ['nomProducto'],
   data() {
@@ -6,20 +7,30 @@ export default {
       resenhas: [],
     };
   },
+  watch: {
+    nomProducto: function (nomProducto) {
+      this.cargarResenhas(nomProducto);
+    },
+  },
   mounted() {
-    fetch('http://localhost:8000/resenhas/' + this.nomProducto)
-      .then((response) => {
-        if (!response.ok) {
-          throw new Error(`Error: ${response.status}`);
-        }
-        return response.json();
-      })
-      .then((data) => {
-        this.resenhas = data;
-      })
-      .catch((error) => {
-        console.log(`Error al obtener los datos: ${error}`);
-      });
+    this.cargarResenhas(this.nomProducto);
+  },
+  methods: {
+    cargarResenhas(nomProducto) {
+      fetch('http://localhost:8000/resenhas/' + nomProducto)
+        .then((response) => {
+          if (!response.ok) {
+            throw new Error(`Error: ${response.status}`);
+          }
+          return response.json();
+        })
+        .then((data) => {
+          this.resenhas = data;
+        })
+        .catch((error) => {
+          console.log(`Error al obtener los datos: ${error}`);
+        });
+    },
   },
 };
 </script>
@@ -29,7 +40,9 @@ export default {
       Reseñas <span>({{ resenhas.length }})</span>
     </h4>
     <hr />
-    <div></div>
+    <div>
+      <div v-for="resenha in resenhas">{{ resenha }}</div>
+    </div>
   </div>
 </template>
 

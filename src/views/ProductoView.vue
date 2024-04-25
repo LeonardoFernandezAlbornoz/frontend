@@ -27,17 +27,17 @@ import Resenhas from '@/components/productos/Resenhas.vue';
       ]"
     />
     <div class="container-lg">
-      <div class="row mt-4 gx-xxl-5">
-        <div class="col-7">
+      <div class="row mt-4 gy-4 gy-lg-0 gx-xxl-5">
+        <div class="col-md col-lg-7">
           <ProductoImagen :nomProducto="$route.params.nomProducto" />
         </div>
-        <div class="col-5">
+        <div class="col-md">
           <ProductoDetalle :nomProducto="$route.params.nomProducto" />
         </div>
       </div>
 
       <div class="row mt-4 gx-xxl-5">
-        <div class="col-7">
+        <div class="col-md">
           <Resenhas :nomProducto="$route.params.nomProducto" />
         </div>
       </div>

@@ -60,7 +60,7 @@ export default {
     <nav class="barra-navegacion">
       <div class="container-xl">
         <div class="row align-items-center">
-          <div class="d-flex col-7 col-sm-5 col-md-4 col-lg-3">
+          <div class="d-flex col-8 col-sm-6 col-md-4 col-lg-3">
             <BotonHamburguesa
               @toggleSidebar="toggleSidebar"
               class="d-block d-lg-none"
@@ -70,11 +70,9 @@ export default {
             <Logo />
           </div>
           <div
-            class="col-md-5 col-lg-4 col-xl-5 order-2 mt-3 mt-md-0 order-md-1"
+            class="text-center col-md-5 col-lg-4 col-xl-5 order-2 mt-3 mt-md-0 order-md-1"
           >
-            <KeepAlive>
-              <BarraBusqueda :categorias="categorias" />
-            </KeepAlive>
+            <BarraBusqueda :categorias="categorias" />
           </div>
           <div
             class="order-1 order-md-2 col d-flex column-gap-3 align-items-center justify-content-end"
@@ -83,11 +81,7 @@ export default {
             <LogoCarrito />
           </div>
         </div>
-        <BarraCategorias
-          @toggleSidebar="toggleSidebar"
-          class="d-lg-flex d-none"
-          :categorias="categorias"
-        />
+        <BarraCategorias />
       </div>
     </nav>
     <Teleport to="main" v-if="categorias">
