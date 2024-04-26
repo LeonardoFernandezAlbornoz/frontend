@@ -1,18 +1,22 @@
 <script>
-export default {};
+import Estrellas from "../generales/Estrellas.vue";
+
+export default {
+  props: ["resenhaProp"],
+
+  components: {
+    Estrellas,
+  },
+};
 </script>
 <template>
   <div>
-    <p class="resenha-usuario"><b>Usuario</b></p>
-    <p class="resenha-valoracion">
-      <i class="fa-solid fa-star"></i> <i class="fa-solid fa-star"></i>
-      <i class="fa-solid fa-star"></i> <i class="fa-solid fa-star"></i>
-      <i class="fa-solid fa-star"></i>
+    <p class="resenha-usuario">
+      <b>{{ resenhaProp.usuario.nombre }}</b>
     </p>
+    <Estrellas :mediaValoraciones="resenhaProp.valoracion" />
     <p class="resenha-opinion">
-      Lorem ipsum dolor sit amet consectetur adipisicing elit. Ea, quo. Ab,
-      temporibus in? Et est adipisci quidem rerum pariatur minus recusandae
-      accusamus.
+      {{ resenhaProp.opinion }}
     </p>
   </div>
 </template>

@@ -1,6 +1,6 @@
 <script>
 export default {
-  props: ['numResenhas', 'mediaValoraciones'],
+  props: ["numResenhas", "mediaValoraciones"],
 };
 </script>
 <template>
@@ -27,7 +27,7 @@ export default {
         :class="{ 'rating-color': Math.round(mediaValoraciones) >= 5 }"
       />
     </div>
-    <span>({{ numResenhas }})</span>
+    <span v-if="numResenhas">({{ numResenhas }})</span>
   </div>
 </template>
 

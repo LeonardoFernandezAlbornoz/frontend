@@ -1,7 +1,7 @@
 <script>
-import Estrellas from './Estrellas.vue';
+import Estrellas from "./Estrellas.vue";
 export default {
-  props: ['productoProp'],
+  props: ["productoProp"],
   data() {
     return {
       resenhas: [],
@@ -21,7 +21,7 @@ export default {
 
   methods: {
     cargarResenhas(idProducto) {
-      fetch('http://localhost:8000/resenhas/' + idProducto)
+      fetch("http://localhost:8000/resenhas/" + idProducto)
         .then((response) => {
           if (!response.ok) {
             throw new Error(`Error: ${response.status}`);
@@ -84,7 +84,7 @@ export default {
               (
                 productoProp.precio -
                 (productoProp.precio / 100) * productoProp.descuento
-              ).toFixed(2) + '€'
+              ).toFixed(2) + "€"
             }}</span
           ><span
             v-if="productoProp.descuento !== 0"

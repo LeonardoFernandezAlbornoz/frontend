@@ -1,7 +1,7 @@
 <script>
-import Resenha from './Resenha.vue';
+import Resenha from "./Resenha.vue";
 export default {
-  props: ['nomProducto'],
+  props: ["nomProducto"],
   data() {
     return {
       resenhas: [],
@@ -17,7 +17,7 @@ export default {
   },
   methods: {
     cargarResenhas(nomProducto) {
-      fetch('http://localhost:8000/resenhas/' + nomProducto)
+      fetch("http://localhost:8000/resenhas/" + nomProducto)
         .then((response) => {
           if (!response.ok) {
             throw new Error(`Error: ${response.status}`);
@@ -32,6 +32,9 @@ export default {
         });
     },
   },
+  components: {
+    Resenha,
+  },
 };
 </script>
 <template>
@@ -41,7 +44,7 @@ export default {
     </h4>
     <hr />
     <div>
-      <div v-for="resenha in resenhas">{{ resenha }}</div>
+      <Resenha v-for="resenha in resenhas" :resenhaProp="resenha"></Resenha>
     </div>
   </div>
 </template>
