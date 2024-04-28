@@ -7,7 +7,7 @@ export default {
 <template>
   <div>
     <div class="sidebar" :class="{ 'sidebar-activo': active }">
-      <div class="sidebar-content">
+      <div @click="$emit('closeSidebar')" class="sidebar-content">
         <div class="sidebar-section">
           <router-link
             :to="{

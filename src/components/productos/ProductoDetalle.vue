@@ -101,7 +101,7 @@ export default {
         />
       </div>
     </div>
-    <button v-if="producto.stock > 0" class="btn-anhadir-carrito my-4">
+    <button v-if="producto.stock > 0" class="btn-anhadir-carrito mt-4">
       Añadir al carrito
     </button>
     <p v-if="producto.stock == 0" class="aviso-no-disponible text-danger">
@@ -114,7 +114,7 @@ export default {
 .producto-detalle {
   background-color: white;
   box-shadow: var(--sombra-cajas);
-  height: 500px;
+  min-height: 500px;
 }
 
 .producto-detalle-precio-final {

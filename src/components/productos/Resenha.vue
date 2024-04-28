@@ -1,8 +1,8 @@
 <script>
-import Estrellas from "../generales/Estrellas.vue";
+import Estrellas from '../generales/Estrellas.vue';
 
 export default {
-  props: ["resenhaProp"],
+  props: ['resenhaProp'],
 
   components: {
     Estrellas,
@@ -10,15 +10,31 @@ export default {
 };
 </script>
 <template>
-  <div>
-    <p class="resenha-usuario">
+  <div class="contenedor-resenha mt-4">
+    <p class="resenha-usuario mb-2">
       <b>{{ resenhaProp.usuario.nombre }}</b>
     </p>
-    <Estrellas :mediaValoraciones="resenhaProp.valoracion" />
-    <p class="resenha-opinion">
+
+    <p class="resenha-fecha mb-2">
+      {{ new Date(resenhaProp.fecha).toLocaleDateString() }}
+    </p>
+    <Estrellas :valoracion="resenhaProp.valoracion" />
+    <p class="resenha-opinion mt-2">
       {{ resenhaProp.opinion }}
     </p>
   </div>
 </template>
 
-<style></style>
+<style>
+.resenha-fecha {
+  font-size: 13px;
+}
+
+.contenedor-resenha {
+  max-width: 700px;
+}
+
+.resenha-opinion {
+  word-wrap: break-word;
+}
+</style>

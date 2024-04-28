@@ -1,6 +1,6 @@
 <script>
 export default {
-  props: ["numResenhas", "mediaValoraciones"],
+  props: ['numResenhas', 'mediaValoraciones', 'valoracion'],
 };
 </script>
 <template>
@@ -8,26 +8,42 @@ export default {
     <div class="ratings">
       <font-awesome-icon
         icon="fa-solid fa-star"
-        :class="{ 'rating-color': Math.round(mediaValoraciones) >= 1 }"
+        :class="{
+          'rating-color':
+            Math.round(mediaValoraciones) >= 1 || Math.round(valoracion) >= 1,
+        }"
       />
       <font-awesome-icon
         icon="fa-solid fa-star"
-        :class="{ 'rating-color': Math.round(mediaValoraciones) >= 2 }"
+        :class="{
+          'rating-color':
+            Math.round(mediaValoraciones) >= 2 || Math.round(valoracion) >= 2,
+        }"
       />
       <font-awesome-icon
         icon="fa-solid fa-star"
-        :class="{ 'rating-color': Math.round(mediaValoraciones) >= 3 }"
+        :class="{
+          'rating-color':
+            Math.round(mediaValoraciones) >= 3 || Math.round(valoracion) >= 3,
+        }"
       />
       <font-awesome-icon
         icon="fa-solid fa-star"
-        :class="{ 'rating-color': Math.round(mediaValoraciones) >= 4 }"
+        :class="{
+          'rating-color':
+            Math.round(mediaValoraciones) >= 4 || Math.round(valoracion) >= 4,
+        }"
       />
       <font-awesome-icon
         icon="fa-solid fa-star"
-        :class="{ 'rating-color': Math.round(mediaValoraciones) >= 5 }"
+        :class="{
+          'rating-color':
+            Math.round(mediaValoraciones) >= 5 || Math.round(valoracion) >= 5,
+        }"
       />
     </div>
     <span v-if="numResenhas">({{ numResenhas }})</span>
+    <span v-if="valoracion">{{ valoracion }}</span>
   </div>
 </template>
 

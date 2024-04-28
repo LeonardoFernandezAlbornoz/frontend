@@ -15,7 +15,7 @@ export default {
   </div>
 </template>
 
-<style>
+<style scoped>
 .resultados-mensaje {
   font-size: 19px;
   margin-top: 1em;

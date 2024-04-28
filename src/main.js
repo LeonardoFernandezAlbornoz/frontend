@@ -15,12 +15,18 @@ import router from './router';
 import Navbar from './components/navegacion/Navbar.vue';
 import SideBar from './components/navegacion/SideBar.vue';
 import FooterVue from './components/navegacion/FooterVue.vue';
+import 'notivue/notification.css';
+import 'notivue/animations.css';
+import { createNotivue } from 'notivue';
+
+const notivue = createNotivue(/* Options */);
 
 library.add(fas, far, fab);
 
 const app = createApp(App);
-app.component('Navbar', Navbar);
 
+app.component('Navbar', Navbar);
+app.use(notivue);
 app.component('SideBar', SideBar);
 app.component('FooterVue', FooterVue);
 app.component('font-awesome-icon', FontAwesomeIcon);

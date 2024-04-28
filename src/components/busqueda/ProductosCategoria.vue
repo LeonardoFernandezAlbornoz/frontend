@@ -29,7 +29,7 @@ export default {
       fetch('http://localhost:8000/productos/categoria/' + categoria)
         .then((response) => {
           if (!response.ok) {
-            throw new Error(`Error: ${response.status}`);
+            throw new Error(response.status);
           }
           return response.json();
         })

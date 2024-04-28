@@ -12,9 +12,11 @@ import Resenhas from '@/components/productos/Resenhas.vue';
         {
           to: {
             name: 'categoria',
-            params: { nomCategoria: 'Smartphones' },
+            params: { nomCategoria: $route.params.nomCategoria },
           },
-          texto: 'Samrtphones',
+          texto:
+            $route.params.nomCategoria.charAt(0).toUpperCase() +
+            $route.params.nomCategoria.slice(1),
         },
 
         {
@@ -27,7 +29,7 @@ import Resenhas from '@/components/productos/Resenhas.vue';
       ]"
     />
     <div class="container-lg">
-      <div class="row mt-4 gy-4 gy-lg-0 gx-xxl-5">
+      <div class="row mx-3 mx-sm-0 mt-4 gy-4 gy-lg-0 gx-xxl-5">
         <div class="col-md col-lg-7">
           <ProductoImagen :nomProducto="$route.params.nomProducto" />
         </div>
@@ -36,7 +38,7 @@ import Resenhas from '@/components/productos/Resenhas.vue';
         </div>
       </div>
 
-      <div class="row mt-4 gx-xxl-5">
+      <div class="row mt-4 gx-xxl-5 mx-3 mx-sm-0">
         <div class="col-md">
           <Resenhas :nomProducto="$route.params.nomProducto" />
         </div>

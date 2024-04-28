@@ -1,18 +1,18 @@
 <template>
   <footer class="mt-5">
-    <div class="container">
+    <div class="container-lg pt-2">
       <div class="row g-5">
-        <div class="col-lg-4 px-5 py-lg-0 p-md-4 px-lg-3 align-content-center">
+        <div class="col-md-4 px-5 py-lg-0 p-md-4 px-lg-4 align-content-center">
           <img src="/img/logo-blanco.png" class="img-fluid" alt="logo-footer" />
         </div>
-        <div class="footer-col col col-lg-2 offset-lg-1">
+        <div class="footer-col col col-md-2 offset-lg-1">
           <h5>Información</h5>
           <a href="#">Sobre Nosotros</a>
           <a href="#">Contacto</a>
           <a href="#">Política de privacidad</a>
         </div>
 
-        <div class="footer-col col col-lg-2">
+        <div class="footer-col col col-md-2">
           <h5>Categorías</h5>
           <router-link
             :to="{ name: 'categoria', params: { nomCategoria: 'Ordenadores' } }"
@@ -41,7 +41,7 @@
           >
         </div>
 
-        <div class="footer-col col-lg-2">
+        <div class="footer-col col-md-2">
           <h5>Síguenos</h5>
           <div class="redes">
             <a href="#"><font-awesome-icon icon="fa-brands fa-x-twitter" /></a>
@@ -95,7 +95,7 @@ footer a:hover {
   transform: rotate(20deg);
 }
 
-h5 {
+.footer-col h5 {
   padding-left: 0.5em;
   border-left: solid 3px var(--color-secundario-naranja);
 }

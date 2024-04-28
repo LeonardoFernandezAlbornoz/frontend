@@ -28,6 +28,12 @@ export default {
   text-decoration: none;
 }
 
+@media screen and (max-width: 576px) {
+  .btn-carrito {
+    font-size: 20px;
+  }
+}
+
 .num-productos {
   left: 20px;
   bottom: 18px;
@@ -43,5 +49,12 @@ export default {
   font-weight: bold;
   color: white;
   background-color: var(--color-secundario-naranja);
+}
+
+@media screen and (max-width: 576px) {
+  .num-productos {
+    left: 17px;
+    bottom: 14px;
+  }
 }
 </style>

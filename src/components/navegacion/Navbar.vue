@@ -6,6 +6,8 @@ import BarraBusqueda from './BarraBusqueda.vue';
 import BarraCategorias from './BarraCategorias.vue';
 import SideBar from './SideBar.vue';
 import BotonHamburguesa from './BotonHamburguesa.vue';
+import IniciarSesion from '../modales/IniciarSesion.vue';
+import Registrarse from '../modales/Registrarse.vue';
 
 export default {
   data() {
@@ -22,6 +24,8 @@ export default {
     BarraCategorias,
     SideBar,
     BotonHamburguesa,
+    IniciarSesion,
+    Registrarse,
   },
   methods: {
     toggleSidebar() {
@@ -60,7 +64,7 @@ export default {
     <nav class="barra-navegacion">
       <div class="container-xl">
         <div class="row align-items-center">
-          <div class="d-flex col-8 col-sm-6 col-md-4 col-lg-3">
+          <div class="d-flex col-9 col-sm-6 col-md-4 col-lg-3">
             <BotonHamburguesa
               @toggleSidebar="toggleSidebar"
               class="d-block d-lg-none"
@@ -70,12 +74,12 @@ export default {
             <Logo />
           </div>
           <div
-            class="text-center col-md-5 col-lg-4 col-xl-5 order-2 mt-3 mt-md-0 order-md-1"
+            class="text-center col-md-6 col-lg-4 col-xl-5 order-2 mt-3 mt-md-0 order-md-1"
           >
             <BarraBusqueda :categorias="categorias" />
           </div>
           <div
-            class="order-1 order-md-2 col d-flex column-gap-3 align-items-center justify-content-end"
+            class="order-1 order-md-2 col-3 col-sm-6 col-md d-flex column-gap-3 align-items-center justify-content-end"
           >
             <BotonesUsuario />
             <LogoCarrito />
@@ -91,6 +95,8 @@ export default {
         :categorias="categorias"
       />
     </Teleport>
+    <IniciarSesion />
+    <Registrarse />
   </header>
 </template>
 

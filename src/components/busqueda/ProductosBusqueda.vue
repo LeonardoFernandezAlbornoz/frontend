@@ -56,6 +56,13 @@ export default {
 };
 </script>
 <template>
+  <div
+    v-if="!productos.length"
+    class="alert alert-danger text-center"
+    role="alert"
+  >
+    No se han encontrado resutados para su búsqueda
+  </div>
   <div class="mx-4 mx-sm-0 productos-categoria row p-0 g-3 g-xxl-5">
     <div
       v-for="producto in productoPorCategoria"

@@ -43,7 +43,7 @@ export default {
 <style scoped>
 .img-producto-detalle {
   background-color: white;
-  height: 500px;
+  height: 100%;
   position: relative;
   overflow: hidden;
   box-shadow: var(--sombra-cajas);
