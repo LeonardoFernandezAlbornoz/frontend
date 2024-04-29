@@ -1,19 +1,60 @@
 <script>
-export default {};
+import { push } from 'notivue';
+export default {
+  data() {
+    return {
+      correo: '',
+      contrasenha: '',
+    };
+  },
+
+  methods: {
+    iniciarSesion() {
+      fetch('http://localhost:8000/login', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({
+          correo: this.correo,
+          contrasenha: this.contrasenha,
+        }),
+      })
+        .then((response) => {
+          if (!response.ok) {
+            return response.json().then((response) => {
+              throw new Error(response.error);
+            });
+          }
+
+          return response.json();
+        })
+        .then((response) => {
+          push.success({
+            title: 'Success',
+            message: response.status,
+          });
+          this.reiniciar();
+          document.getElementById('btn-cerrar-login').click();
+        })
+        .catch((error) => {
+          console.log(error);
+          push.error({ title: 'Error', message: `${error}`.slice(6) });
+        });
+    },
+    reiniciar() {
+      this.correo = '';
+      this.contrasenha = '';
+    },
+  },
+};
 </script>
 <template>
-  <div
-    class="modal fade"
-    id="iniciarSesionModal"
-    tabindex="-1"
-    aria-labelledby="exampleModalLabel"
-    aria-hidden="true"
-  >
+  <div class="modal fade" id="iniciarSesionModal" tabindex="-1">
     <div class="modal-dialog rounded-0">
       <div class="modal-content">
         <div class="modal-header border-0 d-block">
           <div class="text-end">
             <button
+              id="btn-cerrar-login"
               type="button"
               data-bs-dismiss="modal"
               class="btn-close"
@@ -22,12 +63,14 @@ export default {};
           <h1 class="modal-title fs-5 text-center">Iniciar Sesión</h1>
         </div>
         <div class="modal-body px-5">
-          <form>
+          <form @submit.prevent="iniciarSesion">
             <div class="mb-3">
               <label for="login-correo" class="form-label"
                 >Correo electrónico:</label
               >
               <input
+                require
+                v-model="correo"
                 type="email"
                 class="form-control-lg form-control"
                 id="login-correo"
@@ -38,6 +81,8 @@ export default {};
                 >Contraseña:</label
               >
               <input
+                require
+                v-model="contrasenha"
                 type="password"
                 class="form-control-lg form-control"
                 id="login-contrasenha"
@@ -47,7 +92,7 @@ export default {};
               <a href="#"><b>¿Has olvidado tu contraseña?</b></a>
             </div>
 
-            <button type="button" class="btn-acceder mb-3 w-100 mt-3">
+            <button type="submit" class="btn-acceder mb-3 w-100 mt-3">
               Acceder
             </button>
           </form>

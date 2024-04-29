@@ -1,11 +1,11 @@
 <script setup>
-import { RouterLink, RouterView } from "vue-router";
+import { RouterLink, RouterView } from 'vue-router';
 import {
   Notivue,
   Notification,
   NotificationProgress,
   materialTheme,
-} from "notivue";
+} from 'notivue';
 </script>
 
 <template>

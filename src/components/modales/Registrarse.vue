@@ -1,23 +1,22 @@
 <script>
-import { notify } from "@kyvg/vue3-notification";
-import { Notivue, Notification, push } from "notivue";
+import { push } from 'notivue';
 export default {
   data() {
     return {
-      nomUsuario: "",
-      nombre: "",
-      apellidos: "",
-      correo: "",
-      contrasenha: "",
-      error: "",
+      nomUsuario: '',
+      nombre: '',
+      apellidos: '',
+      correo: '',
+      contrasenha: '',
+      error: '',
     };
   },
 
   methods: {
     registrarse() {
-      fetch("http://localhost:8000/usuario/crear", {
-        method: "POST",
-        headers: { "Content-Type": "application/json" },
+      fetch('http://localhost:8000/usuario/crear', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify({
           nomUsuario: this.nomUsuario,
           nombre: this.nombre,
@@ -29,18 +28,32 @@ export default {
       })
         .then((response) => {
           if (!response.ok) {
-            return response.json().then((error) => {
-              throw new Error(error.error);
+            return response.json().then((response) => {
+              throw new Error(response.error);
             });
           }
-          return response.json();
         })
-        .then((response) => {
-          console.log(response.message);
+        .then(() => {
+          push.success({
+            title: 'Success',
+            message: 'Te has registrado con éxito',
+          });
+          this.reiniciar();
+          document.getElementById('btn-cerrar-registro').click();
         })
         .catch((error) => {
-          push.error({ title: "Error", message: `${error}` });
+          console.log(error);
+          push.error({ title: 'Error', message: `${error}`.slice(6) });
         });
+    },
+
+    reiniciar() {
+      this.nomUsuario = '';
+      this.nombre = '';
+      this.apellidos = '';
+      this.correo = '';
+      this.contrasenha = '';
+      this.error = '';
     },
   },
 };
@@ -52,6 +65,7 @@ export default {
         <div class="modal-header border-0 d-block">
           <div class="text-end">
             <button
+              id="btn-cerrar-registro"
               type="button"
               data-bs-dismiss="modal"
               class="btn-close"
@@ -140,9 +154,6 @@ export default {
       </div>
     </div>
   </div>
-  <Notivue class="notificaciones" v-slot="item">
-    <Notification :item="item" />
-  </Notivue>
 </template>
 <style scoped>
 .btn-registro {
@@ -173,7 +184,7 @@ export default {
 .separador::before,
 .separador::after {
   flex: 1;
-  content: "";
+  content: '';
   padding: 0.3px;
   background-color: var(--gris-claro);
   margin: 10px;
