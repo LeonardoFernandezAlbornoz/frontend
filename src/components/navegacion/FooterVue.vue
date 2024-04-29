@@ -1,8 +1,10 @@
 <template>
   <footer class="mt-5">
     <div class="container-lg pt-2">
-      <div class="row g-5">
-        <div class="col-md-4 px-5 py-lg-0 p-md-4 px-lg-4 align-content-center">
+      <div class="row g-md-5">
+        <div
+          class="col-md-4 mb-4 mb-md-none px-5 py-lg-0 p-md-4 px-lg-4 align-content-center"
+        >
           <img src="/img/logo-blanco.png" class="img-fluid" alt="logo-footer" />
         </div>
         <div class="footer-col col col-md-2 offset-lg-1">

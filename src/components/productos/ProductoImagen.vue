@@ -1,14 +1,14 @@
 <script>
 export default {
-  props: ['nomProducto'],
+  props: ["nomProducto"],
   data() {
     return {
-      producto: '',
+      producto: "",
     };
   },
 
   mounted() {
-    fetch('http://localhost:8000/producto/' + this.nomProducto)
+    fetch("http://localhost:8000/producto/" + this.nomProducto)
       .then((response) => {
         if (!response.ok) {
           throw new Error(`Error: ${response.status}`);
@@ -77,5 +77,11 @@ export default {
   background-position: center;
   background-size: contain;
   background-repeat: no-repeat;
+}
+
+@media screen and (max-width: 767px) {
+  .producto-imagen-detalle {
+    height: 500px;
+  }
 }
 </style>

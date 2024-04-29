@@ -1,18 +1,18 @@
 <script>
-import Logo from './Logo.vue';
-import LogoCarrito from './LogoCarrito.vue';
-import BotonesUsuario from './BotonesUsuario.vue';
-import BarraBusqueda from './BarraBusqueda.vue';
-import BarraCategorias from './BarraCategorias.vue';
-import SideBar from './SideBar.vue';
-import BotonHamburguesa from './BotonHamburguesa.vue';
-import IniciarSesion from '../modales/IniciarSesion.vue';
-import Registrarse from '../modales/Registrarse.vue';
+import Logo from "./Logo.vue";
+import LogoCarrito from "./LogoCarrito.vue";
+import BotonesUsuario from "./BotonesUsuario.vue";
+import BarraBusqueda from "./BarraBusqueda.vue";
+import BarraCategorias from "./BarraCategorias.vue";
+import SideBar from "./SideBar.vue";
+import BotonHamburguesa from "./BotonHamburguesa.vue";
+import IniciarSesion from "../modales/IniciarSesion.vue";
+import Registrarse from "../modales/Registrarse.vue";
 
 export default {
   data() {
     return {
-      categorias: '',
+      categorias: "",
       sidebarActive: false,
     };
   },
@@ -34,15 +34,15 @@ export default {
     },
     toggleBodyScroll() {
       if (this.sidebarActive) {
-        document.documentElement.style.overflow = 'hidden';
+        document.documentElement.style.overflow = "hidden";
       } else {
-        document.documentElement.style.overflow = 'scroll';
+        document.documentElement.style.overflow = "scroll";
       }
     },
   },
 
   mounted() {
-    fetch('http://127.0.0.1:8000/categorias')
+    fetch("http://127.0.0.1:8000/categorias")
       .then((response) => {
         if (!response.ok) {
           throw new Error(`Error:${response.status}`);
@@ -90,6 +90,7 @@ export default {
     </nav>
     <Teleport to="main" v-if="categorias">
       <SideBar
+        class="d-block d-lg-none"
         @closeSidebar="toggleSidebar"
         :active="sidebarActive"
         :categorias="categorias"

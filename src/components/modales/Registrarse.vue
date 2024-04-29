@@ -1,23 +1,23 @@
 <script>
-import { notify } from '@kyvg/vue3-notification';
-import { Notivue, Notification, push } from 'notivue';
+import { notify } from "@kyvg/vue3-notification";
+import { Notivue, Notification, push } from "notivue";
 export default {
   data() {
     return {
-      nomUsuario: '',
-      nombre: '',
-      apellidos: '',
-      correo: '',
-      contrasenha: '',
-      error: '',
+      nomUsuario: "",
+      nombre: "",
+      apellidos: "",
+      correo: "",
+      contrasenha: "",
+      error: "",
     };
   },
 
   methods: {
     registrarse() {
-      fetch('http://localhost:8000/usuario/crear', {
-        method: 'POST',
-        headers: { 'Content-Type': 'application/json' },
+      fetch("http://localhost:8000/usuario/crear", {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
         body: JSON.stringify({
           nomUsuario: this.nomUsuario,
           nombre: this.nombre,
@@ -39,7 +39,7 @@ export default {
           console.log(response.message);
         })
         .catch((error) => {
-          push.error(`${error}`);
+          push.error({ title: "Error", message: `${error}` });
         });
     },
   },
@@ -173,7 +173,7 @@ export default {
 .separador::before,
 .separador::after {
   flex: 1;
-  content: '';
+  content: "";
   padding: 0.3px;
   background-color: var(--gris-claro);
   margin: 10px;

@@ -1,8 +1,8 @@
 <script setup>
-import ProductoImagen from '@/components/productos/ProductoImagen.vue';
-import ProductoDetalle from '@/components/productos/ProductoDetalle.vue';
-import Ruta from '@/components/navegacion/Ruta.vue';
-import Resenhas from '@/components/productos/Resenhas.vue';
+import ProductoImagen from "@/components/productos/ProductoImagen.vue";
+import ProductoDetalle from "@/components/productos/ProductoDetalle.vue";
+import Ruta from "@/components/navegacion/Ruta.vue";
+import Resenhas from "@/components/productos/Resenhas.vue";
 </script>
 
 <template>
@@ -29,7 +29,7 @@ import Resenhas from '@/components/productos/Resenhas.vue';
       ]"
     />
     <div class="container-lg">
-      <div class="row mx-3 mx-sm-0 mt-4 gy-4 gy-lg-0 gx-xxl-5">
+      <div class="row mx-md-3 mx-sm-0 mt-4 gy-4 gy-lg-0 gx-xxl-5">
         <div class="col-md col-lg-7">
           <ProductoImagen :nomProducto="$route.params.nomProducto" />
         </div>
@@ -38,7 +38,7 @@ import Resenhas from '@/components/productos/Resenhas.vue';
         </div>
       </div>
 
-      <div class="row mt-4 gx-xxl-5 mx-3 mx-sm-0">
+      <div class="row mt-4 gx-xxl-5 mx-md-3 mx-sm-0">
         <div class="col-md">
           <Resenhas :nomProducto="$route.params.nomProducto" />
         </div>

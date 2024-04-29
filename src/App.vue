@@ -1,6 +1,11 @@
 <script setup>
-import { RouterLink, RouterView } from 'vue-router';
-import { Notivue, Notification, push } from 'notivue';
+import { RouterLink, RouterView } from "vue-router";
+import {
+  Notivue,
+  Notification,
+  NotificationProgress,
+  materialTheme,
+} from "notivue";
 </script>
 
 <template>
@@ -8,12 +13,14 @@ import { Notivue, Notification, push } from 'notivue';
   <RouterView />
   <FooterVue />
   <Notivue class="notificaciones" v-slot="item">
-    <Notification :item="item" />
+    <Notification :item="item" :theme="materialTheme">
+      <NotificationProgress :item="item"
+    /></Notification>
   </Notivue>
 </template>
 
-<style scoped>
+<style>
 .notificaciones {
-  z-index: 10000 !important;
+  z-index: 10000000 !important;
 }
 </style>
