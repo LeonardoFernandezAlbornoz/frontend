@@ -14,7 +14,7 @@ export default {
 
   methods: {
     registrarse() {
-      fetch('http://localhost:8000/usuario/crear', {
+      fetch(this.backend + '/usuario/crear', {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify({

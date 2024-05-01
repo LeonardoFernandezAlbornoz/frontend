@@ -13,7 +13,7 @@ export default {
   },
 
   mounted() {
-    fetch('http://localhost:8000/producto/' + this.nomProducto)
+    fetch(this.backend + '/producto/' + this.nomProducto)
       .then((response) => {
         if (!response.ok) {
           throw new Error(`Error: ${response.status}`);
@@ -26,7 +26,7 @@ export default {
         return data;
       })
       .then((data) => {
-        fetch('http://localhost:8000/resenhas/' + data.id)
+        fetch(this.backend + '/resenhas/' + data.id)
           .then((response) => {
             if (!response.ok) {
               throw new Error(`Error: ${response.status}`);

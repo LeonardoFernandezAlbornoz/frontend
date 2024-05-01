@@ -15,7 +15,7 @@ export default {
 
   methods: {
     buscarProductos(busqueda) {
-      fetch('http://localhost:8000/productos/buscar/' + busqueda)
+      fetch(this.backend + '/productos/buscar/' + busqueda)
         .then((response) => {
           if (!response.ok) {
             throw new Error(`${response.status}`);

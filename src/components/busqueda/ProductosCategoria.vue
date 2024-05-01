@@ -26,7 +26,7 @@ export default {
 
   methods: {
     cargarProductos(categoria) {
-      fetch('http://localhost:8000/productos/categoria/' + categoria)
+      fetch(this.backend + '/productos/categoria/' + categoria)
         .then((response) => {
           if (!response.ok) {
             throw new Error(response.status);

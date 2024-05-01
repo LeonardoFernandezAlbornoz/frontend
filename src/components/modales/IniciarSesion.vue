@@ -10,7 +10,7 @@ export default {
 
   methods: {
     iniciarSesion() {
-      fetch('http://localhost:8000/login', {
+      fetch(this.backend + '/login', {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify({

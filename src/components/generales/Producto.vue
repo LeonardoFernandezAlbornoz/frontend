@@ -21,7 +21,7 @@ export default {
 
   methods: {
     cargarResenhas(idProducto) {
-      fetch('http://localhost:8000/resenhas/' + idProducto)
+      fetch(this.backend + '/resenhas/' + idProducto)
         .then((response) => {
           if (!response.ok) {
             throw new Error(`Error: ${response.status}`);
@@ -46,7 +46,7 @@ export default {
     mediaValoraciones() {
       return (
         this.resenhas.reduce((total, resenha) => {
-          return (total += resenha.valoracion);
+          return (total += Number(resenha.valoracion));
         }, 0) / this.numResenhas
       );
     },

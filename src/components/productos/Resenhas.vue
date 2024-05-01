@@ -1,8 +1,8 @@
 <script>
-import Resenha from "./Resenha.vue";
-import FormularioResenha from "./FormularioResenha.vue";
+import Resenha from './Resenha.vue';
+import FormularioResenha from './FormularioResenha.vue';
 export default {
-  props: ["nomProducto"],
+  props: ['nomProducto'],
   data() {
     return {
       resenhas: [],
@@ -19,7 +19,7 @@ export default {
   },
   methods: {
     cargarResenhas(nomProducto) {
-      fetch("http://localhost:8000/resenhas/" + nomProducto)
+      fetch(this.backend + '/resenhas/' + nomProducto)
         .then((response) => {
           if (!response.ok) {
             throw new Error(`Error: ${response.status}`);
