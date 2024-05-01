@@ -53,7 +53,7 @@ export default {
     mediaValoraciones() {
       return (
         this.resenhas.reduce((total, resenha) => {
-          return (total += resenha.valoracion);
+          return (total += Number(resenha.valoracion));
         }, 0) / this.numResenhas
       );
     },
