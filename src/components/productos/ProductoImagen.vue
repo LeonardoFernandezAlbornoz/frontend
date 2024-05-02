@@ -26,7 +26,7 @@ export default {
 </script>
 <template>
   <div
-    class="img-producto-detalle p-5 d-flex justify-content-center align-items-center"
+    class="img-producto-detalle p-4 d-flex justify-content-center align-items-center"
   >
     <div v-if="producto.descuento !== 0" class="descuento">
       <span>-{{ producto.descuento }}%</span>
@@ -81,7 +81,7 @@ export default {
 
 @media screen and (max-width: 767px) {
   .producto-imagen-detalle {
-    height: 500px;
+    height: 200px;
   }
 }
 </style>

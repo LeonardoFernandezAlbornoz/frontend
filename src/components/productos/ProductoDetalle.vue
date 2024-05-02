@@ -61,7 +61,7 @@ export default {
 };
 </script>
 <template>
-  <div class="producto-detalle p-5">
+  <div class="producto-detalle py-5 px-4 px-sm-5">
     <h4 class="producto-detalle-nombre mb-4">{{ producto.nombre }}</h4>
     <div class="producto-detalle-precio mb-3">
       <p v-if="producto.descuento !== 0" class="mb-2 producto-precio-descuento">

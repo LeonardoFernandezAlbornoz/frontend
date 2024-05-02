@@ -1,13 +1,17 @@
 <script>
 export default {
-  props: ['sidebarActive'],
+  props: ['active'],
+  emits: ['toggleSidebar'],
+  data() {
+    return {};
+  },
 };
 </script>
 
 <template lang="">
   <button
     class="hamburger hamburger--vortex p-0"
-    :class="{ 'is-active': sidebarActive }"
+    :class="{ 'is-active': active }"
     type="button"
     @click="$emit('toggleSidebar')"
   >
@@ -25,8 +29,28 @@ export default {
 .hamburger .hamburger-inner::before,
 .hamburger .hamburger-inner::after {
   background-color: #ffffff;
-  width: 25px;
+  width: 30px;
   height: 3px;
   margin: 0;
+}
+
+.hamburger {
+  position: fixed;
+  bottom: 30px;
+  right: 30px;
+  background-color: var(--color-secundario-naranja);
+  border-radius: 50%;
+  width: 60px;
+  height: 60px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  z-index: 300;
+}
+
+.hamburger-box {
+  display: flex;
+  justify-content: center;
+  align-items: center;
 }
 </style>

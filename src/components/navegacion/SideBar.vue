@@ -1,13 +1,31 @@
 <script>
+import BotonHamburguesa from './BotonHamburguesa.vue';
 export default {
-  emits: ['closeSidebar'],
-  props: ['categorias', 'active'],
+  data() {
+    return {
+      active: false,
+    };
+  },
+  components: {
+    BotonHamburguesa,
+  },
+
+  methods: {
+    toggleSidebar() {
+      this.active = !this.active;
+      if (this.active) {
+        document.documentElement.style.overflow = 'hidden';
+      } else {
+        document.documentElement.style.overflow = 'auto';
+      }
+    },
+  },
 };
 </script>
 <template>
   <div>
     <div class="sidebar" :class="{ 'sidebar-activo': active }">
-      <div @click="$emit('closeSidebar')" class="sidebar-content">
+      <div @click="toggleSidebar" class="sidebar-content">
         <div class="sidebar-section">
           <router-link
             :to="{
@@ -73,11 +91,12 @@ export default {
         </div>
       </div>
     </div>
-    <div :class="{ 'overlay-activo': active }" class="overlay"></div>
+    <div class="overlay" :class="{ 'overlay-activo': active }"></div>
   </div>
+  <BotonHamburguesa @toggleSidebar="toggleSidebar" :active="active" />
 </template>
 
-<style>
+<style scoped>
 .sidebar-activo {
   transform: translateX(1000px);
 }
@@ -88,10 +107,10 @@ export default {
   padding: 18px;
   position: fixed;
   top: 0;
-  position: absolute;
+
   left: -1000px;
   width: 350px;
-  height: 85vh;
+  height: 100vh;
   z-index: 200;
   background-color: white;
   overflow: scroll;
@@ -121,10 +140,8 @@ export default {
   top: 0;
   right: 0;
   visibility: hidden;
-  position: absolute;
-  width: 100vw; /* fallback for older browsers */
-  width: 98;
-
+  position: fixed;
+  width: 100vw;
   border: 3px;
   height: 100vh;
   background-color: rgba(0, 0, 0, 0.7);

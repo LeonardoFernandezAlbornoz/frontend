@@ -17,6 +17,9 @@ import {
       <NotificationProgress :item="item"
     /></Notification>
   </Notivue>
+  <div class="d-block d-lg-none">
+    <SideBar />
+  </div>
 </template>
 
 <style>

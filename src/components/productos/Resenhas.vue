@@ -41,7 +41,7 @@ export default {
 };
 </script>
 <template>
-  <div class="contenedor-resenhas p-5">
+  <div class="contenedor-resenhas py-5 px-4 px-sm-5">
     <div
       class="cabecera-resenhas d-flex justify-content-between align-items-center"
     >
