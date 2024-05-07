@@ -9,9 +9,9 @@ import { fab } from '@fortawesome/free-brands-svg-icons';
 import '@fontsource/lato';
 import '../node_modules/hamburgers/dist/hamburgers.css';
 import { createApp } from 'vue';
-import { createPinia } from 'pinia';
 import App from './App.vue';
 import router from './router';
+import VueCookies from 'vue-cookies';
 import Navbar from './components/navegacion/Navbar.vue';
 import SideBar from './components/navegacion/SideBar.vue';
 import FooterVue from './components/navegacion/FooterVue.vue';
@@ -26,13 +26,12 @@ library.add(fas, far, fab);
 
 const app = createApp(App);
 app.config.globalProperties.backend = 'http://localhost:8000';
-
+app.use(VueCookies);
 app.component('Navbar', Navbar);
 app.use(notivue);
 app.component('SideBar', SideBar);
 app.component('FooterVue', FooterVue);
 app.component('font-awesome-icon', FontAwesomeIcon);
-app.use(createPinia());
 app.use(router);
 
 app.mount('#app');

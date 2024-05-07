@@ -1,12 +1,10 @@
 <script>
 import Logo from './Logo.vue';
 import LogoCarrito from './LogoCarrito.vue';
-import BotonesUsuario from './BotonesUsuario.vue';
+import Sesion from './Sesion.vue';
 import BarraBusqueda from './BarraBusqueda.vue';
 import BarraCategorias from './BarraCategorias.vue';
 import BotonHamburguesa from './BotonHamburguesa.vue';
-import IniciarSesion from '../modales/IniciarSesion.vue';
-import Registrarse from '../modales/Registrarse.vue';
 
 export default {
   data() {
@@ -17,12 +15,10 @@ export default {
   components: {
     Logo,
     LogoCarrito,
-    BotonesUsuario,
+    Sesion,
     BarraBusqueda,
     BarraCategorias,
     BotonHamburguesa,
-    IniciarSesion,
-    Registrarse,
   },
   methods: {},
 
@@ -60,16 +56,13 @@ export default {
           <div
             class="order-1 order-md-2 col-3 col-sm-6 col-md d-flex column-gap-3 align-items-center justify-content-end"
           >
-            <BotonesUsuario />
+            <Sesion />
             <LogoCarrito />
           </div>
         </div>
         <BarraCategorias />
       </div>
     </nav>
-
-    <IniciarSesion />
-    <Registrarse />
   </header>
 </template>
 

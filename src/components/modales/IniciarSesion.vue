@@ -1,6 +1,7 @@
 <script>
 import { push } from 'notivue';
 export default {
+  emits: ['login'],
   data() {
     return {
       correo: '',
@@ -33,10 +34,20 @@ export default {
             message: response.status,
           });
           this.reiniciar();
+          this.$cookies.set(
+            'token',
+            response.token,
+            null,
+            '/',
+            'localhost',
+            true,
+            'Strict'
+          );
+
           document.getElementById('btn-cerrar-login').click();
+          this.$emit('login');
         })
         .catch((error) => {
-          console.log(error);
           push.error({ title: 'Error', message: `${error}`.slice(6) });
         });
     },
@@ -88,7 +99,7 @@ export default {
                 id="login-contrasenha"
               />
             </div>
-            <div class="text-center">
+            <div class="text-center recuperar-contrasenha">
               <a href="#"><b>¿Has olvidado tu contraseña?</b></a>
             </div>
 
@@ -129,7 +140,10 @@ export default {
   align-items: center;
   color: var(--gris);
 }
-
+.recuperar-contrasenha a {
+  color: var(--gris-oscuro);
+  text-decoration: none;
+}
 .separador::before,
 .separador::after {
   flex: 1;

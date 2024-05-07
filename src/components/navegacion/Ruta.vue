@@ -4,7 +4,7 @@ export default {
 };
 </script>
 <template>
-  <div class="container-xl">
+  <div class="container-xl px-4 px-xl-0">
     <nav aria-label="breadcrumb">
       <ol class="breadcrumb">
         <li class="breadcrumb-item">

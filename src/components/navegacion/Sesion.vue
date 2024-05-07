@@ -1,0 +1,66 @@
+<script>
+import { jwtDecode } from 'https://unpkg.com/jwt-decode@4.0.0?module';
+import { push } from 'notivue';
+import IniciarSesion from '../modales/IniciarSesion.vue';
+import Registrarse from '../modales/Registrarse.vue';
+import BotonesInvitado from './BotonesInvitado.vue';
+import BotonesUsuario from './BotonesUsuario.vue';
+
+export default {
+  components: {
+    IniciarSesion,
+    Registrarse,
+    BotonesInvitado,
+    BotonesUsuario,
+  },
+  data() {
+    return {
+      token: this.$cookies.get('token'),
+    };
+  },
+  computed: {
+    sesionIniciada() {
+      return this.token != null;
+    },
+    usuario() {
+      return this.token ? jwtDecode(this.token) : '';
+    },
+  },
+  methods: {
+    logout() {
+      $cookies.remove('token');
+      this.token = this.$cookies.get('token');
+      push.info({ message: 'Has cerrado la sesión', title: 'Información' });
+    },
+    login() {
+      this.token = this.$cookies.get('token');
+    },
+  },
+};
+</script>
+
+<template>
+  <component
+    :nombre="usuario.nombre ?? null"
+    @logout="logout"
+    :is="sesionIniciada ? 'BotonesUsuario' : 'BotonesInvitado'"
+  ></component>
+  <button type="button" class="btns-usuario-collapse d-block d-lg-none">
+    <font-awesome-icon :icon="['fas', 'user']" style="color: #ffffff" />
+  </button>
+  <IniciarSesion @login="login" />
+  <Registrarse />
+</template>
+<style scoped>
+.btns-usuario-collapse {
+  font-size: 25px;
+  background: none;
+  border: none;
+}
+
+@media screen and (max-width: 576px) {
+  .btns-usuario-collapse {
+    font-size: 20px;
+  }
+}
+</style>
