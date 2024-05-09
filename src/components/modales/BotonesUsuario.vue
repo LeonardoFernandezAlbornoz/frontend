@@ -5,7 +5,7 @@ export default {
 };
 </script>
 <template>
-  <div class="d-flex align-items-center">
+  <div class="d-none d-lg-flex align-items-center">
     <div class="usuario">
       <p>
         ¡Hola

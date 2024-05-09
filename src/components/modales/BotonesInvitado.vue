@@ -15,7 +15,7 @@ export default {};
       Acceder
     </button>
     <button
-      class="d-lg-block d-none btn-registrarse"
+      class="btn-registrarse"
       data-bs-toggle="modal"
       data-bs-target="#registrarseModal"
     >
@@ -23,6 +23,7 @@ export default {};
       Registrarse
     </button>
   </div>
+  
 </template>
 
 <style scoped>

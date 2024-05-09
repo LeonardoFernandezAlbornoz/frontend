@@ -1,7 +1,7 @@
 <script>
 import Logo from './Logo.vue';
 import LogoCarrito from './LogoCarrito.vue';
-import Sesion from './Sesion.vue';
+import Sesion from '../modales/Sesion.vue';
 import BarraBusqueda from './BarraBusqueda.vue';
 import BarraCategorias from './BarraCategorias.vue';
 import BotonHamburguesa from './BotonHamburguesa.vue';

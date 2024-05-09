@@ -16,15 +16,18 @@
     "@fortawesome/free-solid-svg-icons": "^6.5.2",
     "@fortawesome/vue-fontawesome": "^3.0.6",
     "@kyvg/vue3-notification": "^3.2.1",
-    "@popperjs/core": "^2.11.8",
     "bootstrap": "^5.3.3",
+    "dropper.mood": "^1.0.5",
+    "floating-vue": "^5.2.2",
     "hamburgers": "^1.2.1",
     "jwt-decode": "^4.0.0",
     "notivue": "^2.4.4",
-    "pinia": "^2.1.7",
+    "primeicons": "^7.0.0",
+    "primevue": "^3.52.0",
     "vue": "^3.4.25",
     "vue-cookies": "^1.8.4",
-    "vue-router": "^4.3.0"
+    "vue-router": "^4.3.0",
+    "vue3-popper": "^1.5.0"
   },
   "devDependencies": {
     "@types/bootstrap": "^5.2.10",

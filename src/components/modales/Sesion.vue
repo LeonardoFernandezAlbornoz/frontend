@@ -5,6 +5,7 @@ import IniciarSesion from '../modales/IniciarSesion.vue';
 import Registrarse from '../modales/Registrarse.vue';
 import BotonesInvitado from './BotonesInvitado.vue';
 import BotonesUsuario from './BotonesUsuario.vue';
+import MenuUsuario from './MenuUsuario.vue';
 
 export default {
   components: {
@@ -12,6 +13,7 @@ export default {
     Registrarse,
     BotonesInvitado,
     BotonesUsuario,
+    MenuUsuario,
   },
   data() {
     return {
@@ -45,22 +47,9 @@ export default {
     @logout="logout"
     :is="sesionIniciada ? 'BotonesUsuario' : 'BotonesInvitado'"
   ></component>
-  <button type="button" class="btns-usuario-collapse d-block d-lg-none">
-    <font-awesome-icon :icon="['fas', 'user']" style="color: #ffffff" />
-  </button>
+
+  <MenuUsuario :nombre="usuario.nombre ?? null" class="d-lg-none" />
   <IniciarSesion @login="login" />
   <Registrarse />
 </template>
-<style scoped>
-.btns-usuario-collapse {
-  font-size: 25px;
-  background: none;
-  border: none;
-}
-
-@media screen and (max-width: 576px) {
-  .btns-usuario-collapse {
-    font-size: 20px;
-  }
-}
-</style>
+<style scoped></style>
