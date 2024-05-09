@@ -1,13 +1,34 @@
 <template>
-  <button
-    type="button"
-    @click="toggle"
-    class="btns-usuario-collapse d-block d-lg-none"
-  >
-    <font-awesome-icon :icon="['fas', 'user']" style="color: #ffffff" />
-  </button>
+  <div>
+    <button type="button" @click="toggle" class="btns-usuario-collapse">
+      <font-awesome-icon :icon="['fas', 'user']" style="color: #ffffff" />
+    </button>
+    <Menu :model="items" :popup="true" ref="menu" id="overlay_menu">
+      <template #item="{ item, props }">
+        <router-link
+          v-if="item.route"
+          v-slot="{ href, navigate }"
+          :to="item.route"
+          custom
+        >
+          <a :href="href" v-bind="props.action" @click="navigate">
+            <span :class="item.icon"></span>
+            <span class="ms-2">{{ item.label }}</span>
+          </a>
+        </router-link>
 
-  <Menu ref="menu" id="overlay_menu" :model="items" :popup="true"></Menu>
+        <a
+          v-else
+          :data-bs-toggle="item.dataBsToggle"
+          :data-bs-target="item.dataBsTarget"
+          v-bind="props.action"
+        >
+          <span :class="item.icon" />
+          <span class="ms-2">{{ item.label }}</span>
+        </a>
+      </template>
+    </Menu>
+  </div>
 </template>
 
 <script>
@@ -34,13 +55,13 @@ export default {
             icon: 'pi pi-sign-in',
             label: 'Iniciar sesión',
             dataBsToggle: 'modal',
-            dataBsTarget: '#iniciarSesionModal', // Abre el modal de inicio de sesión
+            dataBsTarget: '#iniciarSesionModal',
           },
           {
             icon: 'pi pi-user',
             label: 'Registrarse',
             dataBsToggle: 'modal',
-            dataBsTarget: '#registrarseModal', // Abre el modal de registro
+            dataBsTarget: '#registrarseModal',
           },
         ];
       } else {
@@ -48,11 +69,14 @@ export default {
           {
             icon: 'pi pi-user',
             label: 'Perfil',
-            to: '/perfil', // Reemplaza '/perfil' con la ruta real a tu perfil
+            route: '/perfil',
           },
           {
             icon: 'pi pi-sign-out',
             label: 'Cerrar sesión',
+            command: () => {
+              this.$emit('logout');
+            },
           },
         ];
       }
@@ -80,5 +104,8 @@ export default {
 
 #overlay_menu_list * {
   text-decoration: none;
+}
+#overlay_menu a {
+  color: inherit;
 }
 </style>

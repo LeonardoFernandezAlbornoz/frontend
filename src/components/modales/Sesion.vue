@@ -48,7 +48,11 @@ export default {
     :is="sesionIniciada ? 'BotonesUsuario' : 'BotonesInvitado'"
   ></component>
 
-  <MenuUsuario :nombre="usuario.nombre ?? null" class="d-lg-none" />
+  <MenuUsuario
+    class="d-lg-none"
+    @logout="logout"
+    :nombre="usuario.nombre ?? null"
+  />
   <IniciarSesion @login="login" />
   <Registrarse />
 </template>
