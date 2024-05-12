@@ -74,7 +74,7 @@ export default {
         }"
       ></div>
 
-      <div class="producto-cuerpo">
+      <div class="producto-cuerpo px-2">
         <p class="producto-nombre">{{ productoProp.nombre }}</p>
 
         <div class="producto-precio mb-3">
@@ -158,11 +158,7 @@ a {
 }
 
 .descuento {
-  background: linear-gradient(
-    135deg,
-    rgba(242, 101, 56, 1) 31%,
-    rgba(245, 143, 29, 1) 79%
-  );
+  background: var(--degradado-naranja);
   height: 100px;
   left: -50px;
   position: absolute;

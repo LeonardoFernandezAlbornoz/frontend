@@ -67,7 +67,7 @@ export default {};
 a {
   color: white;
   text-decoration: none;
-  transition: color 0.3s ease;
+  transition: color 0.2s ease;
 }
 
 a:hover {

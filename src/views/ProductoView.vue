@@ -1,8 +1,8 @@
 <script setup>
-import ProductoImagen from "@/components/productos/ProductoImagen.vue";
-import ProductoDetalle from "@/components/productos/ProductoDetalle.vue";
-import Ruta from "@/components/navegacion/Ruta.vue";
-import Resenhas from "@/components/productos/Resenhas.vue";
+import ProductoImagen from '@/components/productos/ProductoImagen.vue';
+import ProductoDetalle from '@/components/productos/ProductoDetalle.vue';
+import Ruta from '@/components/navegacion/Ruta.vue';
+import Resenhas from '@/components/productos/Resenhas.vue';
 </script>
 
 <template>

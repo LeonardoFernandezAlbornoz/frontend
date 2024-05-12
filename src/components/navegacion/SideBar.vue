@@ -114,7 +114,7 @@ export default {
   z-index: 200;
   background-color: white;
   overflow: scroll;
-  transition: all 0.3s ease;
+  transition: all 0.2s ease;
 }
 .sidebar-content a {
   color: var(--color-fondo-seccion);

@@ -60,7 +60,11 @@ export default {
       <hr />
       <Resenha v-for="resenha in resenhas" :resenhaProp="resenha"></Resenha>
     </div>
-    <FormularioResenha />
+    <FormularioResenha
+      @cargarResenhas="cargarResenhas"
+      v-if="this.$cookies.get('token')"
+      :nomProducto="nomProducto"
+    />
   </div>
 </template>
 
@@ -77,7 +81,7 @@ export default {
 .resenhas {
   max-height: 0px;
   overflow: hidden;
-  transition: max-height 0.3s ease-in-out;
+  transition: max-height 0.2s ease-in-out;
 }
 
 .expandir {
@@ -86,7 +90,7 @@ export default {
 .cabecera-resenhas button {
   background: none;
   border: 0;
-  transition: transform ease 0.3s;
+  transition: transform ease 0.2s;
 }
 .fa-angle-down {
   font-size: 30px;

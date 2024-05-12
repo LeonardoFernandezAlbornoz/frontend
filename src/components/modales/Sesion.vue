@@ -6,6 +6,7 @@ import Registrarse from '../modales/Registrarse.vue';
 import BotonesInvitado from './BotonesInvitado.vue';
 import BotonesUsuario from './BotonesUsuario.vue';
 import MenuUsuario from './MenuUsuario.vue';
+import router from '../../router';
 
 export default {
   components: {
@@ -32,9 +33,17 @@ export default {
     logout() {
       $cookies.remove('token');
       this.token = this.$cookies.get('token');
-      push.info({ message: 'Has cerrado la sesión', title: 'Información' });
+      router.push('/');
+      setTimeout(() => {
+        router.go(-1);
+      }, 400);
+      push.info({ message: 'Has cerrado sesión' });
     },
     login() {
+      router.push('/');
+      setTimeout(() => {
+        router.go(-1);
+      }, 400);
       this.token = this.$cookies.get('token');
     },
   },

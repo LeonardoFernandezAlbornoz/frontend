@@ -134,14 +134,16 @@ export default {
 .btn-anhadir-carrito {
   width: 100%;
   border: none;
-  background: linear-gradient(
-    135deg,
-    rgba(242, 101, 56, 1) 31%,
-    rgba(245, 143, 29, 1) 79%
-  );
+  background: var(--degradado-naranja);
   color: white;
+  font-weight: bold;
   padding: 0.7em;
   font-size: 18px;
+  transition: filter 0.2s ease;
+}
+
+.btn-anhadir-carrito:hover {
+  filter: brightness(110%);
 }
 
 .aviso-no-disponible {

@@ -1,16 +1,16 @@
 <script>
 export default {
-  props: ['nomCategoria'],
+  props: ['titulo'],
 };
 </script>
 <template>
-  <h2 class="titulo-categoria">
-    {{ nomCategoria }}
+  <h2 class="titulo-pagina">
+    {{ titulo }}
   </h2>
 </template>
 
 <style scoped>
-.titulo-categoria {
+.titulo-pagina {
   padding: 0.3em 0.8em 0.3em 0.8em;
   margin-bottom: 1.5em;
   margin-top: 1em;

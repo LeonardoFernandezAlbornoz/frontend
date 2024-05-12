@@ -34,6 +34,24 @@ const router = createRouter({
       // which is lazy-loaded when the route is visited.
       component: () => import('../views/ProductoView.vue'),
     },
+
+    {
+      path: '/perfil',
+      name: 'perfil',
+      // route level code-splitting
+      // this generates a separate chunk (About.[hash].js) for this route
+      // which is lazy-loaded when the route is visited.
+      component: () => import('../views/PerfilView.vue'),
+    },
+
+    {
+      path: '/pedido/:idPedido',
+      name: 'pedido',
+      // route level code-splitting
+      // this generates a separate chunk (About.[hash].js) for this route
+      // which is lazy-loaded when the route is visited.
+      component: () => import('../views/PedidoView.vue'),
+    },
   ],
 });
 

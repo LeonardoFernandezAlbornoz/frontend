@@ -9,9 +9,11 @@ export default {
     <div class="usuario">
       <p>
         ¡Hola
-        {{ this.nombre }}
+        {{ this.nombre }}!
       </p>
-      <p><b>Cuenta y pedidos</b></p>
+      <router-link :to="{ name: 'perfil' }"
+        ><b>Cuenta y pedidos</b></router-link
+      >
     </div>
     <button
       @click="$emit('logout')"
@@ -35,7 +37,7 @@ export default {
   border-radius: 5px;
   font-size: 16px;
   background-color: black;
-  transition: opacity 0.3s ease;
+  transition: opacity 0.2s ease;
 }
 
 .usuario {
@@ -45,5 +47,10 @@ export default {
 
 .usuario p {
   margin: 0;
+}
+
+.usuario a {
+  color: white;
+  text-decoration: none;
 }
 </style>

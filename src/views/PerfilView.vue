@@ -1,8 +1,73 @@
 <script>
-export default {};
+import TituloPagina from '@/components/generales/TituloPagina.vue';
+import Ruta from '@/components/navegacion/Ruta.vue';
+import { jwtDecode } from 'https://unpkg.com/jwt-decode@4.0.0?module';
+import Botones from '@/components/perfil/Botones.vue';
+import DatosUsuario from '@/components/perfil/DatosUsuario.vue';
+import PedidosUsuario from '@/components/perfil/PedidosUsuario.vue';
+
+export default {
+  components: {
+    TituloPagina,
+    Ruta,
+    Botones,
+    DatosUsuario,
+    PedidosUsuario,
+  },
+  data() {
+    return {
+      token: null,
+      componente: 'DatosUsuario',
+    };
+  },
+  methods: {
+    cambiarComponente(componente) {
+      this.componente = componente;
+    },
+  },
+  mounted() {
+    this.token = this.$cookies.get('token');
+  },
+  computed: {
+    sesionIniciada() {
+      return this.token != null;
+    },
+    usuario() {
+      return this.token ? jwtDecode(this.token) : '';
+    },
+  },
+};
 </script>
 <template>
-  <div></div>
+  <main>
+    <Ruta
+      :rutas="[
+        {
+          to: {
+            name: 'perfil',
+          },
+          texto: 'Perfil',
+        },
+      ]"
+    />
+
+    <div v-if="sesionIniciada" class="container-lg">
+      <TituloPagina :titulo="usuario.nomUsuario" />
+      <div class="row g-3">
+        <div class="col-lg-4">
+          <Botones @cambiarComponente="cambiarComponente" />
+        </div>
+        <div class="col-lg">
+          <component :usuario="usuario" :is="componente"></component>
+        </div>
+      </div>
+    </div>
+    <div v-else class="container-lg mt-5">
+      <div class="alert alert-danger text-center" role="alert">
+        Acceso denegado
+      </div>
+    </div>
+  </main>
 </template>
 
 <style></style>

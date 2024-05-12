@@ -1,6 +1,6 @@
 <script setup>
 import ProductosCategoria from '../components/busqueda/ProductosCategoria.vue';
-import NombreCategoria from '../components/busqueda/NombreCategoria.vue';
+import TituloPagina from '../components/generales/TituloPagina.vue';
 import Ruta from '@/components/navegacion/Ruta.vue';
 </script>
 
@@ -18,13 +18,13 @@ import Ruta from '@/components/navegacion/Ruta.vue';
       ]"
     />
     <div class="container-lg bg-transparent">
-      <NombreCategoria
-        :nomCategoria="
+      <TituloPagina
+        :titulo="
           $route.params.nomCategoria.charAt(0).toUpperCase() +
           $route.params.nomCategoria.slice(1)
         "
       >
-      </NombreCategoria>
+      </TituloPagina>
       <ProductosCategoria
         :nomCategoria="$route.params.nomCategoria"
       ></ProductosCategoria>

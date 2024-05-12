@@ -90,7 +90,7 @@ footer a:hover {
   column-gap: 1em;
 }
 .redes a:hover {
-  transition: transform ease 0.3s;
+  transition: transform ease 0.2s;
 }
 
 .redes a:hover {

@@ -23,7 +23,6 @@ export default {};
       Registrarse
     </button>
   </div>
-  
 </template>
 
 <style scoped>
@@ -37,22 +36,18 @@ export default {};
   border-radius: 5px;
   font-size: 16px;
   background-color: black;
-  transition: all 0.3s ease;
+  transition: all 0.2s ease;
 }
 
 .btn-acceder {
-  background: linear-gradient(
-    135deg,
-    rgba(242, 101, 56, 1) 31%,
-    rgba(245, 143, 29, 1) 79%
-  );
+  background: var(--degradado-naranja);
 }
 
 .btn-acceder:hover {
-  filter: brightness(105%);
+  filter: brightness(110%);
 }
 
 .btn-registrarse:hover {
-  background-color: gray;
+  background-color: rgb(51, 48, 48);
 }
 </style>

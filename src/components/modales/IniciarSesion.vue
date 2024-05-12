@@ -1,5 +1,6 @@
 <script>
 import { push } from 'notivue';
+
 export default {
   emits: ['login'],
   data() {
@@ -30,7 +31,6 @@ export default {
         })
         .then((response) => {
           push.success({
-            title: 'Success',
             message: response.status,
           });
           this.reiniciar();
@@ -48,7 +48,7 @@ export default {
           this.$emit('login');
         })
         .catch((error) => {
-          push.error({ title: 'Error', message: `${error}`.slice(6) });
+          push.error({ message: `${error}`.slice(6) });
         });
     },
     reiniciar() {
@@ -73,7 +73,7 @@ export default {
           </div>
           <h1 class="modal-title fs-5 text-center">Iniciar Sesión</h1>
         </div>
-        <div class="modal-body px-5">
+        <div class="modal-body px-4 px-sm-5">
           <form @submit.prevent="iniciarSesion">
             <div class="mb-3">
               <label for="login-correo" class="form-label"
@@ -127,7 +127,7 @@ export default {
   color: white;
   font-weight: bold;
   font-size: 18px;
-  transition: opacity 0.3s ease;
+  transition: opacity 0.2s ease;
 }
 
 .btn-acceder:hover {

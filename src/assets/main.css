@@ -2,10 +2,14 @@
     --gris-oscuro: #272727;
     --color-fondo: #DBDADA;
     --color-secundario-naranja: #F4772E;
+    --naranja-oscuro: #cc4c03;
     --gris: #797676;
     --gris-claro: #DBDADA;
     --sombra-cajas: rgba(60, 64, 67, 0.3) 0px 1px 2px 0px,
         rgba(60, 64, 67, 0.15) 0px 2px 6px 2px;
+    --degradado-naranja: linear-gradient(135deg,
+            rgba(242, 101, 56, 1) 31%,
+            rgba(245, 143, 29, 1) 79%);
 }
 
 * {

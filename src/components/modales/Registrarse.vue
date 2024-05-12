@@ -43,7 +43,7 @@ export default {
         })
         .catch((error) => {
           console.log(error);
-          push.error({ title: 'Error', message: `${error}`.slice(6) });
+          push.error({ message: `${error}`.slice(6) });
         });
     },
 
@@ -73,7 +73,7 @@ export default {
           </div>
           <h1 class="modal-title fs-5 text-center">Regístrate</h1>
         </div>
-        <div class="modal-body px-5">
+        <div class="modal-body px-4 px-sm-5">
           <div v-if="error" class="alert alert-danger text-center" role="alert">
             {{ error }}
           </div>
@@ -157,21 +157,17 @@ export default {
 </template>
 <style scoped>
 .btn-registro {
-  background: linear-gradient(
-    135deg,
-    rgba(242, 101, 56, 1) 31%,
-    rgba(245, 143, 29, 1) 79%
-  );
+  background: var(--degradado-naranja);
   border: 0;
   height: 2.7em;
   color: white;
   font-weight: bold;
   font-size: 18px;
-  transition: opacity 0.3s ease;
+  transition: filter 0.2s ease;
 }
 
 .btn-registro:hover {
-  opacity: 85%;
+  filter: brightness(110%);
 }
 
 .separador {
