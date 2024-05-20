@@ -1,28 +1,73 @@
 <script>
-export default {};
+export default {
+  props: ['productoPedido'],
+};
 </script>
 <template>
-  <div class="row">
-    <div class="col-2">
-      <img width="90px" src="/public/img/productos/airpods_pro.jpg" alt="" />
+  <router-link
+    :to="{
+      name: 'producto',
+      params: {
+        nomProducto: productoPedido.producto.nombre,
+        nomCategoria: productoPedido.producto.categoria.descripcion,
+      },
+    }"
+    class="d-block producto-pedido mb-3 py-2 px-4"
+  >
+    <div class="row">
+      <div class="col-2 p-2">
+        <img
+          height="70px"
+          :src="'/img/productos/' + productoPedido.producto.imagen"
+          alt="img-pedido"
+        />
+      </div>
+      <div class="col-10 col-md-6 d-flex align-items-center order-4 order-md-2">
+        <p class="m-0 mt-1 m-md-0">{{ productoPedido.producto.nombre }}</p>
+      </div>
+      <div
+        class="col-8 col-md-2 d-flex align-items-center flex-column justify-content-center order-md-3"
+      >
+        <p v-if="productoPedido.descuento" class="m-0 precio-original">
+          {{ productoPedido.precio }}€
+        </p>
+        <p
+          :class="{ descuentoProductoPedido: productoPedido.descuento }"
+          class="m-0 precio"
+        >
+          <b
+            >{{
+              (
+                productoPedido.precio -
+                (productoPedido.precio / 100) * productoPedido.descuento
+              ).toFixed(2)
+            }}€</b
+          >
+        </p>
+      </div>
+      <div
+        class="col-2 col-md-2 cantidad d-flex align-items-center justify-content-end justify-content-md-center order-md-4"
+      >
+        X{{ productoPedido.cantidad }}
+      </div>
     </div>
-    <div class="col-5 d-flex align-items-center">
-      <p class="m-0">Auriculares inalámbricos Apple AirPods Pro</p>
-    </div>
-    <div
-      class="col-4 d-flex align-items-center flex-column justify-content-center"
-    >
-      <p class="m-0 precio-original">144.33€</p>
-      <p class="m-0 precio-descuento"><b>144.33€</b></p>
-    </div>
-    <div class="col-1 cantidad d-flex align-items-center">X2</div>
-  </div>
+  </router-link>
 </template>
 
 <style scoped>
-.precio-descuento {
-  color: var(--color-secundario-naranja);
+.producto-pedido {
+  width: 100%;
+  background-color: white;
+  box-shadow: var(--sombra-cajas);
+  text-decoration: none;
+  color: unset;
+}
+.precio {
   font-size: 18px;
+}
+
+.descuentoProductoPedido {
+  color: var(--color-secundario-naranja);
 }
 .precio-original {
   text-decoration: line-through;

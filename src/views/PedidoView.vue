@@ -1,4 +1,5 @@
 <script setup>
+import ProductosPedido from '@/components/busqueda/ProductosPedido.vue';
 import Ruta from '@/components/navegacion/Ruta.vue';
 </script>
 
@@ -16,5 +17,13 @@ import Ruta from '@/components/navegacion/Ruta.vue';
         },
       ]"
     />
+
+    <div class="container-lg px-4 px-lg-0">
+      <h3 class="my-4">
+        <b>Detalles del pedido #{{ $route.params.idPedido }}</b>
+      </h3>
+
+      <ProductosPedido :idPedido="$route.params.idPedido"></ProductosPedido>
+    </div>
   </main>
 </template>

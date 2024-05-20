@@ -94,7 +94,7 @@ footer a:hover {
 }
 
 .redes a:hover {
-  transform: rotate(20deg);
+  transform: scale(1.1);
 }
 
 .footer-col h5 {

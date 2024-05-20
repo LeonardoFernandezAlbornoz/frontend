@@ -1,11 +1,14 @@
 <script>
 import Estrellas from '../generales/Estrellas.vue';
+import { jwtDecode } from 'https://unpkg.com/jwt-decode@4.0.0?module';
 export default {
   props: ['nomProducto'],
   data() {
     return {
       producto: {},
       resenhas: [],
+      cantidad: 1,
+      token: this.$cookies.get('token'),
     };
   },
   components: {
@@ -46,6 +49,10 @@ export default {
       });
   },
   computed: {
+    usuario() {
+      return this.token ? jwtDecode(this.token) : '';
+    },
+
     numResenhas() {
       return this.resenhas.length;
     },
@@ -56,6 +63,60 @@ export default {
           return (total += Number(resenha.valoracion));
         }, 0) / this.numResenhas
       );
+    },
+  },
+  methods: {
+    anhadirCarrito() {
+      if (this.$cookies.get('token')) {
+        fetch(
+          `${this.backend}/productocarrito/crear/${this.usuario.id}/${this.producto.id}`,
+          {
+            method: 'PATCH',
+            headers: { 'Content-Type': 'application/json' },
+            body: JSON.stringify({
+              cantidad: this.cantidad,
+            }),
+          }
+        )
+          .then((response) => {
+            if (!response.ok) {
+              throw new Error(response.status);
+            }
+
+            return response.json();
+          })
+          .then((data) => {
+            console.log(data);
+          })
+          .catch((error) => {
+            console.log(error);
+          });
+      } else {
+        if (!localStorage.getItem('carrito')) {
+          localStorage.setItem('carrito', JSON.stringify([]));
+        }
+
+        let carrito = JSON.parse(localStorage.getItem('carrito'));
+
+        if (
+          carrito.findIndex(
+            (pedido) => pedido.producto.id == this.producto.id
+          ) !== -1
+        ) {
+          carrito[
+            carrito.findIndex(
+              (pedido) => pedido.producto.id == this.producto.id
+            )
+          ].cantidad += this.cantidad;
+        } else {
+          carrito.push({
+            producto: this.producto,
+            cantidad: this.cantidad,
+          });
+        }
+
+        localStorage.setItem('carrito', JSON.stringify(carrito));
+      }
     },
   },
 };
@@ -92,16 +153,20 @@ export default {
       </div>
       <div class="col-auto">
         <input
+          v-model.number="cantidad"
           class="form-control"
           id="cantidad"
           type="number"
-          value="1"
           min="1"
           :max="producto.stock"
         />
       </div>
     </div>
-    <button v-if="producto.stock > 0" class="btn-anhadir-carrito mt-4">
+    <button
+      @click="anhadirCarrito"
+      v-if="producto.stock > 0"
+      class="btn-anhadir-carrito mt-4"
+    >
       Añadir al carrito
     </button>
     <p v-if="producto.stock == 0" class="aviso-no-disponible text-danger">

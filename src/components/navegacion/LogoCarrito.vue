@@ -1,12 +1,12 @@
 <template>
   <div>
-    <a href="/" class="btn-carrito">
+    <router-link :to="{ name: 'carrito' }" class="btn-carrito">
       <font-awesome-icon
         :icon="['fas', 'cart-shopping']"
         style="color: #ffffff"
       />
       <div class="num-productos">{{ numProductos }}</div>
-    </a>
+    </router-link>
   </div>
 </template>
 <script>

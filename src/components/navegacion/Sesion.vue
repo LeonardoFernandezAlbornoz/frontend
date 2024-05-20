@@ -3,9 +3,9 @@ import { jwtDecode } from 'https://unpkg.com/jwt-decode@4.0.0?module';
 import { push } from 'notivue';
 import IniciarSesion from '../modales/IniciarSesion.vue';
 import Registrarse from '../modales/Registrarse.vue';
-import BotonesInvitado from './BotonesInvitado.vue';
-import BotonesUsuario from './BotonesUsuario.vue';
-import MenuUsuario from './MenuUsuario.vue';
+import BotonesInvitado from '../modales/BotonesInvitado.vue';
+import BotonesUsuario from '../modales/BotonesUsuario.vue';
+import MenuUsuario from '../modales//MenuUsuario.vue';
 import router from '../../router';
 
 export default {
@@ -31,8 +31,8 @@ export default {
   },
   methods: {
     logout() {
-      $cookies.remove('token');
-      this.token = this.$cookies.get('token');
+      this.$cookies.remove('token');
+
       router.push('/');
       setTimeout(() => {
         router.go(-1);
@@ -40,11 +40,11 @@ export default {
       push.info({ message: 'Has cerrado sesión' });
     },
     login() {
+      this.token = this.$cookies.get('token');
       router.push('/');
       setTimeout(() => {
         router.go(-1);
-      }, 400);
-      this.token = this.$cookies.get('token');
+      }, 500);
     },
   },
 };

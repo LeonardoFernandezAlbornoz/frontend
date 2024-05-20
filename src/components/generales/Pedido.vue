@@ -31,7 +31,10 @@ export default {
   computed: {
     total() {
       return this.productosPedido.reduce((accum, valor) => {
-        accum += Number(valor.precio);
+        accum += Number(
+          (valor.precio - (valor.precio / 100) * valor.descuento) *
+            valor.cantidad
+        );
         return accum;
       }, 0);
     },
@@ -47,7 +50,7 @@ export default {
         <p><b>Estado: </b>{{ pedido.estado }}</p>
         <p class="m-0">{{ productosPedido.length }} artículos</p>
         <p class="m-0">
-          <b>{{ total }}€</b>
+          <b>{{ total.toFixed(2) }}€</b>
         </p>
       </div>
       <div class="col d-flex justify-content-end align-items-start">

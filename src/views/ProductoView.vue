@@ -28,7 +28,7 @@ import Resenhas from '@/components/productos/Resenhas.vue';
         },
       ]"
     />
-    <div class="container-lg">
+    <div class="container-lg px-4 px-lg-0">
       <div class="row mx-md-3 mx-sm-0 mt-4 gy-4 gy-lg-0 gx-xxl-5">
         <div class="col-md col-lg-7">
           <ProductoImagen :nomProducto="$route.params.nomProducto" />

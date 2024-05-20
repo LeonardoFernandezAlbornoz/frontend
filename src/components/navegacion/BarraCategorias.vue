@@ -2,8 +2,10 @@
 export default {};
 </script>
 <template>
-  <div class="d-lg-flex d-none mt-3 justify-content-evenly">
+  <div class="barra-categorias d-lg-flex d-none mt-3 justify-content-evenly">
     <router-link
+      class="pb-2"
+      :class="{ activo: $route.params.nomCategoria == 'ordenadores' }"
       :to="{
         name: 'categoria',
         params: { nomCategoria: 'ordenadores' },
@@ -11,6 +13,8 @@ export default {};
       >Ordenadores
     </router-link>
     <router-link
+      :class="{ activo: $route.params.nomCategoria == 'Smartphones' }"
+      class="pb-2"
       :to="{
         name: 'categoria',
         params: { nomCategoria: 'Smartphones' },
@@ -18,6 +22,8 @@ export default {};
       >Smartphones
     </router-link>
     <router-link
+      :class="{ activo: $route.params.nomCategoria == 'componentes' }"
+      class="pb-2"
       :to="{
         name: 'categoria',
         params: { nomCategoria: 'componentes' },
@@ -25,6 +31,8 @@ export default {};
       >Componentes
     </router-link>
     <router-link
+      :class="{ activo: $route.params.nomCategoria == 'televisores' }"
+      class="pb-2"
       :to="{
         name: 'categoria',
         params: { nomCategoria: 'televisores' },
@@ -33,13 +41,17 @@ export default {};
     </router-link>
 
     <router-link
+      :class="{ activo: $route.params.nomCategoria == 'monitores' }"
+      class="pb-2"
       :to="{
         name: 'categoria',
-        params: { nomCategoria: 'televisores' },
+        params: { nomCategoria: 'monitores' },
       }"
       >Monitores
     </router-link>
     <router-link
+      :class="{ activo: $route.params.nomCategoria == 'cámaras' }"
+      class="pb-2"
       :to="{
         name: 'categoria',
         params: { nomCategoria: 'cámaras' },
@@ -47,6 +59,8 @@ export default {};
       >Cámaras
     </router-link>
     <router-link
+      :class="{ activo: $route.params.nomCategoria == 'audio' }"
+      class="pb-2"
       :to="{
         name: 'categoria',
         params: { nomCategoria: 'audio' },
@@ -54,6 +68,8 @@ export default {};
       >Audio
     </router-link>
     <router-link
+      :class="{ activo: $route.params.nomCategoria == 'videojuegos' }"
+      class="pb-2"
       :to="{
         name: 'categoria',
         params: { nomCategoria: 'videojuegos' },
@@ -67,10 +83,18 @@ export default {};
 a {
   color: white;
   text-decoration: none;
-  transition: color 0.2s ease;
+  transition: border 0.1s ease;
+}
+.barra-categorias a:hover {
+  box-sizing: border-box;
+  border-bottom: var(--color-secundario-naranja) solid 4px;
 }
 
-a:hover {
-  color: var(--color-secundario-naranja);
+.barra-categorias a {
+  border-bottom: var(--gris-oscuro) solid 4px;
+}
+
+.activo {
+  border-bottom: var(--color-secundario-naranja) solid 4px !important;
 }
 </style>

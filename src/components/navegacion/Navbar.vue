@@ -1,7 +1,7 @@
 <script>
 import Logo from './Logo.vue';
 import LogoCarrito from './LogoCarrito.vue';
-import Sesion from '../modales/Sesion.vue';
+import Sesion from './Sesion.vue';
 import BarraBusqueda from './BarraBusqueda.vue';
 import BarraCategorias from './BarraCategorias.vue';
 import BotonHamburguesa from './BotonHamburguesa.vue';
@@ -42,7 +42,7 @@ export default {
 </script>
 <template>
   <header>
-    <nav class="barra-navegacion">
+    <nav class="barra-navegacion position-absoluteS pb-lg-0">
       <div class="container-xl">
         <div class="row align-items-center">
           <div class="d-flex col-9 col-sm-6 col-md-4 col-lg-3">

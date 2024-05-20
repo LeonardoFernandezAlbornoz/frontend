@@ -51,7 +51,7 @@ export default {
       ]"
     />
 
-    <div v-if="sesionIniciada" class="container-lg">
+    <div v-if="sesionIniciada" class="container-lg px-4 px-lg-0">
       <TituloPagina :titulo="usuario.nomUsuario" />
       <div class="row g-3">
         <div class="col-lg-4">
