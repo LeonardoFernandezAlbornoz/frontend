@@ -97,6 +97,7 @@ export default {
     <div class="row">
       <div class="col-lg-7">
         <ProductoCarrito
+          @actualizarProductos="cargarProuductoCarrito"
           v-for="productoCarrito in productosCarrito"
           :productoCarrito="productoCarrito"
         ></ProductoCarrito>

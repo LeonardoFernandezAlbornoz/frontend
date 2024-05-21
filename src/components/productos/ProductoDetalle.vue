@@ -1,6 +1,7 @@
 <script>
 import Estrellas from '../generales/Estrellas.vue';
 import { jwtDecode } from 'https://unpkg.com/jwt-decode@4.0.0?module';
+import { push } from 'notivue';
 export default {
   props: ['nomProducto'],
   data() {
@@ -117,6 +118,8 @@ export default {
 
         localStorage.setItem('carrito', JSON.stringify(carrito));
       }
+
+      push.info({ message: 'Has añadido el producto al carrito' });
     },
   },
 };

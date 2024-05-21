@@ -3,7 +3,7 @@ import { jwtDecode } from 'https://unpkg.com/jwt-decode@4.0.0?module';
 
 export default {
   props: ['productoCarrito'],
-
+  emits: ['actualizarProductos'],
   data() {
     return {
       cantidad: this.productoCarrito.cantidad,
@@ -17,6 +17,50 @@ export default {
     },
   },
   methods: {
+    eliminarProducto() {
+      if (this.$cookies.get('token')) {
+        fetch(
+          this.backend +
+            `/productocarrito/eliminar/${this.usuario.id}/${this.productoCarrito.producto.id}`,
+          {
+            method: 'DELETE',
+            headers: { 'Content-Type': 'application/json' },
+          }
+        )
+          .then((response) => {
+            if (!response.ok) {
+              throw new Error(response.status);
+            }
+
+            return response.json();
+          })
+          .then((data) => {
+            console.log(data);
+          })
+          .catch((error) => {
+            console.log(error);
+          });
+        setTimeout(() => {
+          this.$emit('actualizarProductos');
+        }, 500);
+      } else {
+        let carrito = JSON.parse(localStorage.getItem('carrito'));
+
+        carrito.splice(
+          carrito.findIndex(
+            (productoCarrito) =>
+              productoCarrito.producto.id == this.productoCarrito.id
+          ),
+          1
+        );
+
+        localStorage.setItem('carrito', JSON.stringify(carrito));
+
+        setTimeout(() => {
+          this.$emit('actualizarProductos');
+        }, 500);
+      }
+    },
     actualizarCarrito() {
       if (this.$cookies.get('token')) {
         fetch(
@@ -65,6 +109,9 @@ export default {
 
         localStorage.setItem('carrito', JSON.stringify(carrito));
       }
+      setTimeout(() => {
+        this.$emit('actualizarProductos');
+      }, 500);
     },
   },
 };

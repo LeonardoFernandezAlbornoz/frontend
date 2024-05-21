@@ -32,11 +32,11 @@ export default {
   methods: {
     logout() {
       this.$cookies.remove('token');
-
+      this.token = null;
       router.push('/');
       setTimeout(() => {
         router.go(-1);
-      }, 400);
+      }, 500);
       push.info({ message: 'Has cerrado sesión' });
     },
     login() {
