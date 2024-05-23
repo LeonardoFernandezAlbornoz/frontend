@@ -5,7 +5,9 @@ export default {};
   <div class="barra-categorias d-lg-flex d-none mt-3 justify-content-evenly">
     <router-link
       class="pb-2"
-      :class="{ activo: $route.params.nomCategoria == 'ordenadores' }"
+      :class="{
+        activo: $route.params.nomCategoria == 'ordenadores',
+      }"
       :to="{
         name: 'categoria',
         params: { nomCategoria: 'ordenadores' },
@@ -13,7 +15,9 @@ export default {};
       >Ordenadores
     </router-link>
     <router-link
-      :class="{ activo: $route.params.nomCategoria == 'Smartphones' }"
+      :class="{
+        activo: $route.params.nomCategoria == 'smartphones',
+      }"
       class="pb-2"
       :to="{
         name: 'categoria',
@@ -22,7 +26,9 @@ export default {};
       >Smartphones
     </router-link>
     <router-link
-      :class="{ activo: $route.params.nomCategoria == 'componentes' }"
+      :class="{
+        activo: $route.params.nomCategoria == 'componentes',
+      }"
       class="pb-2"
       :to="{
         name: 'categoria',
@@ -31,7 +37,9 @@ export default {};
       >Componentes
     </router-link>
     <router-link
-      :class="{ activo: $route.params.nomCategoria == 'televisores' }"
+      :class="{
+        activo: $route.params.nomCategoria == 'televisores',
+      }"
       class="pb-2"
       :to="{
         name: 'categoria',
@@ -41,7 +49,9 @@ export default {};
     </router-link>
 
     <router-link
-      :class="{ activo: $route.params.nomCategoria == 'monitores' }"
+      :class="{
+        activo: $route.params.nomCategoria == 'monitores',
+      }"
       class="pb-2"
       :to="{
         name: 'categoria',
@@ -50,7 +60,9 @@ export default {};
       >Monitores
     </router-link>
     <router-link
-      :class="{ activo: $route.params.nomCategoria == 'cámaras' }"
+      :class="{
+        activo: $route.params.nomCategoria == 'cámaras',
+      }"
       class="pb-2"
       :to="{
         name: 'categoria',
@@ -59,7 +71,9 @@ export default {};
       >Cámaras
     </router-link>
     <router-link
-      :class="{ activo: $route.params.nomCategoria == 'audio' }"
+      :class="{
+        activo: $route.params.nomCategoria == 'audio',
+      }"
       class="pb-2"
       :to="{
         name: 'categoria',
@@ -68,7 +82,9 @@ export default {};
       >Audio
     </router-link>
     <router-link
-      :class="{ activo: $route.params.nomCategoria == 'videojuegos' }"
+      :class="{
+        activo: $route.params.nomCategoria == 'videojuegos',
+      }"
       class="pb-2"
       :to="{
         name: 'categoria',

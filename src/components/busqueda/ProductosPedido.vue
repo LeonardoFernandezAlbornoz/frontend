@@ -1,6 +1,6 @@
 <script>
 import ProductoPedido from '../generales/ProductoPedido.vue';
-
+import router from '../../router';
 export default {
   props: ['idPedido'],
   components: {
@@ -10,11 +10,15 @@ export default {
     return {
       productosPedido: [],
       pedido: '',
-      
+      token: null,
     };
   },
   mounted() {
+    this.token = this.$cookies.get('token');
     this.cargarProductosPedido();
+    if (!this.token) {
+      router.push('/');
+    }
   },
   methods: {
     cargarProductosPedido() {
@@ -34,6 +38,9 @@ export default {
           console.log(error);
         });
     },
+    sesionIniciada() {
+      return this.token != null;
+    },
   },
   computed: {
     total() {
@@ -44,6 +51,9 @@ export default {
         );
         return accum;
       }, 0);
+    },
+    sesionIniciada() {
+      return this.token != null;
     },
   },
 };

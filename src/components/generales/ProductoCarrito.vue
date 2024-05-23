@@ -111,7 +111,7 @@ export default {
       }
       setTimeout(() => {
         this.$emit('actualizarProductos');
-      }, 500);
+      }, 200);
     },
   },
 };

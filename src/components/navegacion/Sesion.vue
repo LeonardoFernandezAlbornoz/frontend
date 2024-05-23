@@ -42,9 +42,6 @@ export default {
     login() {
       this.token = this.$cookies.get('token');
       router.push('/');
-      setTimeout(() => {
-        router.go(-1);
-      }, 500);
     },
   },
 };

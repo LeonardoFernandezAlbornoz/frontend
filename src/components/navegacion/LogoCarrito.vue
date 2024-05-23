@@ -11,11 +11,7 @@
 </template>
 <script>
 export default {
-  data() {
-    return {
-      numProductos: 0,
-    };
-  },
+  props: ['numProductos'],
 };
 </script>
 <style scoped>

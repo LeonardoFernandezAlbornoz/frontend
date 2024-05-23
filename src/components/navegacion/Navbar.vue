@@ -5,11 +5,14 @@ import Sesion from './Sesion.vue';
 import BarraBusqueda from './BarraBusqueda.vue';
 import BarraCategorias from './BarraCategorias.vue';
 import BotonHamburguesa from './BotonHamburguesa.vue';
+import { jwtDecode } from 'https://unpkg.com/jwt-decode@4.0.0?module';
 
 export default {
   data() {
     return {
       categorias: '',
+      productosCarrito: [],
+      token: this.$cookies.get('token'),
     };
   },
   components: {
@@ -20,7 +23,31 @@ export default {
     BarraCategorias,
     BotonHamburguesa,
   },
-  methods: {},
+  methods: {
+    cargarProuductoCarrito() {
+      if (this.$cookies.get('token')) {
+        fetch(`${this.backend}/carrito/usuario/${this.usuario.id}`)
+          .then((response) => {
+            if (!response.ok) {
+              throw new Error(response.status);
+            }
+
+            return response.json();
+          })
+          .then((data) => {
+            console.log(data);
+            this.productosCarrito = data;
+          })
+          .catch((error) => {
+            console.log(error);
+          });
+
+        localStorage.removeItem('carrito');
+      } else if (localStorage.getItem('carrito')) {
+        this.productosCarrito = JSON.parse(localStorage.getItem('carrito'));
+      }
+    },
+  },
 
   mounted() {
     fetch(this.backend + '/categorias')
@@ -37,6 +64,20 @@ export default {
       .catch((error) => {
         console.log(`Error al obtener los datos: ${error}`);
       });
+    this.cargarProuductoCarrito();
+  },
+  computed: {
+    numProductos() {
+      return this.productosCarrito && this.productosCarrito.length
+        ? this.productosCarrito.reduce((accum, productoCarrito) => {
+            return accum + productoCarrito.cantidad;
+          }, 0)
+        : 0;
+    },
+
+    usuario() {
+      return this.token ? jwtDecode(this.token) : '';
+    },
   },
 };
 </script>
@@ -57,7 +98,7 @@ export default {
             class="order-1 order-md-2 col-3 col-sm-6 col-md d-flex column-gap-3 align-items-center justify-content-end"
           >
             <Sesion />
-            <LogoCarrito />
+            <LogoCarrito :numProductos="numProductos" />
           </div>
         </div>
         <BarraCategorias />

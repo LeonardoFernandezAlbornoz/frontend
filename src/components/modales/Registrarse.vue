@@ -35,7 +35,6 @@ export default {
         })
         .then(() => {
           push.success({
-            title: 'Success',
             message: 'Te has registrado con éxito',
           });
           this.reiniciar();

@@ -5,7 +5,7 @@ import { jwtDecode } from 'https://unpkg.com/jwt-decode@4.0.0?module';
 import Botones from '@/components/perfil/Botones.vue';
 import DatosUsuario from '@/components/perfil/DatosUsuario.vue';
 import PedidosUsuario from '@/components/perfil/PedidosUsuario.vue';
-
+import router from '../router';
 export default {
   components: {
     TituloPagina,
@@ -27,6 +27,9 @@ export default {
   },
   mounted() {
     this.token = this.$cookies.get('token');
+    if (!this.token) {
+      router.push('/');
+    }
   },
   computed: {
     sesionIniciada() {
@@ -51,7 +54,7 @@ export default {
       ]"
     />
 
-    <div v-if="sesionIniciada" class="container-lg px-4 px-lg-0">
+    <div class="container-lg px-4 px-lg-0">
       <TituloPagina :titulo="usuario.nomUsuario" />
       <div class="row g-3">
         <div class="col-lg-4">
@@ -60,11 +63,6 @@ export default {
         <div class="col-lg">
           <component :usuario="usuario" :is="componente"></component>
         </div>
-      </div>
-    </div>
-    <div v-else class="container-lg mt-5">
-      <div class="alert alert-danger text-center" role="alert">
-        Acceso denegado
       </div>
     </div>
   </main>

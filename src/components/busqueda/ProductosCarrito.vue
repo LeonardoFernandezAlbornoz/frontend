@@ -70,7 +70,7 @@ export default {
           });
 
         localStorage.removeItem('carrito');
-      } else {
+      } else if (localStorage.getItem('carrito')) {
         this.productosCarrito = JSON.parse(localStorage.getItem('carrito'));
       }
     },
@@ -94,7 +94,7 @@ export default {
 </script>
 <template>
   <div>
-    <div class="row">
+    <div v-if="productosCarrito.length" class="row">
       <div class="col-lg-7">
         <ProductoCarrito
           @actualizarProductos="cargarProuductoCarrito"
@@ -112,6 +112,11 @@ export default {
           <hr class="mb-4" />
           <button class="btn-finalizar-compra">Finalizar compra</button>
         </div>
+      </div>
+    </div>
+    <div v-else class="container-lg mt-5">
+      <div class="alert alert-danger text-center" role="alert">
+        No hay productos en el carrito
       </div>
     </div>
   </div>
