@@ -45,7 +45,7 @@ export default {
           push.info({ message: data.status });
         })
         .catch((error) => {
-          console.log(error);
+          console.error(error);
         });
     },
   },

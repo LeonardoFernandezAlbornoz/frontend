@@ -5,54 +5,22 @@ export default {
   components: {
     ProductoCarrito,
   },
+  emits: ['actualizarProductos'],
   data() {
     return {
       productosCarrito: [],
-      token: this.$cookies.get('token'),
+      token: '',
     };
   },
 
   mounted() {
-    this.cargarProuductoCarrito();
+    this.token = this.$cookies.get('token');
+    this.cargarProductosCarrito();
   },
 
   methods: {
-    anhadirProductoCarrito(idUsuario, idProducto, cantidad) {
-      fetch(
-        `${this.backend}/productocarrito/crear/${idUsuario}/${idProducto}`,
-        {
-          method: 'PATCH',
-          headers: { 'Content-Type': 'application/json' },
-          body: JSON.stringify({
-            cantidad: cantidad,
-          }),
-        }
-      )
-        .then((response) => {
-          if (!response.ok) {
-            throw new Error(response.status);
-          }
-
-          return response.json();
-        })
-        .then((data) => {
-          console.log(data);
-        })
-        .catch((error) => {
-          console.log(error);
-        });
-    },
-    cargarProuductoCarrito() {
+    cargarProductosCarrito() {
       if (this.token) {
-        let carrito = JSON.parse(localStorage.getItem('carrito')) ?? [];
-        console.log(this.usuario);
-        for (const producto of carrito) {
-          this.anhadirProductoCarrito(
-            this.usuario.id,
-            producto.producto.id,
-            producto.cantidad
-          );
-        }
         fetch(`${this.backend}/carrito/usuario/${this.usuario.id}`)
           .then((response) => {
             if (!response.ok) {
@@ -62,16 +30,17 @@ export default {
             return response.json();
           })
           .then((data) => {
-            console.log(data);
             this.productosCarrito = data;
+            this.$emit('actualizarProductos');
           })
           .catch((error) => {
-            console.log(error);
+            console.error(error);
           });
 
         localStorage.removeItem('carrito');
       } else if (localStorage.getItem('carrito')) {
         this.productosCarrito = JSON.parse(localStorage.getItem('carrito'));
+        this.$emit('actualizarProductos');
       }
     },
   },
@@ -97,7 +66,7 @@ export default {
     <div v-if="productosCarrito.length" class="row">
       <div class="col-lg-7">
         <ProductoCarrito
-          @actualizarProductos="cargarProuductoCarrito"
+          @actualizarProductos="cargarProductosCarrito"
           v-for="productoCarrito in productosCarrito"
           :productoCarrito="productoCarrito"
         ></ProductoCarrito>
@@ -110,7 +79,21 @@ export default {
             <p>{{ total.toFixed(2) }}€</p>
           </div>
           <hr class="mb-4" />
-          <button class="btn-finalizar-compra">Finalizar compra</button>
+          <router-link
+            :to="{
+              name: 'pasarela',
+            }"
+            v-if="token"
+            class="btn-finalizar-compra d-block text-center text-decoration-none"
+          >
+            Finalizar compra
+          </router-link>
+
+          <p v-else role="button" class="text-center">
+            <b data-bs-toggle="modal" data-bs-target="#iniciarSesionModal"
+              >Inicia sesión </b
+            >para realizar el pedido
+          </p>
         </div>
       </div>
     </div>
@@ -133,7 +116,7 @@ export default {
   background: var(--degradado-naranja);
   color: white;
   font-weight: bold;
-  padding: 0.7em;
+  padding: 1em;
   font-size: 18px;
   transition: filter 0.2s ease;
 }

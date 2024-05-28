@@ -31,34 +31,29 @@ export default {
             if (!response.ok) {
               throw new Error(response.status);
             }
-
             return response.json();
           })
           .then((data) => {
             console.log(data);
+            this.$emit('actualizarProductos');
           })
           .catch((error) => {
-            console.log(error);
+            console.error(error);
           });
-        setTimeout(() => {
-          this.$emit('actualizarProductos');
-        }, 500);
       } else {
         let carrito = JSON.parse(localStorage.getItem('carrito'));
 
         carrito.splice(
           carrito.findIndex(
             (productoCarrito) =>
-              productoCarrito.producto.id == this.productoCarrito.id
+              productoCarrito.producto.id == this.productoCarrito.producto.id
           ),
           1
         );
 
         localStorage.setItem('carrito', JSON.stringify(carrito));
 
-        setTimeout(() => {
-          this.$emit('actualizarProductos');
-        }, 500);
+        this.$emit('actualizarProductos');
       }
     },
     actualizarCarrito() {
@@ -82,9 +77,10 @@ export default {
           })
           .then((data) => {
             console.log(data);
+            this.$emit('actualizarProductos');
           })
           .catch((error) => {
-            console.log(error);
+            console.error(error);
           });
       } else {
         if (!localStorage.getItem('carrito')) {
@@ -108,18 +104,16 @@ export default {
         }
 
         localStorage.setItem('carrito', JSON.stringify(carrito));
-      }
-      setTimeout(() => {
         this.$emit('actualizarProductos');
-      }, 200);
+      }
     },
   },
 };
 </script>
 <template>
   <div class="d-block producto-carrito mb-3 py-2 pb-4 pb-md-2 px-4">
-    <div class="row">
-      <div class="col-6 col-md-3">
+    <div class="row py-3 px-4 p-md-0">
+      <div class="col-6 col-md-3 text-left">
         <img
           style="max-height: 100px"
           :src="'img/productos/' + productoCarrito.producto.imagen"
@@ -138,7 +132,7 @@ export default {
             },
           }"
         >
-          <p class="mb-1">{{ productoCarrito.producto.nombre }}</p>
+          <p class="mb-1 mt-4 mt-md-0">{{ productoCarrito.producto.nombre }}</p>
           <div class="d-flex column-gap-3 align-items-center">
             <p class="precio">
               <b
@@ -163,15 +157,17 @@ export default {
           </div>
         </router-link>
       </div>
-      <div class="order-1 order-md-2 col-6 col-md-3 d-flex align-items-center">
-        <div class="d-flex column-gap-3 align-items-center">
+      <div
+        class="order-1 order-md-2 col-6 col-md-3 px-4 d-flex justify-content-end"
+      >
+        <div class="d-flex column-gap-3 align-items-center w-100">
           <button @click="eliminarProducto" class="btn-eliminar-producto">
             <font-awesome-icon icon="fa-regular fa-trash-can" />
           </button>
           <input
             @change="actualizarCarrito"
             v-model.number="cantidad"
-            class="form-control"
+            class="form-control w-"
             id="cantidad"
             type="number"
             min="1"

@@ -16,9 +16,10 @@ export default {
     BotonesUsuario,
     MenuUsuario,
   },
+  emits: ['login', 'logout'],
   data() {
     return {
-      token: this.$cookies.get('token'),
+      token: '',
     };
   },
   computed: {
@@ -30,19 +31,75 @@ export default {
     },
   },
   methods: {
+    anhadirProductoCarrito(idUsuario, idProducto, cantidad) {
+      return fetch(
+        `${this.backend}/productocarrito/crear/${idUsuario}/${idProducto}`,
+        {
+          method: 'PATCH',
+          headers: { 'Content-Type': 'application/json' },
+          body: JSON.stringify({
+            cantidad: cantidad,
+          }),
+        }
+      )
+        .then((response) => {
+          if (!response.ok) {
+            throw new Error(response.status);
+          }
+
+          return response.json();
+        })
+        .then((data) => {
+          console.log(data);
+        })
+        .catch((error) => {
+          console.error(error);
+        });
+    },
+    cargarProductosCarrito() {
+      if (localStorage.getItem('carrito')) {
+        let carrito = JSON.parse(localStorage.getItem('carrito')) ?? [];
+        let promesas = [];
+
+        for (const producto of carrito) {
+          promesas.push(
+            this.anhadirProductoCarrito(
+              this.usuario.id,
+              producto.producto.id,
+              producto.cantidad
+            )
+          );
+        }
+
+        localStorage.removeItem('carrito');
+      } else if (localStorage.getItem('carrito')) {
+        this.productosCarrito = JSON.parse(localStorage.getItem('carrito'));
+      }
+    },
+
     logout() {
       this.$cookies.remove('token');
       this.token = null;
       router.push('/');
       setTimeout(() => {
+        this.$emit('logout');
         router.go(-1);
       }, 500);
+
       push.info({ message: 'Has cerrado sesión' });
     },
     login() {
       this.token = this.$cookies.get('token');
+      this.cargarProductosCarrito();
+      setTimeout(() => {
+        this.$emit('login');
+      }, 500);
       router.push('/');
     },
+  },
+
+  mounted() {
+    this.token = this.$cookies.get('token');
   },
 };
 </script>

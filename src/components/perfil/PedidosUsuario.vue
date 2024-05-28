@@ -7,6 +7,7 @@ export default {
   data() {
     return {
       pedidos: [],
+      token: '',
     };
   },
 
@@ -14,7 +15,7 @@ export default {
     cargarPedidos() {
       fetch(this.backend + '/pedidos/usuario', {
         headers: {
-          Authorization: this.$cookies.get('token'),
+          Authorization: this.token,
         },
       })
         .then((response) => {
@@ -35,7 +36,7 @@ export default {
     },
   },
   mounted() {
-    this.cargarPedidos();
+    (this.token = this.$cookies.get('token')), this.cargarPedidos();
   },
 };
 </script>

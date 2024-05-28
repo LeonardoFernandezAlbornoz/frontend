@@ -3,6 +3,8 @@ import ProductoImagen from '@/components/productos/ProductoImagen.vue';
 import ProductoDetalle from '@/components/productos/ProductoDetalle.vue';
 import Ruta from '@/components/navegacion/Ruta.vue';
 import Resenhas from '@/components/productos/Resenhas.vue';
+
+const emit = defineEmits(['anhadirProducto']);
 </script>
 
 <template>
@@ -34,7 +36,10 @@ import Resenhas from '@/components/productos/Resenhas.vue';
           <ProductoImagen :nomProducto="$route.params.nomProducto" />
         </div>
         <div class="col-md">
-          <ProductoDetalle :nomProducto="$route.params.nomProducto" />
+          <ProductoDetalle
+            @anhadirProducto="$emit('anhadirProducto')"
+            :nomProducto="$route.params.nomProducto"
+          />
         </div>
       </div>
 

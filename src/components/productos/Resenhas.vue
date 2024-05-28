@@ -30,7 +30,7 @@ export default {
           this.resenhas = data;
         })
         .catch((error) => {
-          console.log(`Error al obtener los datos: ${error}`);
+          console.error(`Error al obtener los datos: ${error}`);
         });
     },
   },

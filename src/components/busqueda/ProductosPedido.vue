@@ -35,7 +35,7 @@ export default {
           this.pedido = data[0].pedido;
         })
         .catch((error) => {
-          console.log(error);
+          console.error(error);
         });
     },
     sesionIniciada() {

@@ -21,7 +21,7 @@ export default {};
       class="pb-2"
       :to="{
         name: 'categoria',
-        params: { nomCategoria: 'Smartphones' },
+        params: { nomCategoria: 'smartphones' },
       }"
       >Smartphones
     </router-link>

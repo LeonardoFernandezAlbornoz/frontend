@@ -27,7 +27,7 @@ export default {
           this.productos = data;
         })
         .catch((error) => {
-          console.log(`Error al obtener los datos: ${error}`);
+          console.error(`Error al obtener los datos: ${error}`);
         });
     },
   },

@@ -8,11 +8,13 @@ import BotonHamburguesa from './BotonHamburguesa.vue';
 import { jwtDecode } from 'https://unpkg.com/jwt-decode@4.0.0?module';
 
 export default {
+  props: ['numProductos'],
+  emits: ['login', 'logout'],
   data() {
     return {
       categorias: '',
       productosCarrito: [],
-      token: this.$cookies.get('token'),
+      token: '',
     };
   },
   components: {
@@ -23,33 +25,10 @@ export default {
     BarraCategorias,
     BotonHamburguesa,
   },
-  methods: {
-    cargarProuductoCarrito() {
-      if (this.$cookies.get('token')) {
-        fetch(`${this.backend}/carrito/usuario/${this.usuario.id}`)
-          .then((response) => {
-            if (!response.ok) {
-              throw new Error(response.status);
-            }
-
-            return response.json();
-          })
-          .then((data) => {
-            console.log(data);
-            this.productosCarrito = data;
-          })
-          .catch((error) => {
-            console.log(error);
-          });
-
-        localStorage.removeItem('carrito');
-      } else if (localStorage.getItem('carrito')) {
-        this.productosCarrito = JSON.parse(localStorage.getItem('carrito'));
-      }
-    },
-  },
+  methods: {},
 
   mounted() {
+    this.token = this.$cookies.get('token');
     fetch(this.backend + '/categorias')
       .then((response) => {
         if (!response.ok) {
@@ -62,19 +41,10 @@ export default {
         this.categorias = data;
       })
       .catch((error) => {
-        console.log(`Error al obtener los datos: ${error}`);
+        console.error(`Error al obtener los datos: ${error}`);
       });
-    this.cargarProuductoCarrito();
   },
   computed: {
-    numProductos() {
-      return this.productosCarrito && this.productosCarrito.length
-        ? this.productosCarrito.reduce((accum, productoCarrito) => {
-            return accum + productoCarrito.cantidad;
-          }, 0)
-        : 0;
-    },
-
     usuario() {
       return this.token ? jwtDecode(this.token) : '';
     },
@@ -97,7 +67,7 @@ export default {
           <div
             class="order-1 order-md-2 col-3 col-sm-6 col-md d-flex column-gap-3 align-items-center justify-content-end"
           >
-            <Sesion />
+            <Sesion @logout="$emit('logout')" @login="$emit('login')" />
             <LogoCarrito :numProductos="numProductos" />
           </div>
         </div>

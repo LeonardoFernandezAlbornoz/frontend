@@ -41,7 +41,7 @@ export default {
           document.getElementById('btn-cerrar-registro').click();
         })
         .catch((error) => {
-          console.log(error);
+          console.error(error);
           push.error({ message: `${error}`.slice(6) });
         });
     },

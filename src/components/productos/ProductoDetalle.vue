@@ -2,8 +2,11 @@
 import Estrellas from '../generales/Estrellas.vue';
 import { jwtDecode } from 'https://unpkg.com/jwt-decode@4.0.0?module';
 import { push } from 'notivue';
+
+
 export default {
   props: ['nomProducto'],
+  emits: ['anhadirProducto'],
   data() {
     return {
       producto: {},
@@ -42,11 +45,11 @@ export default {
             this.resenhas = data;
           })
           .catch((error) => {
-            console.log(`Error al obtener los datos: ${error}`);
+            console.error(`Error al obtener los datos: ${error}`);
           });
       })
       .catch((error) => {
-        console.log(`Error al obtener los datos: ${error}`);
+        console.error(`Error al obtener los datos: ${error}`);
       });
   },
   computed: {
@@ -88,9 +91,10 @@ export default {
           })
           .then((data) => {
             console.log(data);
+            this.$emit('anhadirProducto');
           })
           .catch((error) => {
-            console.log(error);
+            console.error(error);
           });
       } else {
         if (!localStorage.getItem('carrito')) {
@@ -117,6 +121,7 @@ export default {
         }
 
         localStorage.setItem('carrito', JSON.stringify(carrito));
+        this.$emit('anhadirProducto');
       }
 
       push.info({ message: 'Has añadido el producto al carrito' });
@@ -131,6 +136,7 @@ export default {
       <p v-if="producto.descuento !== 0" class="mb-2 producto-precio-descuento">
         {{ producto.precio }}€
       </p>
+
       <p
         class="producto-detalle-precio-final"
         :class="{ oferta: producto.descuento != 0 }"

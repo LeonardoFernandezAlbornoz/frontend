@@ -20,11 +20,11 @@ export default {
         })
         .then((data) => data.json())
         .then((data) => {
-          console.log(data);
+
           this.productosPedido = data;
         })
         .catch((error) => {
-          console.log(error);
+          console.error(error);
         });
     },
   },
