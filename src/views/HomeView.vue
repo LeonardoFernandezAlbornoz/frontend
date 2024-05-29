@@ -1,5 +1,9 @@
-<script setup></script>
+<script setup>
+import Carrusel from '@/components/home/Carrusel.vue';
+</script>
 
 <template>
-  <main></main>
+  <main>
+    <Carrusel></Carrusel>
+  </main>
 </template>

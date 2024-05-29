@@ -5,7 +5,7 @@ import { jwtDecode } from 'https://unpkg.com/jwt-decode@4.0.0?module';
 import Botones from '@/components/perfil/Botones.vue';
 import DatosUsuario from '@/components/perfil/DatosUsuario.vue';
 import PedidosUsuario from '@/components/perfil/PedidosUsuario.vue';
-import router from '../router';
+import AccesoDenegado from '@/components/generales/AccesoDenegado.vue';
 export default {
   components: {
     TituloPagina,
@@ -13,6 +13,7 @@ export default {
     Botones,
     DatosUsuario,
     PedidosUsuario,
+    AccesoDenegado,
   },
   data() {
     return {
@@ -27,14 +28,8 @@ export default {
   },
   mounted() {
     this.token = this.$cookies.get('token');
-    if (!this.token) {
-      router.push('/');
-    }
   },
   computed: {
-    sesionIniciada() {
-      return this.token != null;
-    },
     usuario() {
       return this.token ? jwtDecode(this.token) : '';
     },
@@ -55,14 +50,19 @@ export default {
     />
 
     <div class="container-lg px-4 px-lg-0">
-      <TituloPagina :titulo="usuario.nomUsuario" />
-      <div class="row g-3">
-        <div class="col-lg-4">
-          <Botones @cambiarComponente="cambiarComponente" />
+      <div v-if="usuario">
+        <TituloPagina :titulo="usuario.nomUsuario" />
+        <div class="row g-3">
+          <div class="col-lg-4">
+            <Botones @cambiarComponente="cambiarComponente" />
+          </div>
+          <div class="col-lg">
+            <component :usuario="usuario" :is="componente"></component>
+          </div>
         </div>
-        <div class="col-lg">
-          <component :usuario="usuario" :is="componente"></component>
-        </div>
+      </div>
+      <div v-else class="mt-5">
+        <AccesoDenegado></AccesoDenegado>
       </div>
     </div>
   </main>

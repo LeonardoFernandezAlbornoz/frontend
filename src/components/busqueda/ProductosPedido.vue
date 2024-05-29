@@ -1,10 +1,13 @@
 <script>
 import ProductoPedido from '../generales/ProductoPedido.vue';
 import router from '../../router';
+import { jwtDecode } from 'https://unpkg.com/jwt-decode@4.0.0?module';
+import AccesoDenegado from '@/components/generales/AccesoDenegado.vue';
 export default {
   props: ['idPedido'],
   components: {
     ProductoPedido,
+    AccesoDenegado,
   },
   data() {
     return {
@@ -38,9 +41,6 @@ export default {
           console.error(error);
         });
     },
-    sesionIniciada() {
-      return this.token != null;
-    },
   },
   computed: {
     total() {
@@ -52,14 +52,15 @@ export default {
         return accum;
       }, 0);
     },
-    sesionIniciada() {
-      return this.token != null;
+
+    usuario() {
+      return this.token ? jwtDecode(this.token) : '';
     },
   },
 };
 </script>
 <template>
-  <div class="row">
+  <div v-if="usuario" class="row">
     <div class="col-md-8 order-2 order-md-1">
       <ProductoPedido
         v-for="productoPedido in productosPedido"
@@ -84,6 +85,9 @@ export default {
         </p>
       </div>
     </div>
+  </div>
+  <div v-else>
+    <AccesoDenegado></AccesoDenegado>
   </div>
 </template>
 

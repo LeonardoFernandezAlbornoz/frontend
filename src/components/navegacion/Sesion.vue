@@ -80,12 +80,11 @@ export default {
     logout() {
       this.$cookies.remove('token');
       this.token = null;
-      router.push('/');
+
       setTimeout(() => {
         this.$emit('logout');
-        router.go(-1);
       }, 500);
-
+      router.push('/');
       push.info({ message: 'Has cerrado sesión' });
     },
     login() {

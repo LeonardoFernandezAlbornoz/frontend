@@ -15,6 +15,9 @@ export default {
 
   mounted() {
     this.token = this.$cookies.get('token');
+    if (!this.token) {
+      router.push('/');
+    }
     this.cargarProductosCarrito();
   },
 

@@ -1,10 +1,11 @@
 <script>
 import { jwtDecode } from 'https://unpkg.com/jwt-decode@4.0.0?module';
 import { push } from 'notivue';
-
+import router from '../../router';
 import FormularioPedido from './FormularioPedido.vue';
 
 export default {
+  emits: ['actualizarProductos'],
   components: {
     FormularioPedido,
   },
@@ -93,12 +94,6 @@ export default {
           });
       }
     },
-    confirmarPedido() {
-      this.crearPedido().then(() => {
-        push.info({ message: 'Se ha confirmado su pedido' });
-        this.eliminarProductosCarrito();
-      });
-    },
 
     eliminarProductosCarrito() {
       fetch(`${this.backend}/carrito/eliminar/usuario`, {
@@ -116,6 +111,14 @@ export default {
         .catch((error) => {
           console.error(error);
         });
+    },
+    confirmarPedido() {
+      this.crearPedido().then(() => {
+        push.info({ message: 'Se ha confirmado su pedido' });
+        this.eliminarProductosCarrito();
+        router.push('/');
+        this.$emit('actualizarProductos');
+      });
     },
   },
 

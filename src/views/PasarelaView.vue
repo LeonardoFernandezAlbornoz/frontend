@@ -1,6 +1,7 @@
 <script setup>
 import DetallesPedido from '@/components/pasarelaPago/DetallesPedido.vue';
 import Ruta from '@/components/navegacion/Ruta.vue';
+const emit = defineEmits(['actualizarProductos']);
 </script>
 
 <template>
@@ -17,7 +18,9 @@ import Ruta from '@/components/navegacion/Ruta.vue';
     />
     <div class="container-lg px-4 px-lg-0 mt-5">
       <div class="row">
-        <DetallesPedido></DetallesPedido>
+        <DetallesPedido
+          @actualizarProductos="$emit('actualizarProductos')"
+        ></DetallesPedido>
       </div>
     </div>
   </main>
