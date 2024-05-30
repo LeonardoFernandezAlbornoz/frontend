@@ -13,7 +13,6 @@ export default {
     Notivue,
     Notification,
     NotificationProgress,
-    materialTheme,
     RouterView,
   },
   data() {

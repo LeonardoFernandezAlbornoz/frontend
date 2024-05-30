@@ -2,7 +2,7 @@
     --gris-oscuro: #272727;
     --color-fondo: #DBDADA;
     --color-secundario-naranja: #F4772E;
-    --naranja-oscuro: #cc4c03;
+    --naranja-oscuro: rgb(204, 76, 3);
     --gris: #797676;
     --gris-claro: #DBDADA;
     --sombra-cajas: rgba(60, 64, 67, 0.3) 0px 1px 2px 0px,

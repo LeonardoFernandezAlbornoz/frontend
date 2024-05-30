@@ -19,9 +19,6 @@ export default {
   mounted() {
     this.token = this.$cookies.get('token');
     this.cargarProductosPedido();
-    if (!this.token) {
-      router.push('/');
-    }
   },
   methods: {
     cargarProductosPedido() {
@@ -35,7 +32,8 @@ export default {
         .then((data) => data.json())
         .then((data) => {
           this.productosPedido = data;
-          this.pedido = data[0].pedido;
+          console.log(this.productosPedido);
+          this.pedido = this.productosPedido[0].pedido;
         })
         .catch((error) => {
           console.error(error);
@@ -60,7 +58,7 @@ export default {
 };
 </script>
 <template>
-  <div v-if="usuario" class="row">
+  <div v-if="usuario && pedido && usuario.id == pedido.usuario.id" class="row">
     <div class="col-md-8 order-2 order-md-1">
       <ProductoPedido
         v-for="productoPedido in productosPedido"
