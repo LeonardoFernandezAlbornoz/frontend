@@ -38,7 +38,7 @@ export default {
             'token',
             response.token,
             null,
-            '/',
+
             'localhost',
             true,
             'Strict'
