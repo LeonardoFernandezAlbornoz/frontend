@@ -38,8 +38,8 @@ export default {
             'token',
             response.token,
             null,
-
-            'localhost',
+            '/',
+            'vercel.com',
             true,
             'Strict'
           );
