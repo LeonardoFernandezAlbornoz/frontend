@@ -39,7 +39,7 @@ export default {
             response.token,
             null,
             '/',
-            'www.tecnomarket2.vercel.app',
+            'vercel.app',
             true,
             'Strict'
           );
