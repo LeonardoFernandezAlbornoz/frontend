@@ -32,7 +32,7 @@ const notivue = createNotivue(/* Options */);
 library.add(fas, far, fab);
 
 const app = createApp(App);
-app.config.globalProperties.backend = 'http://209.38.38.40';
+app.config.globalProperties.backend = 'https://apitienda.casacam.net';
 
 app.component('Navbar', Navbar);
 app.component('FooterVue', FooterVue);
