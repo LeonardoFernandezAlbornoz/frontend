@@ -12,7 +12,7 @@ export default {
 <style scoped>
 .titulo-pagina {
   padding: 0.2em 0.8em 0.2em 0.5em;
-  margin-bottom: 1.5em;
+  margin-bottom: 1.2em;
   margin-top: 1em;
   border-left: solid 6px var(--color-secundario-naranja);
   background: transparent;

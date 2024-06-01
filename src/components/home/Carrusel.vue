@@ -25,13 +25,27 @@
     </div>
     <div class="carousel-inner position-relative">
       <div class="carousel-item active">
+        <div class="overlay"></div>
         <img src="/img/img-carrusel.jpg" class="d-block w-100" alt="..." />
       </div>
       <div class="carousel-item">
+        <div class="overlay"></div>
         <img src="/img/tienda-carrusel.jpg" class="d-block w-100" alt="..." />
       </div>
       <div class="carousel-item">
+        <div class="overlay"></div>
         <img src="/img/teclado-banner.jpg" class="d-block w-100" alt="..." />
+      </div>
+      <div
+        class="d-flex aligns-items-start align-items-sm-center pt-5 pt-sm-0 justify-content-center rotulo text-center"
+      >
+        <div>
+          <h1>Lorem ipsum dolor sit.</h1>
+          <p>
+            Lorem ipsum dolor sit amet consectetur adipisicing elit. Quibusdam
+            perspiciatis ex quam inventore! Eveniet, consequuntur.
+          </p>
+        </div>
       </div>
     </div>
     <button
@@ -87,6 +101,20 @@
   height: 36vw;
 }
 
+.carousel-item .overlay {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background-color: rgba(0, 0, 0, 0.4);
+  z-index: 1;
+}
+
+.carousel-item img {
+  z-index: 0;
+}
+
 .carousel-control-next-button {
   background: none;
   border-width: 2px 0px 2px 2px;
@@ -112,10 +140,12 @@
 }
 .carousel-control-prev {
   justify-content: left;
+  z-index: 2;
 }
 
 .carousel-control-next {
   justify-content: right;
+  z-index: 2;
 }
 .flecha-carrusel {
   background-color: var(--color-secundario-naranja);
@@ -123,6 +153,7 @@
   height: 45px;
   border-radius: 50%;
   font-size: 24px;
+  z-index: 3;
 }
 
 .izquierda {
@@ -131,5 +162,80 @@
 
 .derecha {
   margin-right: 20px;
+}
+.rotulo {
+  position: absolute;
+  right: 0;
+  color: white;
+  width: 100%;
+  height: 100%;
+  z-index: 2;
+}
+
+.rotulo h1 {
+  font-size: 70px;
+  margin-bottom: 0.3em;
+}
+.rotulo p {
+  font-size: 22px;
+}
+
+@media screen and (max-width: 1200px) {
+  .rotulo h1 {
+    font-size: 60px;
+  }
+
+  .rotulo p {
+    font-size: 19px;
+  }
+}
+@media screen and (max-width: 992px) {
+  .rotulo h1 {
+    font-size: 38px;
+  }
+
+  .rotulo p {
+    font-size: 16px;
+  }
+}
+
+@media screen and (max-width: 768px) {
+  .rotulo h1 {
+    font-size: 35px;
+    margin-bottom: 0.2em;
+  }
+
+  .rotulo p {
+    font-size: 13px;
+  }
+}
+
+@media screen and (max-width: 576px) {
+  .rotulo h1 {
+    font-size: 35px;
+    margin-bottom: 0.2em;
+  }
+
+  .rotulo p {
+    font-size: 13px;
+  }
+}
+
+.rotulo div {
+  width: 68%;
+}
+.carousel-control-prev {
+  width: 100px;
+}
+
+.carousel-control-next {
+  width: 100px;
+}
+
+@media screen and (max-width: 576px) {
+  .flecha-carrusel {
+    position: absolute;
+    bottom: 20px;
+  }
 }
 </style>
