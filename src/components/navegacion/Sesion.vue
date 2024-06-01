@@ -88,7 +88,7 @@ export default {
       push.info({ message: 'Has cerrado sesión' });
     },
     login() {
-      this.token = this.$cookies.get('token');
+      this.token = this.$cookies.get('token', '/', window.location.host);
       this.cargarProductosCarrito();
       setTimeout(() => {
         this.$emit('login');
