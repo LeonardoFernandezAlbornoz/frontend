@@ -17,11 +17,9 @@ const emit = defineEmits(['actualizarProductos']);
       ]"
     />
     <div class="container-lg px-4 px-lg-0 mt-5">
-      <div class="row">
-        <DetallesPedido
-          @actualizarProductos="$emit('actualizarProductos')"
-        ></DetallesPedido>
-      </div>
+      <DetallesPedido
+        @actualizarProductos="$emit('actualizarProductos')"
+      ></DetallesPedido>
     </div>
   </main>
 </template>

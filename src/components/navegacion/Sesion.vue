@@ -78,7 +78,7 @@ export default {
     },
 
     logout() {
-      this.$cookies.remove('token', '/', window.location.host);
+      this.$cookies.remove('token', '/', import.meta.env.HOST);
       this.token = null;
 
       setTimeout(() => {

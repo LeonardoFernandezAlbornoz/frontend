@@ -145,7 +145,7 @@ export default {
 };
 </script>
 <template>
-  <div v-if="usuario">
+  <div v-if="usuario" class="row">
     <FormularioPedido
       @confirmarPedido="confirmarPedido"
       v-model:nombre="nombre"

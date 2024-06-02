@@ -20,7 +20,6 @@ export default {
         })
         .then((data) => data.json())
         .then((data) => {
-
           this.productosPedido = data;
         })
         .catch((error) => {
@@ -46,7 +45,7 @@ export default {
     <div class="row">
       <div class="col">
         <p class="m-0"><b>Nº Pedido: </b>{{ pedido.id }}</p>
-        <p>04/04/2024</p>
+        <p>{{ new Date(pedido.fecha).toLocaleDateString() }}</p>
         <p><b>Estado: </b>{{ pedido.estado }}</p>
         <p class="m-0">{{ productosPedido.length }} artículos</p>
         <p class="m-0">

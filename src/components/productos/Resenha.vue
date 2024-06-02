@@ -12,7 +12,7 @@ export default {
 <template>
   <div class="contenedor-resenha mt-4">
     <p class="resenha-usuario mb-2">
-      <b>{{ resenhaProp.usuario.nombre }}</b>
+      <b>{{ resenhaProp.usuario.nomUsuario }}</b>
     </p>
 
     <p class="resenha-fecha mb-2">

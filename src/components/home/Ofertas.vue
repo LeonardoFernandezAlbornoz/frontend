@@ -1,8 +1,101 @@
+<script>
+import { defineComponent } from 'vue';
+import { Carousel, Navigation, Slide } from 'vue3-carousel';
+import 'vue3-carousel/dist/carousel.css';
+import Producto from '../generales/Producto.vue';
+
+export default defineComponent({
+  name: 'Breakpoints',
+  components: {
+    Carousel,
+    Slide,
+    Navigation,
+    Producto,
+  },
+  data: () => ({
+    settings: {
+      itemsToShow: 1,
+      snapAlign: 'center',
+    },
+
+    productos: [],
+    categorias: [],
+    breakpoints: {
+      350: {
+        itemsToShow: 2,
+        snapAlign: 'start',
+      },
+
+      600: {
+        itemsToShow: 2,
+        snapAlign: 'center',
+      },
+
+      // 700px and up
+
+      700: {
+        itemsToShow: 2.5,
+        snapAlign: 'center',
+      },
+
+      900: {
+        itemsToShow: 3.5,
+        snapAlign: 'center',
+      },
+
+      // 1024 and up
+
+      1024: {
+        itemsToShow: 5,
+        snapAlign: 'center',
+      },
+    },
+  }),
+  methods: {
+    buscarProductos(busqueda) {
+      fetch(this.backend + '/productos/buscar/' + busqueda)
+        .then((response) => {
+          if (!response.ok) {
+            throw new Error(`${response.status}`);
+          }
+
+          return response.json();
+        })
+        .then((data) => {
+          this.productos = data;
+        })
+        .catch((error) => {
+          console.error(`Error al obtener los datos: ${error}`);
+        });
+    },
+
+    cargarCategorias() {
+      fetch(this.backend + '/categorias')
+        .then((response) => {
+          if (!response.ok) {
+            throw new Error(`Error:${response.status}`);
+          }
+          return response;
+        })
+        .then((response) => response.json())
+        .then((data) => {
+          this.categorias = data;
+        })
+        .catch((error) => {
+          console.error(`Error al obtener los datos: ${error}`);
+        });
+    },
+  },
+
+  mounted() {
+    this.cargarCategorias();
+  },
+});
+</script>
 <template>
   <Carousel v-bind="settings" :breakpoints="breakpoints" class="mt-5">
     <Slide
       v-for="categoria in categorias"
-      :key="slide"
       class="d-flex justify-content-center align-items-center"
     >
       <div class="text-center carousel__item">
@@ -58,87 +151,6 @@
   </Carousel>
 </template>
 
-<script>
-import { defineComponent } from 'vue';
-import { Carousel, Navigation, Slide } from 'vue3-carousel';
-import 'vue3-carousel/dist/carousel.css';
-import Producto from '../generales/Producto.vue';
-
-export default defineComponent({
-  name: 'Breakpoints',
-  components: {
-    Carousel,
-    Slide,
-    Navigation,
-    Producto,
-  },
-  data: () => ({
-    settings: {
-      itemsToShow: 1,
-      snapAlign: 'center',
-    },
-
-    productos: [],
-    categorias: [],
-    breakpoints: {
-      350: {
-        itemsToShow: 2,
-        snapAlign: 'start',
-      },
-      // 700px and up
-      700: {
-        itemsToShow: 3.5,
-        snapAlign: 'center',
-      },
-      // 1024 and up
-
-      1024: {
-        itemsToShow: 5,
-        snapAlign: 'center',
-      },
-    },
-  }),
-  methods: {
-    buscarProductos(busqueda) {
-      fetch(this.backend + '/productos/buscar/' + busqueda)
-        .then((response) => {
-          if (!response.ok) {
-            throw new Error(`${response.status}`);
-          }
-
-          return response.json();
-        })
-        .then((data) => {
-          this.productos = data;
-        })
-        .catch((error) => {
-          console.error(`Error al obtener los datos: ${error}`);
-        });
-    },
-
-    cargarCategorias() {
-      fetch(this.backend + '/categorias')
-        .then((response) => {
-          if (!response.ok) {
-            throw new Error(`Error:${response.status}`);
-          }
-          return response;
-        })
-        .then((response) => response.json())
-        .then((data) => {
-          this.categorias = data;
-        })
-        .catch((error) => {
-          console.error(`Error al obtener los datos: ${error}`);
-        });
-    },
-  },
-
-  mounted() {
-    this.cargarCategorias();
-  },
-});
-</script>
 <style scoped>
 .img-categoria {
   font-size: 70px;
