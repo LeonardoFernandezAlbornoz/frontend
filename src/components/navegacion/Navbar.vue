@@ -25,7 +25,16 @@ export default {
     BarraCategorias,
     BotonHamburguesa,
   },
-  methods: {},
+  methods: {
+    login() {
+      this.token = this.$cookies.get('token');
+      this.$emit('login');
+    },
+    logout() {
+      this.token = '';
+      this.$emit('logout');
+    },
+  },
 
   mounted() {
     this.token = this.$cookies.get('token');
@@ -67,8 +76,20 @@ export default {
           <div
             class="order-1 order-md-2 col-3 col-sm-6 col-md d-flex column-gap-3 align-items-center justify-content-end"
           >
-            <Sesion @logout="$emit('logout')" @login="$emit('login')" />
-            <LogoCarrito :numProductos="numProductos" />
+            <Sesion @logout="logout" @login="login" />
+            <LogoCarrito
+              v-if="!usuario.admin || !usuario"
+              :numProductos="numProductos"
+            />
+            <div v-else>
+              <router-link
+                :to="{
+                  name: 'panelGestion',
+                }"
+              >
+                <font-awesome-icon icon="fa-solid fa-gears" />
+              </router-link>
+            </div>
           </div>
         </div>
         <BarraCategorias />
@@ -81,5 +102,19 @@ export default {
 .barra-navegacion {
   padding: 1em;
   background-color: var(--gris-oscuro);
+}
+.fa-gears {
+  background-color: transparent;
+  border: none;
+  font-size: 25px;
+  position: relative;
+  color: white;
+  text-decoration: none;
+}
+
+@media screen and (max-width: 576px) {
+  .fa-gears {
+    font-size: 20px;
+  }
 }
 </style>

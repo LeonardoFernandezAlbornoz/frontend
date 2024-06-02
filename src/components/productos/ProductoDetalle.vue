@@ -3,7 +3,6 @@ import Estrellas from '../generales/Estrellas.vue';
 import { jwtDecode } from 'https://unpkg.com/jwt-decode@4.0.0?module';
 import { push } from 'notivue';
 
-
 export default {
   props: ['nomProducto'],
   emits: ['anhadirProducto'],
@@ -173,7 +172,7 @@ export default {
     </div>
     <button
       @click="anhadirCarrito"
-      v-if="producto.stock > 0"
+      v-if="producto.stock > 0 && !usuario.admin"
       class="btn-anhadir-carrito mt-4"
     >
       Añadir al carrito

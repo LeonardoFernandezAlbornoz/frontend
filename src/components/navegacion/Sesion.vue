@@ -57,7 +57,7 @@ export default {
         });
     },
     cargarProductosCarrito() {
-      if (localStorage.getItem('carrito')) {
+      if (localStorage.getItem('carrito') && !this.usuario.admin) {
         let carrito = JSON.parse(localStorage.getItem('carrito')) ?? [];
         let promesas = [];
 
@@ -72,7 +72,7 @@ export default {
         }
 
         localStorage.removeItem('carrito');
-      } else if (localStorage.getItem('carrito')) {
+      } else if (localStorage.getItem('carrito') && !this.usuario.admin) {
         this.productosCarrito = JSON.parse(localStorage.getItem('carrito'));
       }
     },

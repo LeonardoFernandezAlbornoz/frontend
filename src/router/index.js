@@ -62,12 +62,20 @@ const router = createRouter({
     },
 
     {
-      path: '/pasarela_pago',
+      path: '/pasarela-pago',
       name: 'pasarela',
       // route level code-splitting
       // this generates a separate chunk (About.[hash].js) for this route
       // which is lazy-loaded when the route is visited.
       component: () => import('../views/PasarelaView.vue'),
+    },
+    {
+      path: '/panel-gestion',
+      name: 'panelGestion',
+      // route level code-splitting
+      // this generates a separate chunk (About.[hash].js) for this route
+      // which is lazy-loaded when the route is visited.
+      component: () => import('../views/PanelGestionView.vue'),
     },
   ],
 });
