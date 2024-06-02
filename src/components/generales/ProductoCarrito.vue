@@ -158,7 +158,7 @@ export default {
         </router-link>
       </div>
       <div
-        class="order-1 order-md-2 col-6 col-md-3 px-4 d-flex justify-content-end"
+        class="order-1 order-md-2 col-6 col-md-3 px-md-4 d-flex justify-content-end"
       >
         <div class="d-flex column-gap-3 align-items-center w-100">
           <button @click="eliminarProducto" class="btn-eliminar-producto">
@@ -167,7 +167,7 @@ export default {
           <input
             @change="actualizarCarrito"
             v-model.number="cantidad"
-            class="form-control w-"
+            class="form-control w-100"
             id="cantidad"
             type="number"
             min="1"
