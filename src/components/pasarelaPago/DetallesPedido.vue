@@ -97,7 +97,7 @@ export default {
     },
 
     eliminarProductosCarrito() {
-      fetch(`${this.backend}/carrito/eliminar/usuario`, {
+      return fetch(`${this.backend}/carrito/eliminar/usuario`, {
         method: 'DELETE',
         headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify({
@@ -116,9 +116,10 @@ export default {
     confirmarPedido() {
       this.crearPedido().then(() => {
         push.info({ message: 'Se ha confirmado su pedido' });
-        this.eliminarProductosCarrito();
-        router.push('/');
-        this.$emit('actualizarProductos');
+        this.eliminarProductosCarrito().then(() => {
+          router.push('/');
+          this.$emit('actualizarProductos');
+        });
       });
     },
   },
