@@ -27,17 +27,14 @@ export default defineComponent({
       },
 
       600: {
-        itemsToShow: 2,
+        itemsToShow: 2.5,
         snapAlign: 'center',
       },
 
-      // 700px and up
-
-      700: {
-        itemsToShow: 3,
+      800: {
+        itemsToShow: 3.5,
         snapAlign: 'center',
       },
-
       900: {
         itemsToShow: 3.5,
         snapAlign: 'center',
