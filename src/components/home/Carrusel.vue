@@ -139,12 +139,10 @@
   background-color: var(--color-secundario-naranja);
 }
 .carousel-control-prev {
-  justify-content: left;
   z-index: 2;
 }
 
 .carousel-control-next {
-  justify-content: right;
   z-index: 2;
 }
 .flecha-carrusel {
@@ -225,11 +223,11 @@
   width: 68%;
 }
 .carousel-control-prev {
-  width: 100px;
+  width: 90px;
 }
 
 .carousel-control-next {
-  width: 100px;
+  width: 90px;
 }
 
 @media screen and (max-width: 576px) {

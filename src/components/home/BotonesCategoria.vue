@@ -34,7 +34,7 @@ export default defineComponent({
       // 700px and up
 
       700: {
-        itemsToShow: 2.5,
+        itemsToShow: 3,
         snapAlign: 'center',
       },
 

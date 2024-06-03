@@ -34,6 +34,14 @@ export default {
   margin: 0;
 }
 
+.is-active {
+  opacity: 1 !important;
+}
+
+.hamburger {
+  opacity: 0.8;
+}
+
 .hamburger {
   position: fixed;
   bottom: 30px;
@@ -46,6 +54,9 @@ export default {
   justify-content: center;
   align-items: center;
   z-index: 300;
+}
+
+.hamburger:hover {
 }
 
 .hamburger-box {

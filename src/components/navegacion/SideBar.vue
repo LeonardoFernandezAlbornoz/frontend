@@ -104,7 +104,7 @@ export default {
   visibility: visible !important;
 }
 .sidebar {
-  padding: 18px;
+  padding: 10px;
   position: fixed;
   top: 0;
 
@@ -125,7 +125,7 @@ export default {
   display: flex;
   justify-content: center;
   align-items: center;
-  height: 100px;
+  height: 80px;
   font-size: 20px;
   font-weight: bold;
   border-bottom: var(--gris-claro) 2px solid;

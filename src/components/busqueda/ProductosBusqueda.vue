@@ -63,7 +63,7 @@ export default {
   >
     No se han encontrado resutados para su búsqueda
   </div>
-  <div class="mx-4 mx-sm-0 productos-categoria row p-0 g-3 g-xxl-5">
+  <div class="productos-categoria row g-3 g-xl-4 g-xxl-5">
     <div
       v-for="producto in productoPorCategoria"
       class="col-sm-6 col-md-4 col-xl-3"
@@ -73,4 +73,11 @@ export default {
   </div>
 </template>
 
-<style></style>
+<style scoped>
+@media screen and (max-width: 576px) {
+  .productos-categoria {
+    margin-left: 10%;
+    margin-right: 10%;
+  }
+}
+</style>

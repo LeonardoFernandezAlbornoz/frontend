@@ -1,13 +1,13 @@
 <script setup>
 import Carrusel from '@/components/home/Carrusel.vue';
-import Ofertas from '@/components/home/Ofertas.vue';
+import BotonesCategoria from '@/components/home/BotonesCategoria.vue';
 </script>
 
 <template>
   <main>
     <Carrusel></Carrusel>
     <div class="container">
-      <Ofertas></Ofertas>
+      <BotonesCategoria></BotonesCategoria>
     </div>
   </main>
 </template>

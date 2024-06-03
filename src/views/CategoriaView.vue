@@ -17,7 +17,7 @@ import Ruta from '@/components/navegacion/Ruta.vue';
         },
       ]"
     />
-    <div class="container bg-transparent px-4 px-lg-0">
+    <div class="container-lg bg-transparent px-4 px-lg-0">
       <TituloPagina
         :titulo="
           $route.params.nomCategoria.charAt(0).toUpperCase() +
