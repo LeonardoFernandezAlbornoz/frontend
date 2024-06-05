@@ -77,6 +77,24 @@ const router = createRouter({
       // which is lazy-loaded when the route is visited.
       component: () => import('../views/PanelGestionView.vue'),
     },
+
+    {
+      path: '/panel-gestion/gestion-inventario',
+      name: 'gestionInventario',
+      // route level code-splitting
+      // this generates a separate chunk (About.[hash].js) for this route
+      // which is lazy-loaded when the route is visited.
+      component: () => import('../views/InventarioView.vue'),
+    },
+
+    {
+      path: '/panel-gestion/gestion-usuarios',
+      name: 'gestionUsuarios',
+      // route level code-splitting
+      // this generates a separate chunk (About.[hash].js) for this route
+      // which is lazy-loaded when the route is visited.
+      component: () => import('../views/UsuariosView.vue'),
+    },
   ],
 });
 

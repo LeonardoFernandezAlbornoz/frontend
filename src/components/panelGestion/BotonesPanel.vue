@@ -2,9 +2,12 @@
 export default {};
 </script>
 <template>
-  <div class="row px-5 px-md-0 g-4">
+  <div class="row px-1 px-sm-5 px-md-0 g-4">
     <div class="col-md">
-      <div class="btn-gestion mx-auto row">
+      <router-link
+        :to="{ name: 'gestionInventario' }"
+        class="btn-gestion mx-auto row"
+      >
         <div
           class="col col-md-12 col-xl-6 d-flex justify-content-center align-items-center"
         >
@@ -13,10 +16,13 @@ export default {};
         <div class="mt-md-4 mt-xl-0 col col-md-12 col-xl-6 text-center">
           <font-awesome-icon :icon="['fas', 'clipboard']" />
         </div>
-      </div>
+      </router-link>
     </div>
     <div class="col-md">
-      <div class="btn-gestion row mx-auto">
+      <router-link
+        class="btn-gestion row mx-auto"
+        :to="{ name: 'gestionUsuarios' }"
+      >
         <div
           class="col col-md-12 col-xl-6 d-flex justify-content-center align-items-center"
         >
@@ -25,10 +31,10 @@ export default {};
         <div class="mt-md-4 mt-xl-0 col col-md-12 col-xl-6 text-center">
           <font-awesome-icon :icon="['fas', 'user']" />
         </div>
-      </div>
+      </router-link>
     </div>
     <div class="col-md">
-      <div class="btn-gestion row mx-auto">
+      <router-link class="btn-gestion row mx-auto">
         <div
           class="col col-md-12 col-xl-6 d-flex justify-content-center align-items-center"
         >
@@ -37,7 +43,7 @@ export default {};
         <div class="mt-md-4 mt-xl-0 col col-md-12 col-xl-6 text-center">
           <font-awesome-icon :icon="['fas', 'box']" />
         </div>
-      </div>
+      </router-link>
     </div>
   </div>
 </template>
@@ -60,7 +66,7 @@ export default {};
 .btn-gestion .svg-inline--fa {
   color: white;
 
-  font-size: 78px;
+  font-size: 75px;
 }
 
 .btn-gestion:hover {

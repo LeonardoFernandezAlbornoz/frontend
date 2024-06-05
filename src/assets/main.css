@@ -1,7 +1,7 @@
 :root {
     --gris-oscuro: #272727;
     --color-fondo: #DBDADA;
-    --color-secundario-naranja: #F4772E;
+    --color-secundario-naranja: #f4772e;
     --naranja-oscuro: rgb(204, 76, 3);
     --gris: #797676;
     --gris-claro: #DBDADA;
@@ -10,6 +10,14 @@
     --degradado-naranja: linear-gradient(135deg,
             rgba(242, 101, 56, 1) 31%,
             rgba(245, 143, 29, 1) 79%);
+}
+
+.form-control:focus,
+.form-check-input:focus {
+    border-color: #f4772e !important;
+    box-shadow: 0 0 0 0.2rem rgba(244,
+            119,
+            46, 0.25) !important;
 }
 
 * {

@@ -8,7 +8,7 @@ export default {
   emits: ['actualizarProductos'],
   data() {
     return {
-      productosCarrito: [],
+      productosCarrito: 0,
       token: '',
     };
   },
@@ -97,7 +97,7 @@ export default {
         </div>
       </div>
     </div>
-    <div v-else class="container-lg mt-5">
+    <div v-else-if="productosCarrito != []" class="container-lg mt-5">
       <div class="alert alert-danger text-center" role="alert">
         No hay productos en el carrito
       </div>

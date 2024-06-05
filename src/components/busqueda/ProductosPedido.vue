@@ -12,7 +12,7 @@ export default {
   data() {
     return {
       productosPedido: [],
-      pedido: '',
+      pedido: null,
       token: null,
     };
   },
@@ -84,7 +84,7 @@ export default {
       </div>
     </div>
   </div>
-  <div v-else>
+  <div v-else-if="pedido != null">
     <AccesoDenegado></AccesoDenegado>
   </div>
 </template>

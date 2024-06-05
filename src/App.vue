@@ -61,9 +61,7 @@ export default {
   },
   computed: {
     usuario() {
-      return this.$cookies.get('token')
-        ? jwtDecode(this.$cookies.get('token'))
-        : '';
+      return this.token ? jwtDecode(this.$cookies.get('token')) : '';
     },
   },
 };
