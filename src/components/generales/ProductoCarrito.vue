@@ -165,7 +165,13 @@ export default {
             <font-awesome-icon icon="fa-regular fa-trash-can" />
           </button>
           <input
-            @change="actualizarCarrito"
+            @change="
+              cantidad < 0 ? (cantidad = 1) : (cantidad = cantidad);
+              cantidad > productoCarrito.producto.stock
+                ? (cantidad = productoCarrito.producto.stock)
+                : (cantidad = cantidad);
+              actualizarCarrito();
+            "
             v-model.number="cantidad"
             class="form-control w-100"
             id="cantidad"

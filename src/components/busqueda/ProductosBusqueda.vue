@@ -57,7 +57,7 @@ export default {
 </script>
 <template>
   <div
-    v-if="!productos.length"
+    v-if="!productoPorCategoria.length"
     class="alert alert-danger text-center"
     role="alert"
   >

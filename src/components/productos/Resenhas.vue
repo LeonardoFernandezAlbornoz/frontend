@@ -53,7 +53,7 @@ export default {
         @click="oculto = !oculto"
         :class="{ arriba: oculto }"
       >
-        <font-awesome-icon icon="fa-solid fa-angle-down" />
+        <font-awesome-icon icon="fa-solid fa-angle-up" />
       </button>
     </div>
     <div class="resenhas" :class="{ expandir: !oculto }">
@@ -92,7 +92,7 @@ export default {
   border: 0;
   transition: transform ease 0.2s;
 }
-.fa-angle-down {
+.fa-angle-up {
   font-size: 30px;
   color: var(--gris-oscuro);
 }

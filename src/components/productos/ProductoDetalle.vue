@@ -161,6 +161,12 @@ export default {
       </div>
       <div class="col-auto">
         <input
+          @change="
+            cantidad > producto.stock
+              ? (cantidad = producto.stock)
+              : (cantidad = cantidad);
+            cantidad < 0 ? (cantidad = 1) : (cantidad = cantidad);
+          "
           v-model.number="cantidad"
           class="form-control"
           id="cantidad"

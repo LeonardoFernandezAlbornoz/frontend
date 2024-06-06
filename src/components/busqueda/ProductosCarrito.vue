@@ -41,6 +41,8 @@ export default {
       } else if (localStorage.getItem('carrito')) {
         this.productosCarrito = JSON.parse(localStorage.getItem('carrito'));
         this.$emit('actualizarProductos');
+      } else {
+        this.productosCarrito = [];
       }
     },
   },
@@ -97,7 +99,7 @@ export default {
         </div>
       </div>
     </div>
-    <div v-else-if="productosCarrito != []" class="container-lg mt-5">
+    <div v-else-if="Array.isArray(productosCarrito)" class="container-lg mt-5">
       <div class="alert alert-danger text-center" role="alert">
         No hay productos en el carrito
       </div>

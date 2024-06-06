@@ -27,6 +27,7 @@ export default {
   },
   methods: {
     cargarProductosCarrito() {
+      this.token = this.$cookies.get('token');
       if (this.$cookies.get('token')) {
         fetch(`${this.backend}/carrito/usuario/${this.usuario.id}`)
           .then((response) => {

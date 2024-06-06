@@ -5,43 +5,29 @@ export default {
   data() {
     return {
       token: '',
-      usuarios: [],
+      pedidos: [],
       filtro: '',
     };
   },
 
   mounted() {
     this.token = this.$cookies.get('token');
-    this.cargarUsuarios();
+    this.cargarPedidos();
   },
   computed: {
     usuarioActual() {
       return this.token ? jwtDecode(this.token) : '';
     },
-    usuariosFiltrados() {
-      return this.usuarios.filter(
-        (usuario) =>
-          usuario.nomUsuario
-            .toUpperCase()
-            .includes(this.filtro.toUpperCase()) ||
-          usuario.nombre.toUpperCase().includes(this.filtro.toUpperCase()) ||
-          usuario.apellidos.toUpperCase().includes(this.filtro.toUpperCase())
+    pedidosFiltrados() {
+      return this.pedidos.filter((pedido) =>
+        pedido.usuario.nomUsuario
+          .toUpperCase()
+          .includes(this.filtro.toUpperCase())
       );
     },
   },
   methods: {
-    editarUsuario(e) {
-      console.log(e.target.id, e.target.checked, e.target.dataset.admin);
-      let admin =
-        e.target.id == 'admin'
-          ? e.target.checked
-          : Boolean(e.target.dataset.admin == 'true');
-      let activado =
-        e.target.id == 'activado'
-          ? e.target.checked
-          : Boolean(e.target.dataset.activado == 'true');
 
-      console.log(e.target.id, admin, activado);
       fetch(this.backend + '/usuario/modificar/' + e.target.dataset.id, {
         method: 'PATCH',
         headers: {
