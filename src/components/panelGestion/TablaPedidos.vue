@@ -1,22 +1,22 @@
 <script>
-import { jwtDecode } from 'https://unpkg.com/jwt-decode@4.0.0?module';
-import { push } from 'notivue';
+import { jwtDecode } from "https://unpkg.com/jwt-decode@4.0.0?module";
+import { push } from "notivue";
 export default {
   data() {
     return {
-      token: '',
+      token: "",
       pedidos: [],
-      filtro: '',
+      filtro: "",
     };
   },
 
   mounted() {
-    this.token = this.$cookies.get('token');
+    this.token = this.$cookies.get("token");
     this.cargarPedidos();
   },
   computed: {
     usuarioActual() {
-      return this.token ? jwtDecode(this.token) : '';
+      return this.token ? jwtDecode(this.token) : "";
     },
     pedidosFiltrados() {
       return this.pedidos.filter((pedido) =>
@@ -27,46 +27,8 @@ export default {
     },
   },
   methods: {
-
-      fetch(this.backend + '/usuario/modificar/' + e.target.dataset.id, {
-        method: 'PATCH',
-        headers: {
-          'Content-Type': 'application/json',
-          Authorization: this.token,
-        },
-
-        body: JSON.stringify({
-          id: e.target.dataset.id,
-          nomUsuario: e.target.dataset.nomusuario,
-          nombre: e.target.dataset.nombre,
-          apellidos: e.target.dataset.apellidos,
-          correo: e.target.dataset.correo,
-          admin: admin,
-          activado: activado,
-        }),
-      })
-        .then((response) => {
-          if (!response.ok) {
-            throw new Error(response.status);
-          }
-          if (e.target.checked && e.target.id == 'activado') {
-            push.info('El usuario ha sido activado');
-          } else if (!e.target.checked && e.target.id == 'activado') {
-            push.info('El usuario ha sido desactivado');
-          } else if (e.target.checked && e.target.id == 'admin') {
-            push.info('El usuario ha sido habilitado como administrador');
-          } else {
-            push.info('El usuario ha sido deshabilitado como administrador');
-          }
-          this.cargarUsuarios();
-        })
-        .catch((error) => {
-          console.error(error);
-        });
-    },
-
     cargarUsuarios() {
-      fetch(this.backend + '/usuarios')
+      fetch(this.backend + "/usuarios")
         .then((response) => {
           if (!response.ok) {
             throw new Error(response.status);
