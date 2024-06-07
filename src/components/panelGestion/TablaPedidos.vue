@@ -1,50 +1,6 @@
 <script>
 import { jwtDecode } from "https://unpkg.com/jwt-decode@4.0.0?module";
 import { push } from "notivue";
-export default {
-  data() {
-    return {
-      token: "",
-      pedidos: [],
-      filtro: "",
-    };
-  },
-
-  mounted() {
-    this.token = this.$cookies.get("token");
-    this.cargarPedidos();
-  },
-  computed: {
-    usuarioActual() {
-      return this.token ? jwtDecode(this.token) : "";
-    },
-    pedidosFiltrados() {
-      return this.pedidos.filter((pedido) =>
-        pedido.usuario.nomUsuario
-          .toUpperCase()
-          .includes(this.filtro.toUpperCase())
-      );
-    },
-  },
-  methods: {
-    cargarUsuarios() {
-      fetch(this.backend + "/usuarios")
-        .then((response) => {
-          if (!response.ok) {
-            throw new Error(response.status);
-          }
-
-          return response.json();
-        })
-        .then((data) => {
-          this.usuarios = data;
-        })
-        .catch((error) => {
-          console.error(error);
-        });
-    },
-  },
-};
 </script>
 <template>
   <div class="row mb-4">
