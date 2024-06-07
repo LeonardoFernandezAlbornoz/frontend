@@ -144,6 +144,7 @@ export default {
               <input
                 @change="editarUsuario"
                 :data-id="usuario.id"
+                :disabled="usuarioActual.correo == usuario.correo"
                 :data-nomUsuario="usuario.nomUsuario"
                 :data-nombre="usuario.nombre"
                 :data-apellidos="usuario.apellidos"
@@ -161,6 +162,7 @@ export default {
             <div class="form-check d-flex justify-content-center form-switch">
               <input
                 @change="editarUsuario"
+                :disabled="usuarioActual.correo == usuario.correo"
                 :data-id="usuario.id"
                 :data-nomUsuario="usuario.nomUsuario"
                 :data-nombre="usuario.nombre"

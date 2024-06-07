@@ -1,6 +1,81 @@
 <script>
-import { jwtDecode } from "https://unpkg.com/jwt-decode@4.0.0?module";
-import { push } from "notivue";
+import { jwtDecode } from 'https://unpkg.com/jwt-decode@4.0.0?module';
+import { push } from 'notivue';
+export default {
+  data() {
+    return {
+      token: '',
+      pedidos: [],
+      filtro: '',
+    };
+  },
+
+  mounted() {
+    this.token = this.$cookies.get('token');
+    this.cargarPedidos();
+  },
+  computed: {
+    usuario() {
+      return this.token ? jwtDecode(this.token) : '';
+    },
+    pedidosFiltrados() {
+      return this.pedidos.filter((pedido) => {
+        return (
+          pedido.usuario.nomUsuario
+            .toUpperCase()
+            .includes(this.filtro.toUpperCase()) ||
+          (pedido.usuario.nombre + ' ' + pedido.usuario.apellidos)
+            .toUpperCase()
+            .includes(this.filtro.toUpperCase())
+        );
+      });
+    },
+  },
+  methods: {
+    cargarPedidos() {
+      fetch(this.backend + '/pedidos', {
+        headers: {
+          'Content-Type': 'application/json',
+          Authorization: this.token,
+        },
+      })
+        .then((response) => {
+          if (!response.ok) {
+            throw new Error(response.status);
+          }
+
+          return response.json();
+        })
+        .then((data) => {
+          this.pedidos = data;
+        })
+        .catch((error) => {
+          console.error(error);
+        });
+    },
+    modificarEstado(e) {
+      fetch(this.backend + '/pedidos/modificar-estado/' + e.target.dataset.id, {
+        method: 'PATCH',
+        headers: {
+          'Content-Type': 'application/json',
+          Authorization: this.token,
+        },
+        body: JSON.stringify({
+          estado: e.target.value,
+        }),
+      })
+        .then((response) => {
+          if (!response.ok) {
+            throw new Error(response.status);
+          }
+          this.cargarPedidos();
+        })
+        .catch((error) => {
+          console.error(error);
+        });
+    },
+  },
+};
 </script>
 <template>
   <div class="row mb-4">
@@ -9,7 +84,7 @@ import { push } from "notivue";
         v-model="filtro"
         type="text"
         class="form-control"
-        placeholder="Buscar por nombre"
+        placeholder="Buscar por usuario"
       />
     </div>
   </div>
@@ -18,67 +93,56 @@ import { push } from "notivue";
       <thead class="table-dark">
         <tr>
           <th class="text-center">ID</th>
-          <th>Nombre de usuario</th>
+          <th>Usuario</th>
           <th>Nombre</th>
           <th>Apellidos</th>
-          <th>Correo</th>
-          <th class="text-center">Administrador</th>
-          <th class="text-center">Activado</th>
+          <th>Fecha</th>
+          <th>Estado</th>
+          <th class="text-center">Gastos envío</th>
         </tr>
       </thead>
       <tbody>
-        <tr v-for="usuario in usuariosFiltrados" :key="usuario.id">
-          <td class="text-center">{{ usuario.id }}</td>
+        <tr v-for="pedido in pedidosFiltrados" :key="pedido.id">
+          <td class="text-center">{{ pedido.id }}</td>
 
           <td>
-            {{
-              usuario.nomUsuario.charAt(0).toUpperCase() +
-              usuario.nomUsuario.slice(1)
-            }}
+            {{ pedido.usuario.nomUsuario }}
           </td>
           <td>
-            {{
-              usuario.nombre.charAt(0).toUpperCase() + usuario.nombre.slice(1)
-            }}
+            {{ pedido.usuario.nombre }}
           </td>
-          <td>{{ usuario.apellidos }}</td>
-          <td>{{ usuario.correo }}</td>
-          <td class="text-center">
-            <div class="form-check d-flex justify-content-center form-switch">
-              <input
-                @change="editarUsuario"
-                :data-id="usuario.id"
-                :data-nomUsuario="usuario.nomUsuario"
-                :data-nombre="usuario.nombre"
-                :data-apellidos="usuario.apellidos"
-                :data-correo="usuario.correo"
-                :data-activado="usuario.activado"
-                class="form-check-input"
-                type="checkbox"
-                role="switch"
-                id="admin"
-                :checked="usuario.admin"
-              />
-            </div>
+          <td>
+            {{ pedido.usuario.apellidos }}
           </td>
-          <td class="text-center">
-            <div class="form-check d-flex justify-content-center form-switch">
-              <input
-                @change="editarUsuario"
-                :data-id="usuario.id"
-                :data-nomUsuario="usuario.nomUsuario"
-                :data-nombre="usuario.nombre"
-                :data-apellidos="usuario.apellidos"
-                :data-correo="usuario.correo"
-                :data-admin="usuario.admin"
-                class="form-check-input"
-                type="checkbox"
-                role="switch"
-                id="activado"
-                :checked="usuario.activado"
-              />
-            </div>
+          <td>
+            {{ new Date(pedido.fecha).toLocaleDateString() }}
           </td>
+          <td>
+            <select
+              @change="modificarEstado"
+              :data-id="pedido.id"
+              name="estado"
+              id="estado"
+              class="form-select"
+            >
+              <option :selected="pedido.estado == 'Enviado'" value="Enviado">
+                Enviado
+              </option>
+              <option
+                :selected="pedido.estado == 'Entregado'"
+                value="Entregado"
+              >
+                Entregado
+              </option>
+              <option
+                :selected="pedido.estado == 'Pendiente'"
+                value="Pendiente"
+              >
+                Pendiente
+              </option>
+            </select>
+          </td>
+          <td class="text-center">{{ pedido.gastosEnvio }}€</td>
         </tr>
       </tbody>
     </table>
@@ -91,38 +155,7 @@ td {
   padding: 1em;
 }
 
-.btn-anhadir-producto {
-  background: var(--degradado-naranja);
-  padding: 0.5em;
-  width: 100%;
-  border: none;
-  color: white;
-  font-weight: 600;
-  width: 180px;
-  transition: filter 0.2s ease;
-}
-.btn-anhadir-producto:hover {
-  filter: brightness(110%);
-}
-.form-check-input:checked {
-  background-color: var(--color-secundario-naranja) !important;
-  border-color: var(--color-secundario-naranja) !important;
-}
-td > img {
-  width: 50px;
-}
 tr {
   vertical-align: middle;
-}
-.acciones button {
-  background: none;
-  border: none;
-  font-size: 20px;
-  color: var(--gris-oscuro);
-  transition: color 0.2s ease;
-}
-
-.acciones button:hover {
-  color: var(--color-secundario-naranja);
 }
 </style>

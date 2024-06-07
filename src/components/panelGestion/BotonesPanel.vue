@@ -34,7 +34,10 @@ export default {};
       </router-link>
     </div>
     <div class="col-md">
-      <router-link class="btn-gestion row mx-auto">
+      <router-link
+        class="btn-gestion row mx-auto"
+        :to="{ name: 'gestionPedidos' }"
+      >
         <div
           class="col col-md-12 col-xl-6 d-flex justify-content-center align-items-center"
         >

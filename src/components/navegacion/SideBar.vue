@@ -25,7 +25,7 @@ export default {
 <template>
   <div>
     <div class="sidebar" :class="{ 'sidebar-activo': active }">
-      <div @click="toggleSidebar" class="sidebar-content">
+      <div @click="toggleSidebar" class="sidebar-content pb-5">
         <div class="sidebar-section">
           <router-link
             :to="{

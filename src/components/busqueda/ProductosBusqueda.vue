@@ -4,7 +4,7 @@ import Producto from '../generales/Producto.vue';
 export default {
   data() {
     return {
-      productos: [],
+      productos: null,
     };
   },
 
@@ -57,7 +57,7 @@ export default {
 </script>
 <template>
   <div
-    v-if="!productoPorCategoria.length"
+    v-if="productoPorCategoria != null && !productoPorCategoria.length"
     class="alert alert-danger text-center"
     role="alert"
   >

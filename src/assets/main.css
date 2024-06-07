@@ -12,6 +12,7 @@
             rgba(245, 143, 29, 1) 79%);
 }
 
+.form-select:focus,
 .form-control:focus,
 .form-check-input:focus {
     border-color: #f4772e !important;
