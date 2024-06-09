@@ -1,6 +1,7 @@
 <script>
 import { jwtDecode } from 'https://unpkg.com/jwt-decode@4.0.0?module';
 import { RouterLink, RouterView } from 'vue-router';
+import { Notivue, Notification, NotificationProgress } from 'notivue';
 
 export default {
   components: {
