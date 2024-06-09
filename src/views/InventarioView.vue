@@ -1,8 +1,15 @@
 <script setup>
-import TituloPagina from '@/components/generales/TituloPagina.vue';
+import { ref } from 'vue';
 import Ruta from '@/components/navegacion/Ruta.vue';
+import TituloPagina from '@/components/generales/TituloPagina.vue';
 import TablaProductos from '@/components/panelGestion/TablaProductos.vue';
 import AnhadirProducto from '@/components/modales/AnhadirProducto.vue';
+import EliminarProducto from '@/components/modales/EliminarProducto.vue';
+const toggle = ref(true);
+
+const actualizarProductos = () => {
+  toggle.value = !toggle.value;
+};
 </script>
 
 <template>
@@ -25,8 +32,8 @@ import AnhadirProducto from '@/components/modales/AnhadirProducto.vue';
     />
     <div class="container-lg px-4 px-lg-0">
       <TituloPagina :titulo="'Gestión de inventario'"></TituloPagina>
-      <TablaProductos></TablaProductos>
+      <TablaProductos :toggle="toggle" />
     </div>
   </main>
-  <AnhadirProducto></AnhadirProducto>
+  <AnhadirProducto @actualizarProductos="actualizarProductos" />
 </template>

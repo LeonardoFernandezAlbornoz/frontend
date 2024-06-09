@@ -4,7 +4,7 @@ import { jwtDecode } from 'https://unpkg.com/jwt-decode@4.0.0?module';
 import { push } from 'notivue';
 
 export default {
-  props: ['nomProducto'],
+  props: ['idProducto'],
   emits: ['anhadirProducto'],
   data() {
     return {
@@ -19,7 +19,7 @@ export default {
   },
 
   mounted() {
-    fetch(this.backend + '/producto/' + this.nomProducto)
+    fetch(this.backend + '/producto/' + this.idProducto)
       .then((response) => {
         if (!response.ok) {
           throw new Error(`Error: ${response.status}`);
@@ -89,7 +89,7 @@ export default {
             return response.json();
           })
           .then((data) => {
-            console.log(data);
+
             this.$emit('anhadirProducto');
           })
           .catch((error) => {

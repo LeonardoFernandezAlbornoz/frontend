@@ -1,6 +1,6 @@
 <script>
 export default {
-  props: ['nomProducto'],
+  props: ['idProducto'],
   data() {
     return {
       producto: '',
@@ -8,7 +8,7 @@ export default {
   },
 
   mounted() {
-    fetch(this.backend + '/producto/' + this.nomProducto)
+    fetch(this.backend + '/producto/' + this.idProducto)
       .then((response) => {
         if (!response.ok) {
           throw new Error(`Error: ${response.status}`);
@@ -34,7 +34,7 @@ export default {
     <div
       class="producto-imagen-detalle"
       :style="{
-        'background-image': 'url(/img/productos/' + producto.imagen + ')',
+        'background-image': 'url(' + producto.imagen + ')',
       }"
     ></div>
   </div>

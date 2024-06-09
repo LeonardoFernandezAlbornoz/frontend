@@ -49,7 +49,6 @@ export default {
   computed: {
     items() {
       if (!this.nombre) {
-        // Si el nombre es nulo
         return [
           {
             icon: 'pi pi-sign-in',

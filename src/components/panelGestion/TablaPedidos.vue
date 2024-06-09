@@ -97,7 +97,7 @@ export default {
           <th>Nombre</th>
           <th>Apellidos</th>
           <th>Fecha</th>
-          <th>Estado</th>
+          <th class="col-estado">Estado</th>
           <th class="text-center">Gastos envío</th>
         </tr>
       </thead>
@@ -157,5 +157,12 @@ td {
 
 tr {
   vertical-align: middle;
+}
+
+.col-estado {
+  min-width: 200px;
+}
+th {
+  text-wrap: nowrap;
 }
 </style>

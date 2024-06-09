@@ -1,8 +1,8 @@
 <script>
-import { push } from 'notivue';
+import { materialTheme, push } from 'notivue';
 import { jwtDecode } from 'https://unpkg.com/jwt-decode@4.0.0?module';
 export default {
-  props: ['nomProducto'],
+  props: ['idProducto'],
   emits: ['cargarResenhas'],
   data() {
     return {
@@ -21,7 +21,7 @@ export default {
   },
   methods: {
     enviarResenha() {
-      fetch(this.backend + '/resenha/crear/' + this.nomProducto, {
+      fetch(this.backend + '/resenha/crear/' + this.idProducto, {
         method: 'POST',
         headers: {
           'Content-Type': 'application/json',
@@ -41,8 +41,8 @@ export default {
         })
         .then((data) => data.json())
         .then((data) => {
-          this.$emit('cargarResenhas', this.nomProducto);
-          push.info({ message: data.status });
+          this.$emit('cargarResenhas', this.idProducto);
+          push.success({ message: data.status });
         })
         .catch((error) => {
           console.error(error);

@@ -86,7 +86,7 @@ export default {
                   v-model="nomUsuario"
                   required
                   type="text"
-                  class="form-control form-control"
+                  class="form-control form-control-lg"
                   id="signup-usuario"
                 />
               </div>
@@ -96,7 +96,7 @@ export default {
                   v-model="nombre"
                   required
                   type="text"
-                  class="form-control form-control"
+                  class="form-control form-control-lg"
                   id="signup-nombre"
                 />
               </div>
@@ -108,7 +108,7 @@ export default {
                   v-model="apellidos"
                   required
                   type="text"
-                  class="form-control form-control"
+                  class="form-control form-control-lg"
                   id="signup-apellidos"
                 />
               </div>
@@ -121,7 +121,7 @@ export default {
                   v-model="correo"
                   required
                   type="email"
-                  class="form-control form-control"
+                  class="form-control form-control-lg"
                   id="signup-correo"
                 />
               </div>
@@ -133,7 +133,7 @@ export default {
                   v-model="contrasenha"
                   required
                   type="password"
-                  class="form-control form-control"
+                  class="form-control form-control-lg"
                   id="signup-contrasenha"
                 />
               </div>

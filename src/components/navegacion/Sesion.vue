@@ -46,11 +46,6 @@ export default {
           if (!response.ok) {
             throw new Error(response.status);
           }
-
-          return response.json();
-        })
-        .then((data) => {
-          console.log(data);
         })
         .catch((error) => {
           console.error(error);

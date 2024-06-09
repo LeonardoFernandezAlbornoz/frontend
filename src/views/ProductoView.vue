@@ -33,19 +33,19 @@ const emit = defineEmits(['anhadirProducto']);
     <div class="container-lg px-4 px-lg-0">
       <div class="row mx-md-3 mx-sm-0 mt-4 gx-xxl-5">
         <div class="col-md mb-4 mb-md-0 col-lg-7">
-          <ProductoImagen :nomProducto="$route.params.nomProducto" />
+          <ProductoImagen :idProducto="$route.params.idProducto" />
         </div>
         <div class="col-md">
           <ProductoDetalle
             @anhadirProducto="$emit('anhadirProducto')"
-            :nomProducto="$route.params.nomProducto"
+            :idProducto="$route.params.idProducto"
           />
         </div>
       </div>
 
       <div class="row mt-4 gx-xxl-5 mx-md-3 mx-sm-0">
         <div class="col-md">
-          <Resenhas :nomProducto="$route.params.nomProducto" />
+          <Resenhas :idProducto="$route.params.idProducto" />
         </div>
       </div>
     </div>

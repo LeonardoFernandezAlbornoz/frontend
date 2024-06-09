@@ -12,8 +12,12 @@ export default {
     buscar() {
       if (this.busqueda.trim()) {
         router.push({
-          path: `/productos/buscar/${this.busqueda}/${this.categoria}`,
+          path: `/productos/buscar/${this.busqueda.replaceAll('/', '')}/${
+            this.categoria
+          }`,
         });
+        this.$refs.inputSearch.blur();
+        this.$refs.inputSearchSm.blur();
       }
     },
   },
@@ -32,6 +36,7 @@ export default {
         </option>
       </select>
       <input
+        ref="inputSearch"
         v-model="busqueda"
         type="text"
         class="form-control"
@@ -55,6 +60,7 @@ export default {
         </option>
       </select>
       <input
+        ref="inputSearchSm"
         v-model="busqueda"
         type="text"
         class="form-control form-control-sm"

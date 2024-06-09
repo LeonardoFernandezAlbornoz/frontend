@@ -1,9 +1,11 @@
 <script>
 import { push } from 'notivue';
 export default {
-  emits: ['actualizarProductos'],
+  props: ['producto'],
+  emits: ['cargarProductos'],
   data() {
     return {
+      id: 1,
       categorias: [],
       stock: 1,
       precio: 1.0,
@@ -13,6 +15,17 @@ export default {
       imagen: '',
       nomProducto: '',
     };
+  },
+  watch: {
+    producto() {
+      this.id = this.producto.id;
+      this.stock = this.producto.stock;
+      this.precio = this.producto.precio;
+      this.categoria = this.producto.categoria.id;
+      this.descripcion = this.producto.descripcion;
+      this.descuento = this.producto.descuento;
+      this.nomProducto = this.producto.nombre;
+    },
   },
 
   methods: {
@@ -32,39 +45,44 @@ export default {
           console.error(`Error al obtener los datos: ${error}`);
         });
     },
-    async anhadirProducto() {
+    async editarProducto() {
       try {
-        const imagenBase64 = await this.toBase64(this.imagen);
-        const response = await fetch(this.backend + '/producto/crear', {
-          method: 'POST',
-          headers: {
-            'Content-Type': 'application/json',
-            Authorization: this.$cookies.get('token'),
-          },
-          body: JSON.stringify({
-            stock: this.stock,
-            precio: this.precio,
-            idCategoria: this.categoria,
-            descuento: this.descuento,
-            imagen: imagenBase64,
-            nombre: this.nomProducto,
-            descripcion: this.descripcion,
-          }),
-        });
+        const imagen = this.imagen
+          ? await this.toBase64(this.imagen)
+          : this.producto.imagen;
+
+        const response = await fetch(
+          this.backend + '/producto/modificar/' + this.id,
+          {
+            method: 'PATCH',
+            headers: {
+              'Content-Type': 'application/json',
+              Authorization: this.$cookies.get('token'),
+            },
+            body: JSON.stringify({
+              stock: this.stock,
+              precio: this.precio,
+              idCategoria: this.categoria,
+              descuento: this.descuento,
+              imagen: imagen,
+              nombre: this.nomProducto,
+              descripcion: this.descripcion,
+            }),
+          }
+        );
 
         if (!response.ok) {
           throw new Error(`Error: ${response.status}`);
         }
 
         push.success('Se ha añadido el producto correctamente');
-        this.$emit('actualizarProductos');
-        document.getElementById('btn-cerrar-anhadir-producto').click();
+        this.$emit('cargarProductos');
+        document.getElementById('btn-cerrar-editar-producto').click();
         this.reiniciar();
       } catch (error) {
         push.success('Error al añadir el producto');
         console.error('Error al añadir el producto:', error);
-          this.reiniciar();
-        
+        this.reiniciar();
       }
     },
     imagenProducto() {
@@ -106,26 +124,26 @@ export default {
 };
 </script>
 <template>
-  <div class="modal fade" id="anhadirProductoModal" tabindex="-1">
+  <div class="modal fade" id="editarProductoModal" tabindex="-1">
     <div class="modal-dialog modal-lg rounded-0">
       <div class="modal-content">
         <div class="modal-header border-0 d-block">
           <div class="text-end">
             <button
-              id="btn-cerrar-anhadir-producto"
+              id="btn-cerrar-editar-producto"
               type="button"
               @click="reiniciar"
               data-bs-dismiss="modal"
               class="btn-close"
             ></button>
           </div>
-          <h1 class="modal-title fs-5 text-center">Añadir Producto</h1>
+          <h1 class="modal-title fs-5 text-center">Editar Producto</h1>
         </div>
         <div class="modal-body px-4 px-sm-5">
           <div v-if="error" class="alert alert-danger text-center" role="alert">
             {{ error }}
           </div>
-          <form @submit.prevent="anhadirProducto">
+          <form @submit.prevent="editarProducto">
             <div class="row">
               <div class="col-lg-6">
                 <div class="mb-3">
@@ -233,26 +251,26 @@ export default {
                   >
                   <input
                     @change="imagenProducto"
-                    required
                     type="file"
                     id="imagen-producto"
                     ref="imgproducto"
                     class="form-control"
                     accept="image/png, image/gif, image/jpeg, image/jpg"
                   />
-                  <div v-if="imagen" class="text-center img-prov mt-4">
+                  <div class="text-center img-prov mt-4">
                     <img
                       class="object-fit-contain w-100 h-100"
-                      v-if="urlImagenTemporal"
-                      :src="urlImagenTemporal"
+                      :src="
+                        urlImagenTemporal ? urlImagenTemporal : producto?.imagen
+                      "
                       alt="img-prov"
                     />
                   </div>
                 </div>
               </div>
             </div>
-            <button type="submit" class="btn-anhadir mb-3 w-100 mt-2">
-              Añadir
+            <button type="submit" class="btn-editar mb-3 w-100 mt-2">
+              Editar
             </button>
           </form>
         </div>
@@ -261,7 +279,7 @@ export default {
   </div>
 </template>
 <style scoped>
-.btn-anhadir {
+.btn-editar {
   background: var(--degradado-naranja);
   border: 0;
   height: 2.7em;
@@ -271,20 +289,20 @@ export default {
   transition: filter 0.2s ease;
 }
 
-.btn-anhadir:hover {
+.btn-editar:hover {
   filter: brightness(110%);
 }
 
-#anhadirProductoModal .modal-title {
+#editarProductoModal .modal-title {
   font-size: 28px !important;
 }
 
-#anhadirProductoModal input,
-#anhadirProductoModal select {
+#editarProductoModal input,
+#editarProductoModal select {
   border-radius: 0px;
 }
 
-#anhadirProductoModal .modal-content {
+#editarProductoModal .modal-content {
   border-radius: 0px !important;
 }
 .img-prov {

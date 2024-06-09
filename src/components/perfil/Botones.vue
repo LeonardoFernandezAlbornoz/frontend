@@ -54,6 +54,10 @@ export default {
 }
 
 .perfil-botones button:hover {
+  color: var(--gris-oscuro);
+}
+
+.perfil-botones button:active {
   color: var(--color-secundario-naranja);
 }
 

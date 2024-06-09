@@ -115,7 +115,7 @@ export default {
     },
     confirmarPedido() {
       this.crearPedido().then(() => {
-        push.info({ message: 'Se ha confirmado su pedido' });
+        push.success({ message: 'Se ha confirmado su pedido' });
         this.eliminarProductosCarrito().then(() => {
           router.push('/');
           this.$emit('actualizarProductos');

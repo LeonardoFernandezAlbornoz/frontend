@@ -4,7 +4,7 @@ import Producto from '../generales/Producto.vue';
 export default {
   data() {
     return {
-      productos: null,
+      productos: [],
     };
   },
 

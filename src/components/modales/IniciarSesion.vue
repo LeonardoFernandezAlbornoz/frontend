@@ -48,6 +48,7 @@ export default {
           this.$emit('login');
         })
         .catch((error) => {
+          this.$refs.contrasenha.blur();
           push.error({ message: `${error}`.slice(6) });
         });
     },
@@ -80,7 +81,7 @@ export default {
                 >Correo electrónico:</label
               >
               <input
-                require
+                required
                 v-model="correo"
                 type="email"
                 class="form-control-lg form-control"
@@ -92,7 +93,8 @@ export default {
                 >Contraseña:</label
               >
               <input
-                require
+                required
+                ref="contrasenha"
                 v-model="contrasenha"
                 type="password"
                 class="form-control-lg form-control"

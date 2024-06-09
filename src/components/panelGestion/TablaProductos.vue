@@ -1,15 +1,27 @@
 <script>
 import { jwtDecode } from 'https://unpkg.com/jwt-decode@4.0.0?module';
 import { push } from 'notivue';
+import EliminarProducto from '../modales/EliminarProducto.vue';
+import EditarProducto from '../modales/EditarProducto.vue';
+
 export default {
+  props: ['toggle'],
+  components: { EliminarProducto, EditarProducto },
   data() {
     return {
       token: '',
       productos: [],
       filtro: '',
+      productoEliminar: null,
+      productoIdEliminar: null,
+      nomProductoEliminar: null,
     };
   },
-
+  watch: {
+    toggle() {
+      this.cargarProductos();
+    },
+  },
   mounted() {
     this.token = this.$cookies.get('token');
     this.cargarProductos();
@@ -31,7 +43,6 @@ export default {
           if (!response.ok) {
             throw new Error(response.status);
           }
-
           return response.json();
         })
         .then((data) => {
@@ -41,9 +52,26 @@ export default {
           console.error(error);
         });
     },
+    eliminarProductoModal(id, nombre) {
+      this.productoIdEliminar = id;
+      this.nomProductoEliminar = nombre;
+      const modal = new bootstrap.Modal(
+        document.getElementById('eliminarProductoModal')
+      );
+      modal.show();
+    },
+
+    editarProductoModal(producto) {
+      this.productoEliminar = producto;
+      const modal = new bootstrap.Modal(
+        document.getElementById('editarProductoModal')
+      );
+      modal.show();
+    },
   },
 };
 </script>
+
 <template>
   <div class="row mb-4">
     <div class="order-2 order-md-1 col-md-6 col-lg-5 d-flex align-items-center">
@@ -85,10 +113,7 @@ export default {
         <tr v-for="producto in productosFiltrados" :key="producto.id">
           <td class="text-center">{{ producto.id }}</td>
           <td class="text-center">
-            <img
-              :src="'/img/productos/' + producto.imagen"
-              alt="producto-imagen"
-            />
+            <img :src="producto.imagen" alt="producto-imagen" />
           </td>
           <td class="text-center">
             {{
@@ -101,10 +126,12 @@ export default {
           <td class="text-center">{{ producto.precio }}€</td>
           <td class="text-center">{{ producto.descuento }}%</td>
           <td class="text-center acciones">
-            <button>
+            <button
+              @click="eliminarProductoModal(producto.id, producto.nombre)"
+            >
               <font-awesome-icon icon="fa-regular fa-trash-can" />
             </button>
-            <button>
+            <button @click="editarProductoModal(producto)">
               <font-awesome-icon icon="fa-solid fa-pen-to-square" />
             </button>
           </td>
@@ -112,6 +139,17 @@ export default {
       </tbody>
     </table>
   </div>
+  <Teleport to="body">
+    <EliminarProducto
+      :nomProducto="nomProductoEliminar"
+      :id="productoIdEliminar"
+      @cargarProductos="cargarProductos"
+    />
+    <EditarProducto
+      :producto="productoEliminar"
+      @cargarProductos="cargarProductos"
+    />
+  </Teleport>
 </template>
 
 <style scoped>
@@ -119,7 +157,6 @@ th,
 td {
   padding: 1em;
 }
-
 .btn-anhadir-producto {
   background: var(--degradado-naranja);
   padding: 0.5em;
@@ -127,7 +164,6 @@ td {
   border: none;
   color: white;
   font-weight: 600;
-  width: 180px;
   transition: filter 0.2s ease;
 }
 
@@ -150,5 +186,8 @@ tr {
 
 .acciones button:hover {
   color: var(--color-secundario-naranja);
+}
+th {
+  text-wrap: nowrap;
 }
 </style>

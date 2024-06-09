@@ -31,7 +31,6 @@ export default {
   },
   methods: {
     editarUsuario(e) {
-      console.log(e.target.id, e.target.checked, e.target.dataset.admin);
       let admin =
         e.target.id == 'admin'
           ? e.target.checked
@@ -40,8 +39,6 @@ export default {
         e.target.id == 'activado'
           ? e.target.checked
           : Boolean(e.target.dataset.activado == 'true');
-
-      console.log(e.target.id, admin, activado);
       fetch(this.backend + '/usuario/modificar/' + e.target.dataset.id, {
         method: 'PATCH',
         headers: {
@@ -222,5 +219,8 @@ tr {
 
 .acciones button:hover {
   color: var(--color-secundario-naranja);
+}
+th {
+  text-wrap: nowrap;
 }
 </style>

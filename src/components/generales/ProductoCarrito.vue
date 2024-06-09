@@ -34,7 +34,6 @@ export default {
             return response.json();
           })
           .then((data) => {
-            console.log(data);
             this.$emit('actualizarProductos');
           })
           .catch((error) => {
@@ -76,7 +75,6 @@ export default {
             return response.json();
           })
           .then((data) => {
-            console.log(data);
             this.$emit('actualizarProductos');
           })
           .catch((error) => {
@@ -116,7 +114,7 @@ export default {
       <div class="col-6 col-md-3 text-left">
         <img
           style="max-height: 100px"
-          :src="'img/productos/' + productoCarrito.producto.imagen"
+          :src="productoCarrito.producto.imagen"
           alt="img-producto-carrito"
         />
       </div>
@@ -129,6 +127,7 @@ export default {
             params: {
               nomProducto: productoCarrito.producto.nombre,
               nomCategoria: productoCarrito.producto.categoria.descripcion,
+              idProducto: productoCarrito.producto.id,
             },
           }"
         >

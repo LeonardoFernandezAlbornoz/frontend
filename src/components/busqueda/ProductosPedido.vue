@@ -32,7 +32,6 @@ export default {
         .then((data) => data.json())
         .then((data) => {
           this.productosPedido = data;
-          console.log(this.productosPedido);
           this.pedido = this.productosPedido[0].pedido;
         })
         .catch((error) => {

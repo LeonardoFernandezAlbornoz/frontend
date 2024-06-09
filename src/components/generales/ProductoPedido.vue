@@ -10,6 +10,7 @@ export default {
       params: {
         nomProducto: productoPedido.producto.nombre,
         nomCategoria: productoPedido.producto.categoria.descripcion,
+        idProducto: productoPedido.producto.id,
       },
     }"
     class="d-block producto-pedido mb-3 py-2 px-4"
@@ -18,7 +19,7 @@ export default {
       <div class="col-2 p-2">
         <img
           height="70px"
-          :src="'/img/productos/' + productoPedido.producto.imagen"
+          :src="productoPedido.producto.imagen"
           alt="img-pedido"
         />
       </div>

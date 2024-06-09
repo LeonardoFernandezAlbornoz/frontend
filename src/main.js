@@ -20,6 +20,8 @@ import rate from 'vue-rate';
 
 import 'notivue/notification.css';
 import 'notivue/animations.css';
+import 'notivue/notification.css';
+import 'notivue/animations.css';
 import 'notivue/notification-progress.css';
 import 'primevue/resources/themes/aura-light-green/theme.css';
 import 'primeicons/primeicons.css';
@@ -27,7 +29,9 @@ import 'vue-rate/dist/vue-rate.css';
 
 import { createNotivue } from 'notivue';
 
-const notivue = createNotivue(/* Options */);
+const notivue = createNotivue({
+  limit: 3,
+});
 
 library.add(fas, far, fab);
 

@@ -60,6 +60,7 @@ export default {
       params: {
         nomProducto: productoProp.nombre,
         nomCategoria: productoProp.categoria.descripcion,
+        idProducto: productoProp.id,
       },
     }"
   >
@@ -70,7 +71,7 @@ export default {
       <div
         class="producto-imagen"
         :style="{
-          'background-image': 'url(/img/productos/' + productoProp.imagen + ')',
+          'background-image': 'url(' + productoProp.imagen + ')',
         }"
       ></div>
 

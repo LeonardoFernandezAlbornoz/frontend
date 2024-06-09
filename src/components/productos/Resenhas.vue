@@ -2,7 +2,7 @@
 import Resenha from './Resenha.vue';
 import FormularioResenha from './FormularioResenha.vue';
 export default {
-  props: ['nomProducto'],
+  props: ['idProducto'],
   data() {
     return {
       resenhas: [],
@@ -10,16 +10,16 @@ export default {
     };
   },
   watch: {
-    nomProducto: function (nomProducto) {
-      this.cargarResenhas(nomProducto);
+    idProducto: function (idProducto) {
+      this.cargarResenhas(idProducto);
     },
   },
   mounted() {
-    this.cargarResenhas(this.nomProducto);
+    this.cargarResenhas(this.idProducto);
   },
   methods: {
-    cargarResenhas(nomProducto) {
-      fetch(this.backend + '/resenhas/' + nomProducto)
+    cargarResenhas(idProducto) {
+      fetch(this.backend + '/resenhas/' + idProducto)
         .then((response) => {
           if (!response.ok) {
             throw new Error(`Error: ${response.status}`);
@@ -63,7 +63,7 @@ export default {
     <FormularioResenha
       @cargarResenhas="cargarResenhas"
       v-if="this.$cookies.get('token')"
-      :nomProducto="nomProducto"
+      :idProducto="idProducto"
     />
   </div>
 </template>

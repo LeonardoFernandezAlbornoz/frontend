@@ -1,12 +1,6 @@
 <script>
 import { jwtDecode } from 'https://unpkg.com/jwt-decode@4.0.0?module';
 import { RouterLink, RouterView } from 'vue-router';
-import {
-  Notivue,
-  Notification,
-  NotificationProgress,
-  materialTheme,
-} from 'notivue';
 
 export default {
   components: {
@@ -80,7 +74,7 @@ export default {
   />
   <FooterVue />
   <Notivue class="notificaciones" v-slot="item">
-    <Notification :item="item" :theme="materialTheme">
+    <Notification :item="item">
       <NotificationProgress :item="item"
     /></Notification>
   </Notivue>
