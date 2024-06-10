@@ -4,7 +4,6 @@ import { push } from 'notivue';
 export default {
   emits: ['cargarProductos'],
   props: ['nomProducto', 'id'],
-  data() {},
 
   methods: {
     eliminarProducto() {
@@ -28,7 +27,6 @@ export default {
       document.getElementById('btn-cerrar-eliminar-producto').click();
     },
   },
-
 };
 </script>
 <template>
@@ -74,7 +72,7 @@ export default {
 }
 
 .btn-confirmar:hover {
-  opacity: 85%;
+  filter: brightness(110%);
 }
 
 .btn-cancelar {
@@ -84,13 +82,15 @@ export default {
   color: #333;
   font-weight: bold;
   font-size: 18px;
-
-  transition: filter 0.2s ease;
+  transition: background 0.2s ease;
+}
+.btn-cancelar:hover {
+  background-color: lightgray;
 }
 #eliminarProductoModal {
   color: var(--gris-oscuro);
 }
-#iniciarSesionMeliminarProductoModalodal .modal-title {
+#eliminarProductoModal .modal-title {
   font-size: 28px !important;
 }
 

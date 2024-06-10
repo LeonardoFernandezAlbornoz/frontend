@@ -66,7 +66,7 @@ export default {
         class="form-control form-control-sm"
         placeholder="Buscar producto..."
       />
-      <button class="btn btn-light" type="submit" id="boton-buscar">
+      <button class="btn btn-light" type="submit" id="boton-buscar-sm">
         <font-awesome-icon icon="fa-solid fa-search" style="color: #272727" />
       </button>
     </div>

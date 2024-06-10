@@ -3,6 +3,7 @@ import TituloPagina from '@/components/generales/TituloPagina.vue';
 import Ruta from '@/components/navegacion/Ruta.vue';
 import TablaPedidos from '@/components/panelGestion/TablaPedidos.vue';
 import AnhadirProducto from '@/components/modales/AnhadirProducto.vue';
+const emit = defineEmits(['actualizarProductos', 'anhadirProducto']);
 </script>
 
 <template>

@@ -73,9 +73,6 @@ export default {
           <h1 class="modal-title fs-5 text-center">Regístrate</h1>
         </div>
         <div class="modal-body px-4 px-sm-5">
-          <div v-if="error" class="alert alert-danger text-center" role="alert">
-            {{ error }}
-          </div>
           <form @submit.prevent="registrarse">
             <div class="row">
               <div class="mb-3">
@@ -123,6 +120,7 @@ export default {
                   type="email"
                   class="form-control form-control-lg"
                   id="signup-correo"
+                  autocomplete="username"
                 />
               </div>
               <div class="mb-3 col-lg-6">
@@ -135,6 +133,7 @@ export default {
                   type="password"
                   class="form-control form-control-lg"
                   id="signup-contrasenha"
+                  autocomplete="current-password"
                 />
               </div>
             </div>

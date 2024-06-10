@@ -6,7 +6,7 @@ import TablaProductos from '@/components/panelGestion/TablaProductos.vue';
 import AnhadirProducto from '@/components/modales/AnhadirProducto.vue';
 import EliminarProducto from '@/components/modales/EliminarProducto.vue';
 const toggle = ref(true);
-
+const emit = defineEmits(['actualizarProductos', 'anhadirProducto']);
 const actualizarProductos = () => {
   toggle.value = !toggle.value;
 };
