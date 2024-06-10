@@ -58,7 +58,7 @@ export default {
     actualizarCarrito() {
       if (this.$cookies.get('token')) {
         fetch(
-          `${this.backend}/productocarrito/crear/${this.usuario.id}/${this.productoCarrito.producto.id}`,
+          `${this.backend}/productocarrito/modificar/${this.usuario.id}/${this.productoCarrito.producto.id}`,
           {
             method: 'PATCH',
             headers: { 'Content-Type': 'application/json' },
