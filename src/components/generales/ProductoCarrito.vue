@@ -1,30 +1,30 @@
 <script>
-import { jwtDecode } from 'https://unpkg.com/jwt-decode@4.0.0?module';
+import { jwtDecode } from "https://unpkg.com/jwt-decode@4.0.0?module";
 
 export default {
-  props: ['productoCarrito'],
-  emits: ['actualizarProductos'],
+  props: ["productoCarrito"],
+  emits: ["actualizarProductos"],
   data() {
     return {
       cantidad: this.productoCarrito.cantidad,
-      token: this.$cookies.get('token'),
+      token: this.$cookies.get("token"),
     };
   },
 
   computed: {
     usuario() {
-      return this.token ? jwtDecode(this.token) : '';
+      return this.token ? jwtDecode(this.token) : "";
     },
   },
   methods: {
     eliminarProducto() {
-      if (this.$cookies.get('token')) {
+      if (this.$cookies.get("token")) {
         fetch(
           this.backend +
             `/productocarrito/eliminar/${this.usuario.id}/${this.productoCarrito.producto.id}`,
           {
-            method: 'DELETE',
-            headers: { 'Content-Type': 'application/json' },
+            method: "DELETE",
+            headers: { "Content-Type": "application/json" },
           }
         )
           .then((response) => {
@@ -34,13 +34,13 @@ export default {
             return response.json();
           })
           .then((data) => {
-            this.$emit('actualizarProductos');
+            this.$emit("actualizarProductos");
           })
           .catch((error) => {
             console.error(error);
           });
       } else {
-        let carrito = JSON.parse(localStorage.getItem('carrito'));
+        let carrito = JSON.parse(localStorage.getItem("carrito"));
 
         carrito.splice(
           carrito.findIndex(
@@ -50,18 +50,18 @@ export default {
           1
         );
 
-        localStorage.setItem('carrito', JSON.stringify(carrito));
+        localStorage.setItem("carrito", JSON.stringify(carrito));
 
-        this.$emit('actualizarProductos');
+        this.$emit("actualizarProductos");
       }
     },
     actualizarCarrito() {
-      if (this.$cookies.get('token')) {
+      if (this.$cookies.get("token")) {
         fetch(
-          `${this.backend}/productocarrito/crear/${this.usuario.id}/${this.productoCarrito.producto.id}`,
+          `${this.backend}/productocarrito/modificar/${this.usuario.id}/${this.productoCarrito.producto.id}`,
           {
-            method: 'PATCH',
-            headers: { 'Content-Type': 'application/json' },
+            method: "PATCH",
+            headers: { "Content-Type": "application/json" },
             body: JSON.stringify({
               cantidad: this.cantidad,
             }),
@@ -75,17 +75,17 @@ export default {
             return response.json();
           })
           .then((data) => {
-            this.$emit('actualizarProductos');
+            this.$emit("actualizarProductos");
           })
           .catch((error) => {
             console.error(error);
           });
       } else {
-        if (!localStorage.getItem('carrito')) {
-          localStorage.setItem('carrito', JSON.stringify([]));
+        if (!localStorage.getItem("carrito")) {
+          localStorage.setItem("carrito", JSON.stringify([]));
         }
 
-        let carrito = JSON.parse(localStorage.getItem('carrito'));
+        let carrito = JSON.parse(localStorage.getItem("carrito"));
 
         if (
           carrito.findIndex(
@@ -101,8 +101,8 @@ export default {
           ].cantidad = this.cantidad;
         }
 
-        localStorage.setItem('carrito', JSON.stringify(carrito));
-        this.$emit('actualizarProductos');
+        localStorage.setItem("carrito", JSON.stringify(carrito));
+        this.$emit("actualizarProductos");
       }
     },
   },

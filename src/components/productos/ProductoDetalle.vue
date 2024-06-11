@@ -1,59 +1,32 @@
 <script>
-import Estrellas from '../generales/Estrellas.vue';
-import { jwtDecode } from 'https://unpkg.com/jwt-decode@4.0.0?module';
-import { push } from 'notivue';
+import Estrellas from "../generales/Estrellas.vue";
+import { jwtDecode } from "https://unpkg.com/jwt-decode@4.0.0?module";
+import { push } from "notivue";
 
 export default {
-  props: ['idProducto'],
-  emits: ['anhadirProducto'],
+  props: ["idProducto", "cargarResenhas"],
+  emits: ["anhadirProducto"],
   data() {
     return {
       producto: {},
       resenhas: [],
       cantidad: 1,
-      token: this.$cookies.get('token'),
+      token: this.$cookies.get("token"),
     };
   },
   components: {
     Estrellas,
   },
-
-  mounted() {
-    fetch(this.backend + '/producto/' + this.idProducto)
-      .then((response) => {
-        if (!response.ok) {
-          throw new Error(`Error: ${response.status}`);
-        }
-        return response.json();
-      })
-      .then((data) => {
-        this.producto = data;
-
-        return data;
-      })
-      .then((data) => {
-        fetch(this.backend + '/resenhas/' + data.id)
-          .then((response) => {
-            if (!response.ok) {
-              throw new Error(`Error: ${response.status}`);
-            }
-
-            return response.json();
-          })
-          .then((data) => {
-            this.resenhas = data;
-          })
-          .catch((error) => {
-            console.error(`Error al obtener los datos: ${error}`);
-          });
-      })
-      .catch((error) => {
-        console.error(`Error al obtener los datos: ${error}`);
-      });
+  watch: {
+    cargarResenhas() {
+      this.cargarProducto();
+    },
   },
+
+  mounted() {},
   computed: {
     usuario() {
-      return this.token ? jwtDecode(this.token) : '';
+      return this.token ? jwtDecode(this.token) : "";
     },
 
     numResenhas() {
@@ -69,13 +42,46 @@ export default {
     },
   },
   methods: {
+    cargarProducto() {
+      fetch(this.backend + "/producto/" + this.idProducto)
+        .then((response) => {
+          if (!response.ok) {
+            throw new Error(`Error: ${response.status}`);
+          }
+          return response.json();
+        })
+        .then((data) => {
+          this.producto = data;
+
+          return data;
+        })
+        .then((data) => {
+          fetch(this.backend + "/resenhas/" + data.id)
+            .then((response) => {
+              if (!response.ok) {
+                throw new Error(`Error: ${response.status}`);
+              }
+
+              return response.json();
+            })
+            .then((data) => {
+              this.resenhas = data;
+            })
+            .catch((error) => {
+              console.error(`Error al obtener los datos: ${error}`);
+            });
+        })
+        .catch((error) => {
+          console.error(`Error al obtener los datos: ${error}`);
+        });
+    },
     anhadirCarrito() {
-      if (this.$cookies.get('token')) {
+      if (this.$cookies.get("token")) {
         fetch(
           `${this.backend}/productocarrito/crear/${this.usuario.id}/${this.producto.id}`,
           {
-            method: 'PATCH',
-            headers: { 'Content-Type': 'application/json' },
+            method: "PATCH",
+            headers: { "Content-Type": "application/json" },
             body: JSON.stringify({
               cantidad: this.cantidad,
             }),
@@ -89,18 +95,17 @@ export default {
             return response.json();
           })
           .then((data) => {
-
-            this.$emit('anhadirProducto');
+            this.$emit("anhadirProducto");
           })
           .catch((error) => {
             console.error(error);
           });
       } else {
-        if (!localStorage.getItem('carrito')) {
-          localStorage.setItem('carrito', JSON.stringify([]));
+        if (!localStorage.getItem("carrito")) {
+          localStorage.setItem("carrito", JSON.stringify([]));
         }
 
-        let carrito = JSON.parse(localStorage.getItem('carrito'));
+        let carrito = JSON.parse(localStorage.getItem("carrito"));
 
         if (
           carrito.findIndex(
@@ -119,11 +124,11 @@ export default {
           });
         }
 
-        localStorage.setItem('carrito', JSON.stringify(carrito));
-        this.$emit('anhadirProducto');
+        localStorage.setItem("carrito", JSON.stringify(carrito));
+        this.$emit("anhadirProducto");
       }
 
-      push.info({ message: 'Has añadido el producto al carrito' });
+      push.info({ message: "Has añadido el producto al carrito" });
     },
   },
 };
@@ -144,7 +149,7 @@ export default {
           (
             producto.precio -
             (producto.precio / 100) * producto.descuento
-          ).toFixed(2) + '€'
+          ).toFixed(2) + "€"
         }}
       </p>
     </div>

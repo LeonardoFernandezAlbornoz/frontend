@@ -1,10 +1,12 @@
 <script setup>
-import ProductoImagen from '@/components/productos/ProductoImagen.vue';
-import ProductoDetalle from '@/components/productos/ProductoDetalle.vue';
-import Ruta from '@/components/navegacion/Ruta.vue';
-import Resenhas from '@/components/productos/Resenhas.vue';
+import ProductoImagen from "@/components/productos/ProductoImagen.vue";
+import ProductoDetalle from "@/components/productos/ProductoDetalle.vue";
+import Ruta from "@/components/navegacion/Ruta.vue";
+import Resenhas from "@/components/productos/Resenhas.vue";
+import { ref } from "vue";
+const cargarResenhas = ref(true);
 
-const emit = defineEmits(['anhadirProducto']);
+const emit = defineEmits(["anhadirProducto"]);
 </script>
 
 <template>
@@ -37,6 +39,7 @@ const emit = defineEmits(['anhadirProducto']);
         </div>
         <div class="col-md">
           <ProductoDetalle
+            :cargarResenhas="cargarResenhas"
             @anhadirProducto="$emit('anhadirProducto')"
             :idProducto="$route.params.idProducto"
           />
@@ -45,7 +48,10 @@ const emit = defineEmits(['anhadirProducto']);
 
       <div class="row mt-4 gx-xxl-5 mx-md-3 mx-sm-0">
         <div class="col-md">
-          <Resenhas :idProducto="$route.params.idProducto" />
+          <Resenhas
+            @cargarResenhas="cargarResenhas = !cargarResenhas"
+            :idProducto="$route.params.idProducto"
+          />
         </div>
       </div>
     </div>
