@@ -1,22 +1,26 @@
 <script>
-import { jwtDecode } from 'https://unpkg.com/jwt-decode@4.0.0?module';
-import { push } from 'notivue';
+import { jwtDecode } from "https://unpkg.com/jwt-decode@4.0.0?module";
+import { push } from "notivue";
+import AccesoDenegado from "../generales/AccesoDenegado.vue";
 export default {
+  components: {
+    AccesoDenegado,
+  },
   data() {
     return {
-      token: '',
+      token: "",
       pedidos: [],
-      filtro: '',
+      filtro: "",
     };
   },
 
   mounted() {
-    this.token = this.$cookies.get('token');
+    this.token = this.$cookies.get("token");
     this.cargarPedidos();
   },
   computed: {
     usuario() {
-      return this.token ? jwtDecode(this.token) : '';
+      return this.token ? jwtDecode(this.token) : "";
     },
     pedidosFiltrados() {
       return this.pedidos.filter((pedido) => {
@@ -24,7 +28,7 @@ export default {
           pedido.usuario.nomUsuario
             .toUpperCase()
             .includes(this.filtro.toUpperCase()) ||
-          (pedido.usuario.nombre + ' ' + pedido.usuario.apellidos)
+          (pedido.usuario.nombre + " " + pedido.usuario.apellidos)
             .toUpperCase()
             .includes(this.filtro.toUpperCase())
         );
@@ -33,9 +37,9 @@ export default {
   },
   methods: {
     cargarPedidos() {
-      fetch(this.backend + '/pedidos', {
+      fetch(this.backend + "/pedidos", {
         headers: {
-          'Content-Type': 'application/json',
+          "Content-Type": "application/json",
           Authorization: this.token,
         },
       })
@@ -54,10 +58,10 @@ export default {
         });
     },
     modificarEstado(e) {
-      fetch(this.backend + '/pedidos/modificar-estado/' + e.target.dataset.id, {
-        method: 'PATCH',
+      fetch(this.backend + "/pedidos/modificar-estado/" + e.target.dataset.id, {
+        method: "PATCH",
         headers: {
-          'Content-Type': 'application/json',
+          "Content-Type": "application/json",
           Authorization: this.token,
         },
         body: JSON.stringify({
@@ -78,74 +82,81 @@ export default {
 };
 </script>
 <template>
-  <div class="row mb-4">
-    <div class="order-2 order-md-1 col-md-6 col-lg-5 d-flex align-items-center">
-      <input
-        v-model="filtro"
-        type="text"
-        class="form-control"
-        placeholder="Buscar por usuario"
-      />
+  <div v-if="token && usuario.admin">
+    <div class="row mb-4">
+      <div
+        class="order-2 order-md-1 col-md-6 col-lg-5 d-flex align-items-center"
+      >
+        <input
+          v-model="filtro"
+          type="text"
+          class="form-control"
+          placeholder="Buscar por usuario"
+        />
+      </div>
+    </div>
+    <div class="table-responsive">
+      <table class="table table-secondary table-striped">
+        <thead class="table-dark">
+          <tr>
+            <th class="text-center">ID</th>
+            <th>Usuario</th>
+            <th>Nombre</th>
+            <th>Apellidos</th>
+            <th>Fecha</th>
+            <th class="col-estado">Estado</th>
+            <th class="text-center">Gastos envío</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr v-for="pedido in pedidosFiltrados" :key="pedido.id">
+            <td class="text-center">{{ pedido.id }}</td>
+
+            <td>
+              {{ pedido.usuario.nomUsuario }}
+            </td>
+            <td>
+              {{ pedido.usuario.nombre }}
+            </td>
+            <td>
+              {{ pedido.usuario.apellidos }}
+            </td>
+            <td>
+              {{ new Date(pedido.fecha).toLocaleDateString() }}
+            </td>
+            <td>
+              <select
+                @change="modificarEstado"
+                :data-id="pedido.id"
+                name="estado"
+                id="estado"
+                class="form-select"
+              >
+                <option :selected="pedido.estado == 'Enviado'" value="Enviado">
+                  Enviado
+                </option>
+                <option
+                  :selected="pedido.estado == 'Entregado'"
+                  value="Entregado"
+                >
+                  Entregado
+                </option>
+                <option
+                  :selected="pedido.estado == 'Pendiente'"
+                  value="Pendiente"
+                >
+                  Pendiente
+                </option>
+              </select>
+            </td>
+            <td class="text-center">{{ pedido.gastosEnvio }}€</td>
+          </tr>
+        </tbody>
+      </table>
     </div>
   </div>
-  <div class="table-responsive">
-    <table class="table table-secondary table-striped">
-      <thead class="table-dark">
-        <tr>
-          <th class="text-center">ID</th>
-          <th>Usuario</th>
-          <th>Nombre</th>
-          <th>Apellidos</th>
-          <th>Fecha</th>
-          <th class="col-estado">Estado</th>
-          <th class="text-center">Gastos envío</th>
-        </tr>
-      </thead>
-      <tbody>
-        <tr v-for="pedido in pedidosFiltrados" :key="pedido.id">
-          <td class="text-center">{{ pedido.id }}</td>
-
-          <td>
-            {{ pedido.usuario.nomUsuario }}
-          </td>
-          <td>
-            {{ pedido.usuario.nombre }}
-          </td>
-          <td>
-            {{ pedido.usuario.apellidos }}
-          </td>
-          <td>
-            {{ new Date(pedido.fecha).toLocaleDateString() }}
-          </td>
-          <td>
-            <select
-              @change="modificarEstado"
-              :data-id="pedido.id"
-              name="estado"
-              id="estado"
-              class="form-select"
-            >
-              <option :selected="pedido.estado == 'Enviado'" value="Enviado">
-                Enviado
-              </option>
-              <option
-                :selected="pedido.estado == 'Entregado'"
-                value="Entregado"
-              >
-                Entregado
-              </option>
-              <option
-                :selected="pedido.estado == 'Pendiente'"
-                value="Pendiente"
-              >
-                Pendiente
-              </option>
-            </select>
-          </td>
-          <td class="text-center">{{ pedido.gastosEnvio }}€</td>
-        </tr>
-      </tbody>
-    </table>
+  <div v-else-if="token == '' || !usuario.admin">
+    <AccesoDenegado></AccesoDenegado>
   </div>
 </template>
 

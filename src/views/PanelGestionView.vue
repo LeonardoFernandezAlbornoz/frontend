@@ -1,9 +1,8 @@
 <script setup>
-import TituloPagina from '@/components/generales/TituloPagina.vue';
-import Ruta from '@/components/navegacion/Ruta.vue';
-import BotonesPanel from '@/components/panelGestion/BotonesPanel.vue';
+import TituloPagina from "@/components/generales/TituloPagina.vue";
+import Ruta from "@/components/navegacion/Ruta.vue";
+import BotonesPanel from "@/components/panelGestion/BotonesPanel.vue";
 </script>
-
 <template>
   <main>
     <Ruta

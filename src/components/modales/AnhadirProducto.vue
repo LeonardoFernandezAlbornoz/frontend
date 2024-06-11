@@ -1,23 +1,23 @@
 <script>
-import { push } from 'notivue';
+import { push } from "notivue";
 export default {
-  emits: ['actualizarProductos'],
+  emits: ["actualizarProductos"],
   data() {
     return {
       categorias: [],
       stock: 1,
       precio: 1.0,
-      categoria: '',
-      descripcion: '',
+      categoria: "",
+      descripcion: "",
       descuento: 0,
-      imagen: '',
-      nomProducto: '',
+      imagen: "",
+      nomProducto: "",
     };
   },
 
   methods: {
     cargarCategorias() {
-      fetch(this.backend + '/categorias')
+      fetch(this.backend + "/categorias")
         .then((response) => {
           if (!response.ok) {
             throw new Error(`Error:${response.status}`);
@@ -35,11 +35,11 @@ export default {
     async anhadirProducto() {
       try {
         const imagenBase64 = await this.toBase64(this.imagen);
-        const response = await fetch(this.backend + '/producto/crear', {
-          method: 'POST',
+        const response = await fetch(this.backend + "/producto/crear", {
+          method: "POST",
           headers: {
-            'Content-Type': 'application/json',
-            Authorization: this.$cookies.get('token'),
+            "Content-Type": "application/json",
+            Authorization: this.$cookies.get("token"),
           },
           body: JSON.stringify({
             stock: this.stock,
@@ -56,13 +56,13 @@ export default {
           throw new Error(`Error: ${response.status}`);
         }
 
-        push.success('Se ha añadido el producto correctamente');
-        this.$emit('actualizarProductos');
-        document.getElementById('btn-cerrar-anhadir-producto').click();
+        push.success("Se ha añadido el producto correctamente");
+        this.$emit("actualizarProductos");
+        document.getElementById("btn-cerrar-anhadir-producto").click();
         this.reiniciar();
       } catch (error) {
-        push.success('Error al añadir el producto');
-        console.error('Error al añadir el producto:', error);
+        push.error("Error al añadir el producto");
+        console.error(error);
         this.reiniciar();
       }
     },
@@ -73,11 +73,11 @@ export default {
     reiniciar() {
       this.stock = 1;
       this.precio = 1.0;
-      this.categoria = '';
+      this.categoria = "";
       this.descuento = 0;
-      this.imagen = '';
-      this.nomProducto = '';
-      this.descripcion = '';
+      this.imagen = "";
+      this.nomProducto = "";
+      this.descripcion = "";
     },
     toBase64(file) {
       return new Promise((resolve, reject) => {
@@ -99,29 +99,29 @@ export default {
 
   computed: {
     urlImagenTemporal() {
-      return this.imagen ? URL.createObjectURL(this.imagen) : '';
+      return this.imagen ? URL.createObjectURL(this.imagen) : "";
     },
   },
 };
 </script>
 <template>
   <div class="modal fade" id="anhadirProductoModal" tabindex="-1">
-    <div class="modal-dialog modal-lg rounded-0">
-      <div class="modal-content">
-        <div class="modal-header border-0 d-block">
-          <div class="text-end">
-            <button
-              id="btn-cerrar-anhadir-producto"
-              type="button"
-              @click="reiniciar"
-              data-bs-dismiss="modal"
-              class="btn-close"
-            ></button>
+    <form @submit.prevent="anhadirProducto">
+      <div class="modal-dialog modal-xl rounded-0">
+        <div class="modal-content">
+          <div class="modal-header border-0 d-block">
+            <div class="text-end">
+              <button
+                id="btn-cerrar-anhadir-producto"
+                type="button"
+                @click="reiniciar"
+                data-bs-dismiss="modal"
+                class="btn-close"
+              ></button>
+            </div>
+            <h1 class="modal-title fs-5 text-center">Añadir Producto</h1>
           </div>
-          <h1 class="modal-title fs-5 text-center">Añadir Producto</h1>
-        </div>
-        <div class="modal-body px-4 px-sm-5">
-          <form @submit.prevent="anhadirProducto">
+          <div class="modal-body px-4 px-sm-5">
             <div class="row">
               <div class="col-lg-6">
                 <div class="mb-3">
@@ -249,13 +249,31 @@ export default {
                 </div>
               </div>
             </div>
-            <button type="submit" class="btn-anhadir mb-3 w-100 mt-2">
-              Añadir
-            </button>
-          </form>
+          </div>
+          <div class="modal-footer">
+            <div class="row w-100">
+              <div class="col-lg-6 offset-lg-6">
+                <div class="row">
+                  <div class="col">
+                    <button type="submit" class="btn-anhadir mb-2 mt-2">
+                      Añadir
+                    </button>
+                  </div>
+                  <div class="col">
+                    <button
+                      data-bs-dismiss="modal"
+                      class="btn-cancelar mb-2 mt-2"
+                    >
+                      Cancelar
+                    </button>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
         </div>
       </div>
-    </div>
+    </form>
   </div>
 </template>
 <style scoped>
@@ -263,6 +281,7 @@ export default {
   background: var(--degradado-naranja);
   border: 0;
   height: 2.7em;
+  width: 100%;
   color: white;
   font-weight: bold;
   font-size: 18px;
@@ -276,7 +295,18 @@ export default {
 #anhadirProductoModal .modal-title {
   font-size: 28px !important;
 }
-
+.btn-cancelar {
+  border: 0;
+  width: 100%;
+  height: 2.7em;
+  color: #333;
+  font-weight: bold;
+  font-size: 18px;
+  transition: background 0.2s ease;
+}
+.btn-cancelar:hover {
+  background-color: lightgray;
+}
 #anhadirProductoModal input,
 #anhadirProductoModal select {
   border-radius: 0px;

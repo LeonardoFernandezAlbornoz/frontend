@@ -1,22 +1,27 @@
 <script>
-import { jwtDecode } from 'https://unpkg.com/jwt-decode@4.0.0?module';
-import { push } from 'notivue';
+import { jwtDecode } from "https://unpkg.com/jwt-decode@4.0.0?module";
+import { push } from "notivue";
+import AccesoDenegado from "../generales/AccesoDenegado.vue";
+
 export default {
+  components: {
+    AccesoDenegado,
+  },
   data() {
     return {
-      token: '',
+      token: "",
       usuarios: [],
-      filtro: '',
+      filtro: "",
     };
   },
 
   mounted() {
-    this.token = this.$cookies.get('token');
+    this.token = this.$cookies.get("token") ? this.$cookies.get("token") : "";
     this.cargarUsuarios();
   },
   computed: {
     usuarioActual() {
-      return this.token ? jwtDecode(this.token) : '';
+      return this.token ? jwtDecode(this.token) : "";
     },
     usuariosFiltrados() {
       return this.usuarios.filter(
@@ -32,17 +37,17 @@ export default {
   methods: {
     editarUsuario(e) {
       let admin =
-        e.target.id == 'admin'
+        e.target.id == "admin"
           ? e.target.checked
-          : Boolean(e.target.dataset.admin == 'true');
+          : Boolean(e.target.dataset.admin == "true");
       let activado =
-        e.target.id == 'activado'
+        e.target.id == "activado"
           ? e.target.checked
-          : Boolean(e.target.dataset.activado == 'true');
-      fetch(this.backend + '/usuario/modificar/' + e.target.dataset.id, {
-        method: 'PATCH',
+          : Boolean(e.target.dataset.activado == "true");
+      fetch(this.backend + "/usuario/modificar/" + e.target.dataset.id, {
+        method: "PATCH",
         headers: {
-          'Content-Type': 'application/json',
+          "Content-Type": "application/json",
           Authorization: this.token,
         },
 
@@ -60,14 +65,14 @@ export default {
           if (!response.ok) {
             throw new Error(response.status);
           }
-          if (e.target.checked && e.target.id == 'activado') {
-            push.info('El usuario ha sido activado');
-          } else if (!e.target.checked && e.target.id == 'activado') {
-            push.info('El usuario ha sido desactivado');
-          } else if (e.target.checked && e.target.id == 'admin') {
-            push.info('El usuario ha sido habilitado como administrador');
+          if (e.target.checked && e.target.id == "activado") {
+            push.info("El usuario ha sido activado");
+          } else if (!e.target.checked && e.target.id == "activado") {
+            push.info("El usuario ha sido desactivado");
+          } else if (e.target.checked && e.target.id == "admin") {
+            push.info("El usuario ha sido habilitado como administrador");
           } else {
-            push.info('El usuario ha sido deshabilitado como administrador');
+            push.info("El usuario ha sido deshabilitado como administrador");
           }
           this.cargarUsuarios();
         })
@@ -77,7 +82,7 @@ export default {
     },
 
     cargarUsuarios() {
-      fetch(this.backend + '/usuarios')
+      fetch(this.backend + "/usuarios")
         .then((response) => {
           if (!response.ok) {
             throw new Error(response.status);
@@ -96,87 +101,94 @@ export default {
 };
 </script>
 <template>
-  <div class="row mb-4">
-    <div class="order-2 order-md-1 col-md-6 col-lg-5 d-flex align-items-center">
-      <input
-        v-model="filtro"
-        type="text"
-        class="form-control"
-        placeholder="Buscar por nombre"
-      />
+  <div v-if="token && usuarioActual.admin">
+    <div class="row mb-4">
+      <div
+        class="order-2 order-md-1 col-md-6 col-lg-5 d-flex align-items-center"
+      >
+        <input
+          v-model="filtro"
+          type="text"
+          class="form-control"
+          placeholder="Buscar por nombre"
+        />
+      </div>
+    </div>
+    <div class="table-responsive">
+      <table class="table table-secondary table-striped">
+        <thead class="table-dark">
+          <tr>
+            <th class="text-center">ID</th>
+            <th>Nombre de usuario</th>
+            <th>Nombre</th>
+            <th>Apellidos</th>
+            <th>Correo</th>
+            <th class="text-center">Administrador</th>
+            <th class="text-center">Activado</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr v-for="usuario in usuariosFiltrados" :key="usuario.id">
+            <td class="text-center">{{ usuario.id }}</td>
+
+            <td>
+              {{
+                usuario.nomUsuario.charAt(0).toUpperCase() +
+                usuario.nomUsuario.slice(1)
+              }}
+            </td>
+            <td>
+              {{
+                usuario.nombre.charAt(0).toUpperCase() + usuario.nombre.slice(1)
+              }}
+            </td>
+            <td>{{ usuario.apellidos }}</td>
+            <td>{{ usuario.correo }}</td>
+            <td class="text-center">
+              <div class="form-check d-flex justify-content-center form-switch">
+                <input
+                  @change="editarUsuario"
+                  :data-id="usuario.id"
+                  :disabled="usuarioActual.correo == usuario.correo"
+                  :data-nomUsuario="usuario.nomUsuario"
+                  :data-nombre="usuario.nombre"
+                  :data-apellidos="usuario.apellidos"
+                  :data-correo="usuario.correo"
+                  :data-activado="usuario.activado"
+                  class="form-check-input"
+                  type="checkbox"
+                  role="switch"
+                  id="admin"
+                  :checked="usuario.admin"
+                />
+              </div>
+            </td>
+            <td class="text-center">
+              <div class="form-check d-flex justify-content-center form-switch">
+                <input
+                  @change="editarUsuario"
+                  :disabled="usuarioActual.correo == usuario.correo"
+                  :data-id="usuario.id"
+                  :data-nomUsuario="usuario.nomUsuario"
+                  :data-nombre="usuario.nombre"
+                  :data-apellidos="usuario.apellidos"
+                  :data-correo="usuario.correo"
+                  :data-admin="usuario.admin"
+                  class="form-check-input"
+                  type="checkbox"
+                  role="switch"
+                  id="activado"
+                  :checked="usuario.activado"
+                />
+              </div>
+            </td>
+          </tr>
+        </tbody>
+      </table>
     </div>
   </div>
-  <div class="table-responsive">
-    <table class="table table-secondary table-striped">
-      <thead class="table-dark">
-        <tr>
-          <th class="text-center">ID</th>
-          <th>Nombre de usuario</th>
-          <th>Nombre</th>
-          <th>Apellidos</th>
-          <th>Correo</th>
-          <th class="text-center">Administrador</th>
-          <th class="text-center">Activado</th>
-        </tr>
-      </thead>
-      <tbody>
-        <tr v-for="usuario in usuariosFiltrados" :key="usuario.id">
-          <td class="text-center">{{ usuario.id }}</td>
-
-          <td>
-            {{
-              usuario.nomUsuario.charAt(0).toUpperCase() +
-              usuario.nomUsuario.slice(1)
-            }}
-          </td>
-          <td>
-            {{
-              usuario.nombre.charAt(0).toUpperCase() + usuario.nombre.slice(1)
-            }}
-          </td>
-          <td>{{ usuario.apellidos }}</td>
-          <td>{{ usuario.correo }}</td>
-          <td class="text-center">
-            <div class="form-check d-flex justify-content-center form-switch">
-              <input
-                @change="editarUsuario"
-                :data-id="usuario.id"
-                :disabled="usuarioActual.correo == usuario.correo"
-                :data-nomUsuario="usuario.nomUsuario"
-                :data-nombre="usuario.nombre"
-                :data-apellidos="usuario.apellidos"
-                :data-correo="usuario.correo"
-                :data-activado="usuario.activado"
-                class="form-check-input"
-                type="checkbox"
-                role="switch"
-                id="admin"
-                :checked="usuario.admin"
-              />
-            </div>
-          </td>
-          <td class="text-center">
-            <div class="form-check d-flex justify-content-center form-switch">
-              <input
-                @change="editarUsuario"
-                :disabled="usuarioActual.correo == usuario.correo"
-                :data-id="usuario.id"
-                :data-nomUsuario="usuario.nomUsuario"
-                :data-nombre="usuario.nombre"
-                :data-apellidos="usuario.apellidos"
-                :data-correo="usuario.correo"
-                :data-admin="usuario.admin"
-                class="form-check-input"
-                type="checkbox"
-                role="switch"
-                id="activado"
-                :checked="usuario.activado"
-              />
-            </div>
-          </td>
-        </tr>
-      </tbody>
-    </table>
+  <div v-else-if="token == '' || !usuarioActual.admin">
+    <AccesoDenegado></AccesoDenegado>
   </div>
 </template>
 

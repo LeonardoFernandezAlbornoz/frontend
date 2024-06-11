@@ -1,30 +1,30 @@
 <script>
-import { push } from 'notivue';
+import { push } from "notivue";
 
 export default {
-  emits: ['cargarProductos'],
-  props: ['nomProducto', 'id'],
+  emits: ["cargarProductos"],
+  props: ["nomProducto", "id"],
 
   methods: {
     eliminarProducto() {
       fetch(`${this.backend}/producto/eliminar/${this.id}`, {
-        method: 'DELETE',
+        method: "DELETE",
         headers: {
-          Authorization: this.$cookies.get('token'),
+          Authorization: this.$cookies.get("token"),
         },
       })
         .then((response) => {
           if (!response.ok) {
             throw new Error(response.status);
           }
-          push.success('Producto eliminado correctamente');
-          this.$emit('cargarProductos');
+          push.success("Producto eliminado correctamente");
+          this.$emit("cargarProductos");
         })
         .catch((error) => {
           console.error(error);
-          push.error('Error al eliminar el producto');
+          push.error("Error al eliminar el producto");
         });
-      document.getElementById('btn-cerrar-eliminar-producto').click();
+      document.getElementById("btn-cerrar-eliminar-producto").click();
     },
   },
 };
@@ -48,11 +48,19 @@ export default {
           <p class="text-center">
             ¿Seguro que deseas eliminar el producto "{{ nomProducto }}" ?
           </p>
-          <div class="d-flex mt-4 justify-content-center gap-2">
-            <button @click="eliminarProducto" class="btn-confirmar">Sí</button>
-            <button data-bs-dismiss="modal" class="btn-cancelar">
-              Cancelar
-            </button>
+        </div>
+        <div class="modal-footer">
+          <div class="row">
+            <div class="col">
+              <button @click="eliminarProducto" class="btn-confirmar">
+                Sí
+              </button>
+            </div>
+            <div class="col">
+              <button data-bs-dismiss="modal" class="btn-cancelar">
+                Cancelar
+              </button>
+            </div>
           </div>
         </div>
       </div>
@@ -63,7 +71,7 @@ export default {
 .btn-confirmar {
   background: var(--degradado-naranja);
   border: 0;
-  height: 2.4em;
+  height: 2.5em;
   color: white;
   font-weight: bold;
   font-size: 18px;
@@ -83,6 +91,10 @@ export default {
   font-weight: bold;
   font-size: 18px;
   transition: background 0.2s ease;
+}
+.modal-footer {
+  justify-content: center !important;
+  column-gap: 3em;
 }
 .btn-cancelar:hover {
   background-color: lightgray;

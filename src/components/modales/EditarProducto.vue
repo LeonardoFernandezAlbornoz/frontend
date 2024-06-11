@@ -1,19 +1,19 @@
 <script>
-import { push } from 'notivue';
+import { push } from "notivue";
 export default {
-  props: ['producto'],
-  emits: ['cargarProductos'],
+  props: ["producto"],
+  emits: ["cargarProductos"],
   data() {
     return {
       id: 1,
       categorias: [],
       stock: 1,
       precio: 1.0,
-      categoria: '',
-      descripcion: '',
+      categoria: "",
+      descripcion: "",
       descuento: 0,
-      imagen: '',
-      nomProducto: '',
+      imagen: "",
+      nomProducto: "",
     };
   },
   watch: {
@@ -30,7 +30,7 @@ export default {
 
   methods: {
     cargarCategorias() {
-      fetch(this.backend + '/categorias')
+      fetch(this.backend + "/categorias")
         .then((response) => {
           if (!response.ok) {
             throw new Error(`Error:${response.status}`);
@@ -52,12 +52,12 @@ export default {
           : this.producto.imagen;
 
         const response = await fetch(
-          this.backend + '/producto/modificar/' + this.id,
+          this.backend + "/producto/modificar/" + this.id,
           {
-            method: 'PATCH',
+            method: "PATCH",
             headers: {
-              'Content-Type': 'application/json',
-              Authorization: this.$cookies.get('token'),
+              "Content-Type": "application/json",
+              Authorization: this.$cookies.get("token"),
             },
             body: JSON.stringify({
               stock: this.stock,
@@ -75,13 +75,12 @@ export default {
           throw new Error(`Error: ${response.status}`);
         }
 
-        push.success('Se ha añadido el producto correctamente');
-        this.$emit('cargarProductos');
-        document.getElementById('btn-cerrar-editar-producto').click();
+        push.success("Se han guardado los cambios");
+        this.$emit("cargarProductos");
+        document.getElementById("btn-cerrar-editar-producto").click();
         this.reiniciar();
       } catch (error) {
-        push.success('Error al añadir el producto');
-        console.error('Error al añadir el producto:', error);
+        push.error("Error al editar el producto");
         this.reiniciar();
       }
     },
@@ -92,11 +91,11 @@ export default {
     reiniciar() {
       this.stock = 1;
       this.precio = 1.0;
-      this.categoria = '';
+      this.categoria = "";
       this.descuento = 0;
-      this.imagen = '';
-      this.nomProducto = '';
-      this.descripcion = '';
+      this.imagen = "";
+      this.nomProducto = "";
+      this.descripcion = "";
     },
     toBase64(file) {
       return new Promise((resolve, reject) => {
@@ -118,29 +117,29 @@ export default {
 
   computed: {
     urlImagenTemporal() {
-      return this.imagen ? URL.createObjectURL(this.imagen) : '';
+      return this.imagen ? URL.createObjectURL(this.imagen) : "";
     },
   },
 };
 </script>
 <template>
   <div class="modal fade" id="editarProductoModal" tabindex="-1">
-    <div class="modal-dialog modal-lg rounded-0">
-      <div class="modal-content">
-        <div class="modal-header border-0 d-block">
-          <div class="text-end">
-            <button
-              id="btn-cerrar-editar-producto"
-              type="button"
-              @click="reiniciar"
-              data-bs-dismiss="modal"
-              class="btn-close"
-            ></button>
+    <form @submit.prevent="editarProducto">
+      <div class="modal-dialog modal-xl rounded-0">
+        <div class="modal-content">
+          <div class="modal-header border-0 d-block">
+            <div class="text-end">
+              <button
+                id="btn-cerrar-editar-producto"
+                type="button"
+                @click="reiniciar"
+                data-bs-dismiss="modal"
+                class="btn-close"
+              ></button>
+            </div>
+            <h1 class="modal-title fs-5 text-center">Editar Producto</h1>
           </div>
-          <h1 class="modal-title fs-5 text-center">Editar Producto</h1>
-        </div>
-        <div class="modal-body px-4 px-sm-5">
-          <form @submit.prevent="editarProducto">
+          <div class="modal-body px-4 px-sm-5">
             <div class="row">
               <div class="col-lg-6">
                 <div class="mb-3">
@@ -268,13 +267,31 @@ export default {
                 </div>
               </div>
             </div>
-            <button type="submit" class="btn-editar mb-3 w-100 mt-2">
-              Editar
-            </button>
-          </form>
+          </div>
+          <div class="modal-footer">
+            <div class="row w-100">
+              <div class="col-lg-6 offset-lg-6">
+                <div class="row">
+                  <div class="col">
+                    <button type="submit" class="btn-editar mb-2 mt-2">
+                      Guardar cambios
+                    </button>
+                  </div>
+                  <div class="col">
+                    <button
+                      data-bs-dismiss="modal"
+                      class="btn-cancelar mb-2 mt-2"
+                    >
+                      Cancelar
+                    </button>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
         </div>
       </div>
-    </div>
+    </form>
   </div>
 </template>
 <style scoped>
@@ -283,6 +300,7 @@ export default {
   border: 0;
   height: 2.7em;
   color: white;
+  width: 100%;
   font-weight: bold;
   font-size: 18px;
   transition: filter 0.2s ease;
@@ -291,7 +309,18 @@ export default {
 .btn-editar:hover {
   filter: brightness(110%);
 }
-
+.btn-cancelar {
+  border: 0;
+  width: 100%;
+  height: 2.7em;
+  color: #333;
+  font-weight: bold;
+  font-size: 18px;
+  transition: background 0.2s ease;
+}
+.btn-cancelar:hover {
+  background-color: lightgray;
+}
 #editarProductoModal .modal-title {
   font-size: 28px !important;
 }
