@@ -1,23 +1,23 @@
 <script>
-import { push } from "notivue";
+import { push } from 'notivue';
 export default {
-  emits: ["actualizarProductos"],
+  emits: ['actualizarProductos'],
   data() {
     return {
       categorias: [],
       stock: 1,
       precio: 1.0,
-      categoria: "",
-      descripcion: "",
+      categoria: '',
+      descripcion: '',
       descuento: 0,
-      imagen: "",
-      nomProducto: "",
+      imagen: '',
+      nomProducto: '',
     };
   },
 
   methods: {
     cargarCategorias() {
-      fetch(this.backend + "/categorias")
+      fetch(this.backend + '/categorias')
         .then((response) => {
           if (!response.ok) {
             throw new Error(`Error:${response.status}`);
@@ -35,11 +35,11 @@ export default {
     async anhadirProducto() {
       try {
         const imagenBase64 = await this.toBase64(this.imagen);
-        const response = await fetch(this.backend + "/producto/crear", {
-          method: "POST",
+        const response = await fetch(this.backend + '/producto/crear', {
+          method: 'POST',
           headers: {
-            "Content-Type": "application/json",
-            Authorization: this.$cookies.get("token"),
+            'Content-Type': 'application/json',
+            Authorization: this.$cookies.get('token'),
           },
           body: JSON.stringify({
             stock: this.stock,
@@ -56,12 +56,12 @@ export default {
           throw new Error(`Error: ${response.status}`);
         }
 
-        push.success("Se ha añadido el producto correctamente");
-        this.$emit("actualizarProductos");
-        document.getElementById("btn-cerrar-anhadir-producto").click();
+        push.success('Se ha añadido el producto correctamente');
+        this.$emit('actualizarProductos');
+        document.getElementById('btn-cerrar-anhadir-producto').click();
         this.reiniciar();
       } catch (error) {
-        push.error("Error al añadir el producto");
+        push.error('Error al añadir el producto');
         console.error(error);
         this.reiniciar();
       }
@@ -73,11 +73,11 @@ export default {
     reiniciar() {
       this.stock = 1;
       this.precio = 1.0;
-      this.categoria = "";
+      this.categoria = '';
       this.descuento = 0;
-      this.imagen = "";
-      this.nomProducto = "";
-      this.descripcion = "";
+      this.imagen = '';
+      this.nomProducto = '';
+      this.descripcion = '';
     },
     toBase64(file) {
       return new Promise((resolve, reject) => {
@@ -99,7 +99,7 @@ export default {
 
   computed: {
     urlImagenTemporal() {
-      return this.imagen ? URL.createObjectURL(this.imagen) : "";
+      return this.imagen ? URL.createObjectURL(this.imagen) : '';
     },
   },
 };
@@ -170,6 +170,7 @@ export default {
                     required
                     v-model="descripcion"
                     class="form-control"
+                    rows="4"
                     name="descripcion-producto"
                     id="descripcion-producto-anhadir"
                   >
@@ -261,6 +262,7 @@ export default {
                   </div>
                   <div class="col">
                     <button
+                      type="button"
                       data-bs-dismiss="modal"
                       class="btn-cancelar mb-2 mt-2"
                     >
@@ -316,6 +318,6 @@ export default {
   border-radius: 0px !important;
 }
 .img-prov {
-  height: 235px;
+  height: 250px;
 }
 </style>

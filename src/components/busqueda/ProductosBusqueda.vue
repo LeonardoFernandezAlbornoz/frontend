@@ -12,7 +12,6 @@ export default {
     Producto,
   },
   props: ['busqueda', 'categoria'],
-
   methods: {
     buscarProductos(busqueda) {
       fetch(this.backend + '/productos/buscar/' + busqueda)

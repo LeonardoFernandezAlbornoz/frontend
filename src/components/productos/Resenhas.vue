@@ -1,13 +1,19 @@
 <script>
-import Resenha from "./Resenha.vue";
-import FormularioResenha from "./FormularioResenha.vue";
+import Resenha from './Resenha.vue';
+import FormularioResenha from './FormularioResenha.vue';
+import { jwtDecode } from 'https://unpkg.com/jwt-decode@4.0.0?module';
 export default {
-  props: ["idProducto"],
-  emits: ["cargarResenhas"],
+  props: ['idProducto'],
+  emits: ['cargarResenhas'],
+  components: {
+    Resenha,
+    FormularioResenha,
+  },
   data() {
     return {
       resenhas: [],
       oculto: true,
+      token: null,
     };
   },
   watch: {
@@ -16,11 +22,12 @@ export default {
     },
   },
   mounted() {
+    this.token = this.$cookies.get('token') ?? '';
     this.cargarResenhas(this.idProducto);
   },
   methods: {
     cargarResenhas(idProducto) {
-      fetch(this.backend + "/resenhas/" + idProducto)
+      fetch(this.backend + '/resenhas/' + idProducto)
         .then((response) => {
           if (!response.ok) {
             throw new Error(`Error: ${response.status}`);
@@ -29,16 +36,17 @@ export default {
         })
         .then((data) => {
           this.resenhas = data;
-          this.$emit("cargarResenhas");
+          this.$emit('cargarResenhas');
         })
         .catch((error) => {
           console.error(`Error al obtener los datos: ${error}`);
         });
     },
   },
-  components: {
-    Resenha,
-    FormularioResenha,
+  computed: {
+    usuario() {
+      return this.token ? jwtDecode(this.token) : '';
+    },
   },
 };
 </script>
@@ -64,7 +72,7 @@ export default {
     </div>
     <FormularioResenha
       @cargarResenhas="cargarResenhas"
-      v-if="this.$cookies.get('token')"
+      v-if="this.token && !usuario.admin"
       :idProducto="idProducto"
     />
   </div>

@@ -1,19 +1,19 @@
 <script>
-import { push } from "notivue";
+import { push } from 'notivue';
 export default {
-  props: ["producto"],
-  emits: ["cargarProductos"],
+  props: ['producto'],
+  emits: ['cargarProductos'],
   data() {
     return {
       id: 1,
       categorias: [],
       stock: 1,
       precio: 1.0,
-      categoria: "",
-      descripcion: "",
+      categoria: '',
+      descripcion: '',
       descuento: 0,
-      imagen: "",
-      nomProducto: "",
+      imagen: '',
+      nomProducto: '',
     };
   },
   watch: {
@@ -30,7 +30,7 @@ export default {
 
   methods: {
     cargarCategorias() {
-      fetch(this.backend + "/categorias")
+      fetch(this.backend + '/categorias')
         .then((response) => {
           if (!response.ok) {
             throw new Error(`Error:${response.status}`);
@@ -52,12 +52,12 @@ export default {
           : this.producto.imagen;
 
         const response = await fetch(
-          this.backend + "/producto/modificar/" + this.id,
+          this.backend + '/producto/modificar/' + this.id,
           {
-            method: "PATCH",
+            method: 'PATCH',
             headers: {
-              "Content-Type": "application/json",
-              Authorization: this.$cookies.get("token"),
+              'Content-Type': 'application/json',
+              Authorization: this.$cookies.get('token'),
             },
             body: JSON.stringify({
               stock: this.stock,
@@ -75,12 +75,12 @@ export default {
           throw new Error(`Error: ${response.status}`);
         }
 
-        push.success("Se han guardado los cambios");
-        this.$emit("cargarProductos");
-        document.getElementById("btn-cerrar-editar-producto").click();
+        push.success('Se han guardado los cambios');
+        this.$emit('cargarProductos');
+        document.getElementById('btn-cerrar-editar-producto').click();
         this.reiniciar();
       } catch (error) {
-        push.error("Error al editar el producto");
+        push.error('Error al editar el producto');
         this.reiniciar();
       }
     },
@@ -91,11 +91,11 @@ export default {
     reiniciar() {
       this.stock = 1;
       this.precio = 1.0;
-      this.categoria = "";
+      this.categoria = '';
       this.descuento = 0;
-      this.imagen = "";
-      this.nomProducto = "";
-      this.descripcion = "";
+      this.imagen = '';
+      this.nomProducto = '';
+      this.descripcion = '';
     },
     toBase64(file) {
       return new Promise((resolve, reject) => {
@@ -117,7 +117,7 @@ export default {
 
   computed: {
     urlImagenTemporal() {
-      return this.imagen ? URL.createObjectURL(this.imagen) : "";
+      return this.imagen ? URL.createObjectURL(this.imagen) : '';
     },
   },
 };
@@ -185,6 +185,7 @@ export default {
                     >Descripción:</label
                   >
                   <textarea
+                    rows="4"
                     required
                     v-model="descripcion"
                     class="form-control"
@@ -279,6 +280,7 @@ export default {
                   </div>
                   <div class="col">
                     <button
+                      type="button"
                       data-bs-dismiss="modal"
                       class="btn-cancelar mb-2 mt-2"
                     >
@@ -334,6 +336,6 @@ export default {
   border-radius: 0px !important;
 }
 .img-prov {
-  height: 235px;
+  height: 300px;
 }
 </style>
