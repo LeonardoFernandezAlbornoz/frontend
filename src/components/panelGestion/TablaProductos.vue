@@ -3,8 +3,8 @@ import { jwtDecode } from 'https://unpkg.com/jwt-decode@4.0.0?module';
 import { push } from 'notivue';
 import EliminarProducto from '../modales/EliminarProducto.vue';
 import EditarProducto from '../modales/EditarProducto.vue';
-import { Modal } from "bootstrap";
-  
+import { Modal } from 'bootstrap';
+
 export default {
   props: ['toggle'],
   components: { EliminarProducto, EditarProducto },
@@ -53,23 +53,24 @@ export default {
           console.error(error);
         });
     },
-     eliminarProductoModal(id, nombre) {
+    eliminarProductoModal(id, nombre) {
       this.productoIdEliminar = id;
       this.nomProductoEliminar = nombre;
       this.$nextTick(() => {
-        const modal = new Modal(
-          document.getElementById("eliminarProductoModal")
+        const modalEliminar = new Modal(
+          document.getElementById('eliminarProductoModal')
         );
-        modal.show();
+        modalEliminar.show();
       });
-      modal.show();
     },
 
     editarProductoModal(producto) {
       this.productoEliminar = producto;
       this.$nextTick(() => {
-        const modal = new Modal(document.getElementById("editarProductoModal"));
-        modal.show();
+        const modalEditar = new Modal(
+          document.getElementById('editarProductoModal')
+        );
+        modalEditar.show();
       });
     },
   },

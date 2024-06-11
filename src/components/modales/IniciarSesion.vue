@@ -86,6 +86,7 @@ export default {
                 type="email"
                 class="form-control-lg form-control"
                 id="login-correo"
+                autocomplete="username"
               />
             </div>
             <div class="mb-3">
@@ -99,6 +100,7 @@ export default {
                 type="password"
                 class="form-control-lg form-control"
                 id="login-contrasenha"
+                autocomplete="current-password"
               />
             </div>
             <div class="text-center recuperar-contrasenha">

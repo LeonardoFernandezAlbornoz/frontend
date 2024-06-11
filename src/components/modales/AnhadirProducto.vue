@@ -63,8 +63,7 @@ export default {
       } catch (error) {
         push.success('Error al añadir el producto');
         console.error('Error al añadir el producto:', error);
-          this.reiniciar();
-        
+        this.reiniciar();
       }
     },
     imagenProducto() {
@@ -122,14 +121,11 @@ export default {
           <h1 class="modal-title fs-5 text-center">Añadir Producto</h1>
         </div>
         <div class="modal-body px-4 px-sm-5">
-          <div v-if="error" class="alert alert-danger text-center" role="alert">
-            {{ error }}
-          </div>
           <form @submit.prevent="anhadirProducto">
             <div class="row">
               <div class="col-lg-6">
                 <div class="mb-3">
-                  <label for="nombre-producto" class="form-label"
+                  <label for="nombre-producto-anhadir" class="form-label"
                     >Nombre del producto:</label
                   >
                   <input
@@ -137,11 +133,11 @@ export default {
                     required
                     type="text"
                     class="form-control form-control"
-                    id="nombre-producto"
+                    id="nombre-producto-anhadir"
                   />
                 </div>
                 <div class="mb-3">
-                  <label for="categoria-producto" class="form-label"
+                  <label for="categoria-producto-anhadir" class="form-label"
                     >Categoría:</label
                   >
                   <select
@@ -149,7 +145,7 @@ export default {
                     v-model="categoria"
                     class="form-select"
                     name="categoria-producto"
-                    id="categoria-producto"
+                    id="categoria-producto-anhadir"
                   >
                     <option value="" selected disabled>
                       --Selecciona una categoria--
@@ -167,7 +163,7 @@ export default {
                   </select>
                 </div>
                 <div class="mb-3">
-                  <label for="descripcion-producto" class="form-label"
+                  <label for="descripcion-producto-anhadir" class="form-label"
                     >Descripción:</label
                   >
                   <textarea
@@ -175,27 +171,29 @@ export default {
                     v-model="descripcion"
                     class="form-control"
                     name="descripcion-producto"
-                    id="descripcion-producto"
+                    id="descripcion-producto-anhadir"
                   >
                   </textarea>
                 </div>
 
                 <div class="mb-3 row">
                   <div class="col">
-                    <label for="stock" class="form-label d-block">Stock:</label>
+                    <label for="stock-anhadir" class="form-label d-block"
+                      >Stock:</label
+                    >
                     <input
                       v-model.number="stock"
                       required
                       min="1"
                       type="number"
                       class="form-control w-75 d-inline-block"
-                      id="stock"
+                      id="stock-anhadir"
                     />
 
                     <span class="w-25"> u.</span>
                   </div>
                   <div class="col">
-                    <label for="precio" class="form-label d-block"
+                    <label for="precio-anhadir" class="form-label d-block"
                       >Precio:</label
                     >
                     <input
@@ -205,12 +203,12 @@ export default {
                       step="0.01"
                       type="number"
                       class="form-control w-75 d-inline-block"
-                      id="precio"
+                      id="precio-anhadir"
                     />
                     <span class="w-25"> €</span>
                   </div>
                   <div class="col">
-                    <label for="descuento" class="form-label d-block"
+                    <label for="descuento-anhadir" class="form-label d-block"
                       >Descuento:</label
                     >
                     <input
@@ -220,7 +218,7 @@ export default {
                       max="100"
                       type="number"
                       class="form-control w-75 d-inline-block"
-                      id="descuento"
+                      id="descuento-anhadir"
                     />
                     <span class="w-25"> %</span>
                   </div>
@@ -228,14 +226,14 @@ export default {
               </div>
               <div class="col-lg-6">
                 <div class="mb-3">
-                  <label for="imagen-producto" class="form-label"
+                  <label for="imagen-producto-anhadir" class="form-label"
                     >Imagen:</label
                   >
                   <input
                     @change="imagenProducto"
                     required
                     type="file"
-                    id="imagen-producto"
+                    id="imagen-producto-anhadir"
                     ref="imgproducto"
                     class="form-control"
                     accept="image/png, image/gif, image/jpeg, image/jpg"
