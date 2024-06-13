@@ -275,7 +275,7 @@ export default {
                 <div class="row">
                   <div class="col">
                     <button type="submit" class="btn-editar mb-2 mt-2">
-                      Guardar cambios
+                      Guardar
                     </button>
                   </div>
                   <div class="col">
