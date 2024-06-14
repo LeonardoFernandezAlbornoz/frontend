@@ -1,45 +1,52 @@
 <script>
-import { jwtDecode } from "https://unpkg.com/jwt-decode@4.0.0?module";
-import { push } from "notivue";
-import AccesoDenegado from "../generales/AccesoDenegado.vue";
+import { jwtDecode } from 'https://unpkg.com/jwt-decode@4.0.0?module';
+import { push } from 'notivue';
+import ModificarEstado from '../modales/ModificarEstado.vue';
+import AccesoDenegado from '../generales/AccesoDenegado.vue';
+import { Modal } from 'bootstrap';
 export default {
   components: {
     AccesoDenegado,
+    ModificarEstado,
   },
   data() {
     return {
-      token: "",
+      token: '',
       pedidos: [],
-      filtro: "",
+      filtroUsuario: '',
+      filtroEstado: '',
+      pedidoModificar: null,
+      pedidoModificarEstado: null,
     };
   },
 
   mounted() {
-    this.token = this.$cookies.get("token");
+    this.token = this.$cookies.get('token');
     this.cargarPedidos();
   },
   computed: {
     usuario() {
-      return this.token ? jwtDecode(this.token) : "";
+      return this.token ? jwtDecode(this.token) : '';
     },
     pedidosFiltrados() {
       return this.pedidos.filter((pedido) => {
         return (
-          pedido.usuario.nomUsuario
+          (pedido.usuario.nomUsuario
             .toUpperCase()
-            .includes(this.filtro.toUpperCase()) ||
-          (pedido.usuario.nombre + " " + pedido.usuario.apellidos)
-            .toUpperCase()
-            .includes(this.filtro.toUpperCase())
+            .includes(this.filtroUsuario.toUpperCase()) ||
+            (pedido.usuario.nombre + ' ' + pedido.usuario.apellidos)
+              .toUpperCase()
+              .includes(this.filtroUsuario.toUpperCase())) &&
+          pedido.estado.includes(this.filtroEstado)
         );
       });
     },
   },
   methods: {
     cargarPedidos() {
-      fetch(this.backend + "/pedidos", {
+      fetch(this.backend + '/pedidos', {
         headers: {
-          "Content-Type": "application/json",
+          'Content-Type': 'application/json',
           Authorization: this.token,
         },
       })
@@ -57,26 +64,15 @@ export default {
           console.error(error);
         });
     },
-    modificarEstado(e) {
-      fetch(this.backend + "/pedidos/modificar-estado/" + e.target.dataset.id, {
-        method: "PATCH",
-        headers: {
-          "Content-Type": "application/json",
-          Authorization: this.token,
-        },
-        body: JSON.stringify({
-          estado: e.target.value,
-        }),
-      })
-        .then((response) => {
-          if (!response.ok) {
-            throw new Error(response.status);
-          }
-          this.cargarPedidos();
-        })
-        .catch((error) => {
-          console.error(error);
-        });
+    modificarPedidoModal(id, estado) {
+      this.pedidoModificar = id;
+      this.pedidoModificarEstado = estado;
+      this.$nextTick(() => {
+        const modalModificarEstado = new Modal(
+          document.getElementById('modificarEstadoPedido')
+        );
+        modalModificarEstado.show();
+      });
     },
   },
 };
@@ -84,15 +80,27 @@ export default {
 <template>
   <div v-if="token && usuario.admin">
     <div class="row mb-4">
-      <div
-        class="order-2 order-md-1 col-md-6 col-lg-5 d-flex align-items-center"
-      >
+      <div class="col-md-6 col-lg-5 d-flex align-items-center">
         <input
-          v-model="filtro"
+          v-model="filtroUsuario"
           type="text"
-          class="form-control"
+          class="form-control mb-3 mb-md-0"
           placeholder="Buscar por usuario"
         />
+      </div>
+      <div class="col-md-4 col-lg-3">
+        <select
+          v-model="filtroEstado"
+          name="filtroEstado"
+          class="form-select"
+          id=""
+        >
+          <option disabled selected value="">--- Buscar por estado ---</option>
+          <option value="">Todos</option>
+          <option value="Pendiente">Pendientes</option>
+          <option value="Enviado">Enviados</option>
+          <option value="Entregado">Entregados</option>
+        </select>
       </div>
     </div>
     <div class="table-responsive">
@@ -125,35 +133,41 @@ export default {
               {{ new Date(pedido.fecha).toLocaleDateString() }}
             </td>
             <td>
-              <select
-                @change="modificarEstado"
-                :data-id="pedido.id"
-                name="estado"
-                id="estado"
-                class="form-select"
+              <button
+                @click="modificarPedidoModal(pedido.id, pedido.estado)"
+                :class="{ 'd-none': pedido.estado != 'Pendiente' }"
+                class="btn btn-warning"
               >
-                <option :selected="pedido.estado == 'Enviado'" value="Enviado">
-                  Enviado
-                </option>
-                <option
-                  :selected="pedido.estado == 'Entregado'"
-                  value="Entregado"
-                >
-                  Entregado
-                </option>
-                <option
-                  :selected="pedido.estado == 'Pendiente'"
-                  value="Pendiente"
-                >
-                  Pendiente
-                </option>
-              </select>
+                Pendiente
+              </button>
+              <button
+                @click="modificarPedidoModal(pedido.id, pedido.estado)"
+                :class="{ 'd-none': pedido.estado != 'Enviado' }"
+                class="btn btn-primary"
+              >
+                Enviado
+              </button>
+              <button
+                @click="modificarPedidoModal(pedido.id, pedido.estado)"
+                :class="{ 'd-none': pedido.estado != 'Entregado' }"
+                class="btn btn-success"
+              >
+                Entregado
+              </button>
             </td>
             <td class="text-center">{{ pedido.gastosEnvio }}€</td>
           </tr>
         </tbody>
       </table>
     </div>
+
+    <Teleport to="body">
+      <ModificarEstado
+        :id="pedidoModificar"
+        :estadoActual="pedidoModificarEstado"
+        @cargarPedidos="cargarPedidos"
+      />
+    </Teleport>
   </div>
   <div v-else-if="token == '' || !usuario.admin">
     <AccesoDenegado></AccesoDenegado>
@@ -170,10 +184,13 @@ tr {
   vertical-align: middle;
 }
 
-.col-estado {
-  min-width: 200px;
-}
 th {
   text-wrap: nowrap;
+}
+
+td button {
+  border-radius: 0px;
+  width: 110px;
+  height: 2.5em;
 }
 </style>
