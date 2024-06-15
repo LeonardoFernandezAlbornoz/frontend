@@ -1,12 +1,23 @@
+<script setup>
+import {
+  Notivue,
+  Notification,
+  materialTheme,
+  outlinedIcons,
+  NotificationProgress,
+} from 'notivue';
+</script>
+
 <script>
 import { jwtDecode } from 'https://unpkg.com/jwt-decode@4.0.0?module';
 import { RouterLink, RouterView } from 'vue-router';
-import { Notivue, Notification, NotificationProgress } from 'notivue';
 
 export default {
   components: {
     Notivue,
     Notification,
+    materialTheme,
+    outlinedIcons,
     NotificationProgress,
     RouterView,
   },
@@ -49,7 +60,6 @@ export default {
           },
           0
         );
-        console.log(this.numProductos);
       } else {
         this.numProductos = 0;
       }
@@ -75,7 +85,7 @@ export default {
   />
   <FooterVue />
   <Notivue class="notificaciones" v-slot="item">
-    <Notification :item="item">
+    <Notification :item="item" :theme="materialTheme" :icons="outlinedIcons">
       <NotificationProgress :item="item"
     /></Notification>
   </Notivue>
@@ -87,5 +97,11 @@ export default {
 <style>
 .notificaciones {
   z-index: 10000000 !important;
+}
+
+@media (max-width: 768px) {
+  :root {
+    --nv-root-x-align: center;
+  }
 }
 </style>

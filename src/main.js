@@ -31,6 +31,8 @@ import { createNotivue } from 'notivue';
 
 const notivue = createNotivue({
   limit: 3,
+  avoidDuplicates: true,
+  position: 'bottom-right',
 });
 
 library.add(fas, far, fab);

@@ -115,7 +115,7 @@ export default {
     },
     confirmarPedido() {
       this.crearPedido().then(() => {
-        push.success({ message: 'Se ha confirmado su pedido' });
+        push.success({ message: 'Su pedido se ha confirmado con éxito' });
         this.eliminarProductosCarrito().then(() => {
           router.push('/');
           this.$emit('actualizarProductos');
@@ -154,7 +154,7 @@ export default {
       v-model:direccion="direccion"
       v-model:tlf="tlf"
     ></FormularioPedido>
-    <div class="col-lg-6">
+    <div class="mt-3 mt-md-0 col-lg-6">
       <div class="detalles-pasarela py-5 px-4 px-sm-5">
         <h3 class="mb-4">Tu Pedido</h3>
         <h5 class="mb-3"><b>Productos</b></h5>
@@ -166,7 +166,7 @@ export default {
             x{{ productoCarrito.cantidad }}
             {{ productoCarrito.producto.nombre }}
           </p>
-          <p>
+          <p class="ms-3">
             <b>
               {{
                 (

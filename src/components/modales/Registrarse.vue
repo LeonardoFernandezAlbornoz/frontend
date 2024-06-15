@@ -35,7 +35,7 @@ export default {
         })
         .then(() => {
           push.success({
-            message: 'Te has registrado con éxito',
+            message: 'Su cuenta ha sido creada correctamente',
           });
           this.reiniciar();
           document.getElementById('btn-cerrar-registro').click();

@@ -75,7 +75,7 @@ export default {
           throw new Error(`Error: ${response.status}`);
         }
 
-        push.success('Se han guardado los cambios');
+        push.success('Los cambios se han guardado con éxito');
         this.$emit('cargarProductos');
         document.getElementById('btn-cerrar-editar-producto').click();
         this.reiniciar();

@@ -4,7 +4,7 @@ export default {
 };
 </script>
 <template>
-  <div class="datos-usuario mt-2">
+  <div class="datos-usuario mt-4 mt-md-2">
     <p><b>Nombre de usuario: </b> {{ usuario.nomUsuario }}</p>
 
     <p><b>Nombre: </b>{{ usuario.nombre }}</p>

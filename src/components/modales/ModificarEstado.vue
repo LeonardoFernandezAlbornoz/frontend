@@ -27,9 +27,11 @@ export default {
             throw new Error(response.status);
           }
           this.$emit('cargarPedidos');
+          push.info('El estado del pedido ha sido modificado');
           document.getElementById('btn-cerrar-modificar-estado').click();
         })
         .catch((error) => {
+          push.info('Error al modificar el estado');
           console.error(error);
         });
     },

@@ -4,7 +4,7 @@ import Producto from '../generales/Producto.vue';
 export default {
   data() {
     return {
-      productos: [],
+      productos: null,
     };
   },
 
@@ -39,7 +39,7 @@ export default {
 
   computed: {
     productoPorCategoria() {
-      if (this.categoria) {
+      if (this.productos != null && this.categoria) {
         return this.productos.filter(
           (producto) => producto.categoria.descripcion == this.categoria
         );

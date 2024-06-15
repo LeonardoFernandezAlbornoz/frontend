@@ -56,7 +56,7 @@ export default {
           throw new Error(`Error: ${response.status}`);
         }
 
-        push.success('Se ha añadido el producto correctamente');
+        push.success('El producto ha sido añadido con éxito');
         this.$emit('actualizarProductos');
         document.getElementById('btn-cerrar-anhadir-producto').click();
         this.reiniciar();
